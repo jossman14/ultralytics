@@ -1,0 +1,9 @@
+names:
+- L1
+- L2
+- L3
+nc: 3
+path: /home/ftib/ultralytics/data/fold_5
+train: /home/ftib/ultralytics/data/fold_5/train/images
+val: /home/ftib/ultralytics/data/fold_5/valid/images
+test: /home/ftib/ultralytics/data/fold_5/valid/images
