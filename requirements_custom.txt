@@ -1,0 +1,27 @@
+# PyTorch with CUDA 13.0 (GPU) Support (Required for Python 3.13)
+--extra-index-url https://download.pytorch.org/whl/cu130
+
+torch
+torchvision
+torchaudio
+
+# Ultralytics YOLO
+ultralytics
+
+# Data processing and statistics
+pandas
+numpy
+scipy
+
+# Visualization and feature extraction
+matplotlib
+opencv-python
+scikit-learn
+
+# Excel support for pandas
+openpyxl
+
+# Advanced Statistics & Visualization
+scikit-posthocs
+statsmodels
+seaborn

@@ -33,3 +33,7 @@ runs/
 
 # Dependencies
 node_modules/
+
+# Datasets
+dataset_judi_online_yolo_5fold/
+Judol-Detection-v2-1_5fold/
