@@ -44,6 +44,57 @@ The primary entry point for running experiments and generating reports is `start
 
 ---
 
+## 📂 Dataset Setup
+Before running experiments, ensure your dataset follows the correct YOLOv8 structure.
+
+### 1. Source Dataset Structure (Raw)
+The source dataset must contain `images` and `labels` folders. Example:
+```text
+my_dataset/
+├── images/
+│   ├── img1.jpg
+│   └── img2.jpg
+└── labels/
+    ├── img1.txt
+    └── img2.txt
+```
+
+### 2. K-Fold Configuration in `start_experiment.py`
+If you want the system to automatically split the dataset into 5 folds, configure the `DATASET_MAPPINGS`:
+```python
+DATASET_MAPPINGS = [
+    {"source": "my_dataset", "output": "my_dataset_kfold"},
+]
+```
+- `source`: The name of your raw dataset folder.
+- `output`: The name of the new folder for K-Fold conversion (do not create this folder manually).
+
+---
+
+## ⚙️ Configuration Setup
+All experiment settings are managed via the `CONFIG` dictionary in `start_experiment.py`.
+
+### 1. Core Hyperparameters
+| Parameter | Description | Recommended |
+|-----------|-------------|-------------|
+| `epochs` | Number of training iterations | 100 - 300 |
+| `imgsz` | Image resolution (input size) | 640 |
+| `batch` | Data batch size | 16 - 32 |
+| `device` | Hardware (0 for GPU, 'cpu' for CPU) | 0 |
+| `optimizer`| Optimization algorithm | 'auto' or 'SGD' |
+
+### 2. Selecting Models
+You can run experiments on multiple models sequentially by adding them to the `MODELS` list. You can use either pretrained weights (`.pt`) or architecture files (`.yaml` for training from scratch):
+```python
+MODELS = [
+    "yolov8n.pt",   # Nano (Fastest)
+    "yolov8s.yaml", # Small (Architecture only, training from scratch)
+    "yolov8m.pt",   # Medium (High Accuracy)
+]
+```
+
+---
+
 ## 🛠️ Key Features
 
 ### 1. Intelligent K-Fold Management
@@ -84,7 +135,7 @@ Forget digging through folders. All high-value artifacts are collected in a sing
 
 ---
 
-## 🔄 Workflow Alur (Pipeline)
+## 🔄 Pipeline Workflow
 
 1. **Prepare**: Convert raw dataset to 5-fold format (if enabled).
 2. **Train**: Sequential YOLOv8 training across all 5 folds.
