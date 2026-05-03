@@ -1,22 +1,22 @@
-# Design Spec: General Scopus Q1 Analytics Suite for Computer Vision
+# Design Spec: General Analytics Q1 Analytics Suite for Computer Vision
 
 **Date**: 2026-04-26  
 **Status**: Draft  
-**Target**: Scopus Q1 Medical AI / Computer Vision Standards (General Purpose)
+**Target**: Analytics Q1 Medical AI / Computer Vision Standards (General Purpose)
 
 ## 1. Goal
 Implement a general-purpose modular evaluation and statistical suite for Computer Vision (Detection & Classification) that meets the rigorous requirements of high-impact journals. The system must be model-agnostic, accepting standardized result formats (CSV/JSON/Folders) while providing integration adapters for specific frameworks like YOLOv8. It must support multi-model comparison across multiple folds/trials.
 
 ## 2. Architecture
 The system consists of three primary components:
-1.  **`scopus_analytics_core.py` (The Engine)**: 
+1.  **`analytics_analytics_core.py` (The Engine)**: 
     - The model-agnostic brain. Processes raw predictions and ground truths.
     - Handles bootstrapping, statistical tests, and general metric calculations.
 2.  **`adapters/` (Framework Glue)**:
     - `yolo_adapter.py`: Converts YOLOv8 outputs/weights to the core's standard format.
     - `generic_csv_adapter.py`: For results from any other framework.
 3.  **`main.py` (Integration Example)**:
-    - Updated to import `scopus_analytics_core` via the YOLO adapter.
+    - Updated to import `analytics_analytics_core` via the YOLO adapter.
 
 ## 3. Proposed Components
 
@@ -52,26 +52,26 @@ Compare YOLOv8s, YOLOv8n, Baseline, and Modified models:
 
 ## 4. Implementation Plan
 
-### Phase 1: Core Analytics Module (`scopus_analytics.py`)
+### Phase 1: Core Analytics Module (`analytics_analytics.py`)
 - Define `AdvancedEvaluator` class for Tier 1 & 2.
 - Define `StatisticalSuite` class for Tier 3 & Stats.
 - Implement bootstrapping and statistical test logic using `scipy` and `statsmodels`.
 
 ### Phase 2: Integration into `main.py`
-- Modify the training loop to pass model weights and validation data to `scopus_analytics`.
+- Modify the training loop to pass model weights and validation data to `analytics_analytics`.
 - Ensure output directory structure supports multi-model aggregation:
     ```
     output/
       dataset_name/
         model_name/
           fold_0/
-            analysis_scopus/ (T1, T2)
+            analysis_analytics/ (T1, T2)
           summary/ (T3, Stats)
     ```
 
 ### Phase 3: CLI & Batch Processing
-- Implement argument parsing in `scopus_analytics.py` to allow:
-    `python scopus_analytics.py --dir ./output --task full_stats`
+- Implement argument parsing in `analytics_analytics.py` to allow:
+    `python analytics_analytics.py --dir ./output --task full_stats`
 
 ## 5. Verification Plan
 - **Unit Tests**: Verify bootstrapping results against known distribution.

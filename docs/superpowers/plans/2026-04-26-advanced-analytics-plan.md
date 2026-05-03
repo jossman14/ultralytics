@@ -1,10 +1,10 @@
-# General Scopus Q1 Analytics Suite Implementation Plan
+# General Analytics Q1 Analytics Suite Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Implement a model-agnostic, modular analytics suite that calculates high-impact journal metrics (Tier 1-3) and statistical tests for computer vision tasks.
 
-**Architecture:** A core engine (`scopus_analytics_core.py`) for statistical logic, coupled with framework-specific adapters (e.g., `yolo_adapter.py`) for seamless integration.
+**Architecture:** A core engine (`analytics_analytics_core.py`) for statistical logic, coupled with framework-specific adapters (e.g., `yolo_adapter.py`) for seamless integration.
 
 **Tech Stack:** Python, Scipy, Statsmodels, Scikit-Posthocs, Matplotlib, Seaborn, Pandas, Openpyxl.
 
@@ -21,14 +21,14 @@
 - [ ] **Step 3: Commit**
     ```bash
     git add requirements_custom.txt
-    git commit -m "chore: add dependencies for scopus analytics"
+    git commit -m "chore: add dependencies for analytics analytics"
     ```
 
 ---
 
 ### Task 2: Core Engine - Advanced Metrics (Tier 1)
 **Files:**
-- Create: `scopus_analytics_core.py`
+- Create: `analytics_analytics_core.py`
 
 - [ ] **Step 1: Implement Bootstrapping & Basic Metrics**
     ```python
@@ -64,7 +64,7 @@
     ```
 - [ ] **Step 2: Commit**
     ```bash
-    git add scopus_analytics_core.py
+    git add analytics_analytics_core.py
     git commit -m "feat: implement Tier 1 bootstrapping and sens/spec logic"
     ```
 
@@ -72,7 +72,7 @@
 
 ### Task 3: Core Engine - Statistical Suite (Friedman/Nemenyi)
 **Files:**
-- Modify: `scopus_analytics_core.py`
+- Modify: `analytics_analytics_core.py`
 
 - [ ] **Step 1: Implement Statistical Tests**
     ```python
@@ -103,7 +103,7 @@
     ```
 - [ ] **Step 2: Commit**
     ```bash
-    git add scopus_analytics_core.py
+    git add analytics_analytics_core.py
     git commit -m "feat: implement Friedman and Nemenyi statistical tests"
     ```
 
@@ -111,7 +111,7 @@
 
 ### Task 4: Core Engine - XAI Metrics (Tier 2)
 **Files:**
-- Modify: `scopus_analytics_core.py`
+- Modify: `analytics_analytics_core.py`
 
 - [ ] **Step 1: Implement Heatmap IoU and AOPC**
     ```python
@@ -136,7 +136,7 @@
     ```
 - [ ] **Step 2: Commit**
     ```bash
-    git add scopus_analytics_core.py
+    git add analytics_analytics_core.py
     git commit -m "feat: implement XAI heatmap IoU calculation"
     ```
 
@@ -149,7 +149,7 @@
 - [ ] **Step 1: Implement YOLO Integration**
     ```python
     from ultralytics import YOLO
-    from scopus_analytics_core import AdvancedMetrics, XAIAnalyzer
+    from analytics_analytics_core import AdvancedMetrics, XAIAnalyzer
 
     class YOLOAdapter:
         def __init__(self, model_path):
@@ -167,7 +167,7 @@
 - [ ] **Step 2: Commit**
     ```bash
     git add adapters/yolo_adapter.py
-    git commit -m "feat: implement YOLOv8 adapter for scopus analytics"
+    git commit -m "feat: implement YOLOv8 adapter for analytics analytics"
     ```
 
 ---
@@ -178,12 +178,12 @@
 
 - [ ] **Step 1: Update main loop**
     Import `YOLOAdapter` and `StatisticalSuite`. Call them at the end of training datasets.
-- [ ] **Step 2: Implement Standalone CLI in scopus_analytics_core.py**
+- [ ] **Step 2: Implement Standalone CLI in analytics_analytics_core.py**
     Add `if __name__ == "__main__":` block to allow running on existing folders.
 - [ ] **Step 3: Final Verification Run**
     Run `main.py` with `--epochs 1` to verify the pipeline.
 - [ ] **Step 4: Commit**
     ```bash
-    git add main.py scopus_analytics_core.py
+    git add main.py analytics_analytics_core.py
     git commit -m "feat: integrate analytics suite into main pipeline"
     ```

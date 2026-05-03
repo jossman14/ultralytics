@@ -21,31 +21,80 @@
 </div>
 <br>
 
-[Ultralytics](https://www.ultralytics.com/) creates cutting-edge, state-of-the-art (SOTA) [YOLO models](https://www.ultralytics.com/yolo) built on years of foundational research in computer vision and AI. Constantly updated for performance and flexibility, our models are **fast**, **accurate**, and **easy to use**. They excel at [object detection](https://docs.ultralytics.com/tasks/detect/), [tracking](https://docs.ultralytics.com/modes/track/), [instance segmentation](https://docs.ultralytics.com/tasks/segment/), [image classification](https://docs.ultralytics.com/tasks/classify/), and [pose estimation](https://docs.ultralytics.com/tasks/pose/) tasks.
+---
 
-Find detailed documentation in the [Ultralytics Docs](https://docs.ultralytics.com/). Get support via [GitHub Issues](https://github.com/ultralytics/ultralytics/issues/new/choose). Join discussions on [Discord](https://discord.com/invite/ultralytics), [Reddit](https://www.reddit.com/r/ultralytics/), and the [Ultralytics Community Forums](https://community.ultralytics.com/)!
+# 🚀 Advanced Analytics Pipeline
 
-Request an Enterprise License for commercial use at [Ultralytics Licensing](https://www.ultralytics.com/license).
+This repository has been enhanced with a publication-grade automated analytics pipeline designed to meet the rigorous requirements of high-impact journal publications.
 
-<a href="https://platform.ultralytics.com/ultralytics/yolo26" target="_blank">
-  <img width="100%" src="https://raw.githubusercontent.com/ultralytics/assets/refs/heads/main/yolo/performance-comparison.png" alt="YOLO26 performance plots">
-</a>
+## 📖 Quick Start: `start_experiment.py`
 
-<div align="center">
-  <a href="https://github.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-github.png" width="2%" alt="Ultralytics GitHub"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://www.linkedin.com/company/ultralytics/"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-linkedin.png" width="2%" alt="Ultralytics LinkedIn"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://twitter.com/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-twitter.png" width="2%" alt="Ultralytics Twitter"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://www.youtube.com/ultralytics?sub_confirmation=1"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-youtube.png" width="2%" alt="Ultralytics YouTube"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://www.tiktok.com/@ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-tiktok.png" width="2%" alt="Ultralytics TikTok"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://ultralytics.com/bilibili"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-bilibili.png" width="2%" alt="Ultralytics BiliBili"></a>
-  <img src="https://github.com/ultralytics/assets/raw/main/social/logo-transparent.png" width="2%" alt="space">
-  <a href="https://discord.com/invite/ultralytics"><img src="https://github.com/ultralytics/assets/raw/main/social/logo-social-discord.png" width="2%" alt="Ultralytics Discord"></a>
-</div>
+The primary entry point for running experiments and generating reports is `start_experiment.py`. It orchestrates dataset preparation, K-Fold training, and advanced diagnostics.
+
+### How to Use
+
+1. **Configure Your Experiment**: Open `start_experiment.py` and modify the `CONFIG` dictionary at the top.
+2. **Run the Script**:
+
+   ```bash
+   python start_experiment.py
+   ```
+
+3. **Check Results**: All outputs are saved in `output/[dataset_name]/[model_timestamp]/analytics_summary/`.
+
+---
+
+## 🛠️ Key Features
+
+### 1. Intelligent K-Fold Management
+
+- **Automatic Conversion**: If your dataset is not yet split, set `PREPARE_KFOLD = True`. The system will intelligently split your images into 5-folds based on class balance.
+- **Pre-Split Support**: If you already have a K-Fold dataset (e.g., `dataset_5fold/`), set `PREPARE_KFOLD = False` and specify the folder name.
+- **Multi-Dataset Training**: You can list multiple datasets in `DATASET_MAPPINGS` to run batch experiments sequentially.
+
+### 2. Advanced Statistical Engine
+
+Beyond basic mAP, the pipeline performs rigorous statistical validation:
+
+- **Mean & Standard Deviation**: Average performance across all folds.
+- **95% Confidence Interval (CI)**: Measures the reliability of your results.
+- **Standard Error (SEM)** & **Coefficient of Variation (CV)**.
+- **Significance Testing**: Shapiro-Wilk (normality) and T-Test (vs baseline 0.5) to justify your claims.
+- **Effect Size (Cohen's d)**: Quantifies the magnitude of performance improvement.
+
+### 3. Visual Diagnostic Suite (XAI & Errors)
+
+Automated generation of publication-ready visualizations:
+
+- **Grad-CAM**: Explainable AI heatmaps to show where the model "looks."
+- **t-SNE Projection**: Visualizes feature separation between object classes.
+- **Error Breakdown**: Pie charts analyzing Localization, Classification, Background, and Missed Object errors.
+- **Error Gallery Montage**: A combined image showing successful detections vs. specific failure cases.
+
+---
+
+## 📊 Centralized Reporting (`analytics_summary`)
+
+Forget digging through folders. All high-value artifacts are collected in a single directory:
+
+- `statistical_analysis.xlsx`: Master report with raw data, summary stats, and p-values.
+- `kpi_summary.png`: Bar chart of key metrics (mAP50, F1, AOPC).
+- `executive_summary.txt`: Human-readable summary (Mean ± Std [CI]) ready for your manuscript.
+- `representative_error_gallery.jpg`: The best visual montage selected from all folds.
+
+---
+
+## 🔄 Workflow Alur (Pipeline)
+
+1. **Prepare**: Convert raw dataset to 5-fold format (if enabled).
+2. **Train**: Sequential YOLOv8 training across all 5 folds.
+3. **Extract**: Automated KPI extraction and per-class metric logging.
+4. **XAI & Diagnostics**: Run Grad-CAM, t-SNE, and Error Breakdown on validation sets.
+5. **Summarize**: Aggregate all fold data into the `analytics_summary` master report.
+
+---
+
+## 📄 Official Documentation
 
 ## 📄 Documentation
 
