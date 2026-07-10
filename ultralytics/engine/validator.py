@@ -38,7 +38,7 @@ from ultralytics.utils import LOGGER, RANK, TQDM, callbacks, colorstr, emojis
 from ultralytics.utils.checks import check_imgsz
 from ultralytics.utils.ops import Profile
 from ultralytics.utils.torch_utils import attempt_compile, select_device, smart_inference_mode, unwrap_model
-
+import pandas as pd
 
 class BaseValidator:
     """A base class for creating validators.
@@ -232,6 +232,24 @@ class BaseValidator:
         if RANK in {-1, 0}:
             stats = self.get_stats()
             self.speed = dict(zip(self.speed.keys(), (x.t / len(self.dataloader.dataset) * 1e3 for x in dt)))
+            
+            # self.save_stats_and_speed_to_excel(self, stats, self.speed, self.save_dir)
+            excel_path = self.save_dir / "evaluation_metrics.xlsx"
+
+            # Prepare DataFrames
+            df_stats = pd.DataFrame.from_dict(stats, orient='index', columns=['Value']).reset_index()
+            df_stats.columns = ['Metric', 'Value']
+            df_stats['Value'] = df_stats['Value'].round(6)  # Round for readability
+
+            df_speed = pd.DataFrame.from_dict(self.speed, orient='index', columns=['Time (ms)']).reset_index()
+            df_speed.columns = ['Stage', 'Time (ms)']
+            df_speed['Time (ms)'] = df_speed['Time (ms)'].round(4)
+
+            # Write to Excel with multiple sheets
+            with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
+                df_stats.to_excel(writer, sheet_name='Metrics', index=False)
+                df_speed.to_excel(writer, sheet_name='Inference Speed', index=False)
+                
             self.finalize_metrics()
             self.print_results()
             self.run_callbacks("on_val_end")
@@ -263,6 +281,8 @@ class BaseValidator:
                 LOGGER.info(f"Results saved to {colorstr('bold', self.save_dir)}")
             return stats
 
+    
+    
     def match_predictions(
         self, pred_classes: torch.Tensor, true_classes: torch.Tensor, iou: torch.Tensor, use_scipy: bool = False
     ) -> torch.Tensor:

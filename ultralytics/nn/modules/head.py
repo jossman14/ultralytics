@@ -20,7 +20,7 @@ from .conv import Conv, DWConv
 from .transformer import MLP, DeformableTransformerDecoder, DeformableTransformerDecoderLayer
 from .utils import bias_init_with_prob, linear_init
 
-__all__ = "OBB", "Classify", "Detect", "Pose", "RTDETRDecoder", "Segment", "YOLOEDetect", "YOLOESegment", "v10Detect"
+__all__ = "OBB", "Classify", "Detect", "LEDHead", "Pose", "RTDETRDecoder", "Segment", "YOLOEDetect", "YOLOESegment", "v10Detect"
 
 
 class Detect(nn.Module):
@@ -1180,3 +1180,87 @@ class v10Detect(Detect):
     def fuse(self):
         """Remove the one2many head for inference optimization."""
         self.cv2 = self.cv3 = nn.ModuleList([nn.Identity()] * self.nl)
+
+
+class LEDHead(Detect):
+    """Lightweight Efficient Detection Head with group convolution for weight sharing.
+
+    This head uses group convolutions to share weights across different detection scales,
+    significantly reducing parameters while maintaining detection accuracy.
+
+    Reference: SCL-YOLO paper for blood cell detection on edge devices.
+
+    Attributes:
+        shared_conv (nn.Conv2d): Shared group convolution for all scales.
+        cv2 (nn.ModuleList): Box regression branches.
+        cv3 (nn.ModuleList): Classification branches.
+
+    Methods:
+        forward: Perform forward pass with shared convolutions.
+
+    Examples:
+        Create a LEDHead
+        >>> led_head = LEDHead(nc=80, ch=(256, 512, 1024))
+        >>> x = [torch.randn(1, 256, 80, 80), torch.randn(1, 512, 40, 40), torch.randn(1, 1024, 20, 20)]
+        >>> outputs = led_head(x)
+    """
+
+    def __init__(self, nc: int = 80, ch: tuple = ()):
+        """Initialize LEDHead with number of classes and channel sizes.
+
+        Args:
+            nc (int): Number of classes.
+            ch (tuple): Tuple of channel sizes from backbone feature maps.
+        """
+        super().__init__(nc, ch)
+        
+        # Common channel for all scales
+        c_common = max(ch)
+        c2 = max((16, ch[0] // 4, self.reg_max * 4))
+        c3 = max(ch[0], min(self.nc, 100))
+        
+        # Channel alignment convolutions to bring all scales to common channel
+        self.align = nn.ModuleList(
+            Conv(x, c_common, 1) if x != c_common else nn.Identity() 
+            for x in ch
+        )
+        
+        # Shared group convolution (depthwise) for efficiency
+        self.shared_conv = nn.Sequential(
+            nn.Conv2d(c_common, c_common, kernel_size=3, padding=1, groups=c_common, bias=False),
+            nn.BatchNorm2d(c_common),
+            nn.SiLU()
+        )
+        
+        # Box regression head (shared across scales)
+        self.cv2 = nn.ModuleList(
+            nn.Sequential(
+                Conv(c_common, c2, 1),
+                Conv(c2, c2, 3),
+                nn.Conv2d(c2, 4 * self.reg_max, 1)
+            ) for _ in ch
+        )
+        
+        # Classification head (shared across scales)  
+        self.cv3 = nn.ModuleList(
+            nn.Sequential(
+                nn.Sequential(DWConv(c_common, c_common, 3), Conv(c_common, c3, 1)),
+                nn.Sequential(DWConv(c3, c3, 3), Conv(c3, c3, 1)),
+                nn.Conv2d(c3, self.nc, 1),
+            ) for _ in ch
+        )
+
+    def forward(self, x: list[torch.Tensor]) -> list[torch.Tensor] | tuple:
+        """Forward pass with shared group convolutions."""
+        # Align channels and apply shared convolution
+        aligned = [self.shared_conv(self.align[i](x[i])) for i in range(self.nl)]
+        
+        # Apply detection heads
+        for i in range(self.nl):
+            x[i] = torch.cat((self.cv2[i](aligned[i]), self.cv3[i](aligned[i])), 1)
+        
+        if self.training:
+            return x
+        y = self._inference(x)
+        return y if self.export else (y, x)
+

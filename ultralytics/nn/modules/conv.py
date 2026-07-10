@@ -18,9 +18,11 @@ __all__ = (
     "ConvTranspose",
     "DWConv",
     "DWConvTranspose2d",
+    "ECA",
     "Focus",
     "GhostConv",
     "Index",
+    "IndexChannels",
     "LightConv",
     "RepConv",
     "SpatialAttention",
@@ -613,6 +615,61 @@ class CBAM(nn.Module):
         return self.spatial_attention(self.channel_attention(x))
 
 
+class ECA(nn.Module):
+    """Efficient Channel Attention module.
+
+    An extremely lightweight attention mechanism using 1D convolution for local cross-channel interaction.
+    Adaptively determines kernel size based on channel dimension.
+
+    Attributes:
+        avg_pool (nn.AdaptiveAvgPool2d): Global average pooling.
+        conv (nn.Conv1d): 1D convolution for channel-wise attention.
+        sigmoid (nn.Sigmoid): Sigmoid activation for attention weights.
+
+    References:
+        https://arxiv.org/abs/1910.03151 - ECA-Net: Efficient Channel Attention
+    """
+
+    def __init__(self, c1, k_size=None):
+        """Initialize ECA module.
+
+        Args:
+            c1 (int): Number of input channels.
+            k_size (int, optional): Kernel size for 1D conv. If None, auto-calculated based on channels.
+        """
+        super().__init__()
+        # Adaptive kernel size based on channel dimension: k = |log2(C)/gamma + b/gamma|_odd
+        # Using gamma=2, b=1 as per original paper
+        if k_size is None:
+            t = int(abs(math.log2(c1) / 2 + 0.5))
+            k_size = t if t % 2 else t + 1  # Ensure odd kernel size
+            k_size = max(3, k_size)  # Minimum kernel size of 3
+
+        self.avg_pool = nn.AdaptiveAvgPool2d(1)
+        self.conv = nn.Conv1d(1, 1, kernel_size=k_size, padding=(k_size - 1) // 2, bias=False)
+        self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+        """Apply ECA attention to input tensor.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+
+        Returns:
+            (torch.Tensor): Attention-weighted output tensor.
+        """
+        # Global average pooling: (B, C, H, W) -> (B, C, 1, 1)
+        y = self.avg_pool(x)
+        # Reshape for 1D conv: (B, C, 1, 1) -> (B, 1, C)
+        y = y.squeeze(-1).transpose(-1, -2)
+        # 1D convolution for local cross-channel interaction
+        y = self.conv(y)
+        # Reshape back: (B, 1, C) -> (B, C, 1, 1)
+        y = y.transpose(-1, -2).unsqueeze(-1)
+        # Apply attention weights
+        return x * self.sigmoid(y)
+
+
 class Concat(nn.Module):
     """Concatenate a list of tensors along specified dimension.
 
@@ -659,11 +716,30 @@ class Index(nn.Module):
 
     def forward(self, x: list[torch.Tensor]):
         """Select and return a particular index from input.
-
+        
         Args:
             x (list[torch.Tensor]): List of input tensors.
-
+            
         Returns:
             (torch.Tensor): Selected tensor.
         """
         return x[self.index]
+
+
+class IndexChannels(Index):
+    """Index module that accepts channel arguments for YOLO compatibility.
+    
+    Used when extracting features from a backbone that returns a list,
+    explicitly defining the output channels for the parser.
+    """
+    
+    def __init__(self, c1, c2, index=0):
+        """Initialize IndexChannels.
+        
+        Args:
+            c1 (int | list): Input channels.
+            c2 (int): Output channels (explicitly passed).
+            index (int): Index to select.
+        """
+        super().__init__(index)
+        self.c2 = c2

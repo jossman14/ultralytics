@@ -32,6 +32,23 @@ from ultralytics.nn.modules import (
     C2f,
     C2fAttn,
     C2fCIB,
+    C2fDense,
+    C2fGhost,
+    C2fInception,
+    C2fMSA,
+    C2fPSA,
+    C2fStar,
+    C2fSwin,
+    C2fRes2,
+    C2fMBConv,
+    CoordAtt,
+    NonLocalBlock,
+    Res2NetBlock,
+    ConvNeXtBlock,
+    MBConv,
+    GhostBottleneckV2,
+    CBAM,
+    CFCGLU,
     C2fPSA,
     C3Ghost,
     C3k2,
@@ -47,15 +64,29 @@ from ultralytics.nn.modules import (
     DWConv,
     DWConvTranspose2d,
     Focus,
+    GAM_Attention,
+    ECA,
     GhostBottleneck,
     GhostConv,
+    DIF,
+    FBM,
     HGBlock,
     HGStem,
     ImagePoolingAttn,
     Index,
+    IndexChannels,
     LRPCHead,
+    LEDHead,
+    PCE,
     Pose,
     RepC3,
+    SPDConv,
+    RCM,
+    SSGA,
+    StarBlock,
+    SwinBackbone,
+    SwinStage,
+    TimmBackbone,
     RepConv,
     RepNCSPELAN4,
     RepVGGDW,
@@ -1535,6 +1566,9 @@ def parse_model(d, ch, verbose=True):
             C1,
             C2,
             C2f,
+            C2fGhost,
+            C2fInception,
+            C2fDense,
             C3k2,
             RepNCSPELAN4,
             ELAN1,
@@ -1551,7 +1585,27 @@ def parse_model(d, ch, verbose=True):
             RepC3,
             PSA,
             SCDown,
+            SPDConv,
             C2fCIB,
+            C2fMSA,
+            C2fStar,
+            C2fSwin,
+            C2fRes2,
+            C2fMBConv,
+            Res2NetBlock,
+            ConvNeXtBlock,
+            MBConv,
+            GhostBottleneckV2,
+            CFCGLU,
+            StarBlock,
+            SwinBackbone,
+            SwinStage,
+            TimmBackbone,
+            IndexChannels, # Added to base_modules for channel tracking
+            RCM,
+            PCE,
+            FBM,
+            DIF,
             A2C2f,
         }
     )
@@ -1561,6 +1615,9 @@ def parse_model(d, ch, verbose=True):
             C1,
             C2,
             C2f,
+            C2fGhost,
+            C2fInception,
+            C2fDense,
             C3k2,
             C2fAttn,
             C3,
@@ -1570,6 +1627,12 @@ def parse_model(d, ch, verbose=True):
             RepC3,
             C2fPSA,
             C2fCIB,
+            C2fMSA,
+            C2fStar,
+            C2fSwin,
+            C2fRes2,
+            C2fMBConv,
+            CFCGLU,
             C2PSA,
             A2C2f,
         }
@@ -1589,7 +1652,7 @@ def parse_model(d, ch, verbose=True):
         n = n_ = max(round(n * depth), 1) if n > 1 else n  # depth gain
         if m in base_modules:
             c1, c2 = ch[f], args[0]
-            if c2 != nc:  # if c2 not equal to number of classes (i.e. for Classify() output)
+            if c2 != nc and not isinstance(c2, list):  # if c2 not equal to number of classes (i.e. for Classify() output) and not a list
                 c2 = make_divisible(min(c2, max_channels) * width, 8)
             if m is C2fAttn:  # set 1) embed channels and 2) num heads
                 args[1] = make_divisible(min(args[1], max_channels // 2) * width, 8)
@@ -1624,12 +1687,12 @@ def parse_model(d, ch, verbose=True):
         elif m is Concat:
             c2 = sum(ch[x] for x in f)
         elif m in frozenset(
-            {Detect, WorldDetect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB, ImagePoolingAttn, v10Detect}
+            {Detect, WorldDetect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB, ImagePoolingAttn, v10Detect, LEDHead}
         ):
             args.append([ch[x] for x in f])
             if m is Segment or m is YOLOESegment:
                 args[2] = make_divisible(min(args[2], max_channels) * width, 8)
-            if m in {Detect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB}:
+            if m in {Detect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB, LEDHead}:
                 m.legacy = legacy
         elif m is RTDETRDecoder:  # special case, channels arg must be passed in index 1
             args.insert(1, [ch[x] for x in f])
@@ -1643,6 +1706,30 @@ def parse_model(d, ch, verbose=True):
             c2 = args[0]
             c1 = ch[f]
             args = [*args[1:]]
+        elif m is GAM_Attention:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is SSGA:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is ECA:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is CBAM:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is CoordAtt:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is NonLocalBlock:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
         else:
             c2 = ch[f]
 
@@ -1713,7 +1800,7 @@ def guess_model_task(model):
         m = cfg["head"][-1][-2].lower()  # output module name
         if m in {"classify", "classifier", "cls", "fc"}:
             return "classify"
-        if "detect" in m:
+        if "detect" in m or m == "ledhead":
             return "detect"
         if "segment" in m:
             return "segment"
@@ -1743,7 +1830,7 @@ def guess_model_task(model):
                 return "pose"
             elif isinstance(m, OBB):
                 return "obb"
-            elif isinstance(m, (Detect, WorldDetect, YOLOEDetect, v10Detect)):
+            elif isinstance(m, (Detect, WorldDetect, YOLOEDetect, v10Detect, LEDHead)):
                 return "detect"
 
     # Guess from model filename

@@ -253,23 +253,48 @@ class DetectionValidator(BaseValidator):
 
     def print_results(self) -> None:
         """Print training/validation set metrics per class."""
+        import pandas as pd
+        from pathlib import Path
+
         pf = "%22s" + "%11i" * 2 + "%11.3g" * len(self.metrics.keys)  # print format
-        LOGGER.info(pf % ("all", self.seen, self.metrics.nt_per_class.sum(), *self.metrics.mean_results()))
+        all_row = ("all", self.seen, self.metrics.nt_per_class.sum(), *self.metrics.mean_results())
+        
+        # Collect data for Excel
+        excel_data = [list(all_row)]
+        
+        # Print and collect "all" row
+        LOGGER.info(pf % all_row)
+        
         if self.metrics.nt_per_class.sum() == 0:
             LOGGER.warning(f"no labels found in {self.args.task} set, can not compute metrics without labels")
-
-        # Print results per class
-        if self.args.verbose and not self.training and self.nc > 1 and len(self.metrics.stats):
-            for i, c in enumerate(self.metrics.ap_class_index):
-                LOGGER.info(
-                    pf
-                    % (
+        else:
+            # Print and collect per-class rows
+            if self.args.verbose and not self.training and self.nc > 1 and len(self.metrics.stats):
+                for i, c in enumerate(self.metrics.ap_class_index):
+                    class_row = (
                         self.names[c],
                         self.metrics.nt_per_image[c],
                         self.metrics.nt_per_class[c],
                         *self.metrics.class_result(i),
                     )
-                )
+                    excel_data.append(list(class_row))
+                    LOGGER.info(pf % class_row)
+        
+        # Save to Excel
+        try:
+            # Define columns
+            columns = ["Class", "Images", "Labels"] + list(self.metrics.keys)
+            
+            # Create DataFrame
+            df = pd.DataFrame(excel_data, columns=columns)
+            
+            # Save to Excel in self.save_dir
+            excel_path = Path(self.save_dir) / "evaluation_results.xlsx"
+            df.to_excel(excel_path, index=False)
+            
+            LOGGER.info(f"📊 Evaluation results saved to: {excel_path}")
+        except Exception as e:
+            LOGGER.error(f"❌ Failed to save results to Excel: {e}")
 
     def _process_batch(self, preds: dict[str, torch.Tensor], batch: dict[str, Any]) -> dict[str, np.ndarray]:
         """Return correct prediction matrix.

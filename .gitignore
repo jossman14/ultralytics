@@ -1,3 +1,6 @@
+# Downloaded reference PDFs (copyrighted, not for version control)
+ref_judol/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

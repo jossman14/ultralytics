@@ -10,28 +10,54 @@ import torch.nn.functional as F
 from ultralytics.utils.torch_utils import fuse_conv_and_bn
 
 from .conv import Conv, DWConv, GhostConv, LightConv, RepConv, autopad
-from .transformer import TransformerBlock
+from .transformer import LayerNorm2d, TransformerBlock
 
 __all__ = (
     "C1",
     "C2",
     "C2PSA",
+    "C2f",
+    "C2fGhost",
+    "C2fMSA",
+    "C2fStar",
+    "C2fSwin",
     "C3",
     "C3TR",
+    "CFCGLU",
     "CIB",
     "DFL",
+    "DIF",
     "ELAN1",
+    "FBM",
+    "GAM_Attention",
+    "PCE",
     "PSA",
+    "RCM",
+    "SPDConv",
     "SPP",
     "SPPELAN",
     "SPPF",
+    "SSGA",
+    "CoordAtt",
+    "NonLocalBlock",
+    "Res2NetBlock",
+    "C2fRes2",
+    "ConvNeXtBlock",
+    "MBConv",
+    "C2fMBConv",
+    "GhostBottleneckV2",
+    "StarBlock",
+    "SwinTransformerBlock",
+    "TimmBackbone",
+    "SwinBackbone",
+    "SwinStage",
+    "WindowAttention",
     "AConv",
     "ADown",
     "Attention",
     "BNContrastiveHead",
     "Bottleneck",
     "BottleneckCSP",
-    "C2f",
     "C2fAttn",
     "C2fCIB",
     "C2fPSA",
@@ -1943,3 +1969,1498 @@ class SAVPE(nn.Module):
         aggregated = score.transpose(-2, -3) @ x.reshape(B, self.c, C // self.c, -1).transpose(-1, -2)
 
         return F.normalize(aggregated.transpose(-2, -3).reshape(B, Q, -1), dim=-1, p=2)
+
+
+class GAM_Attention(nn.Module):
+    """Global Attention Mechanism (GAM) for 3D feature attention.
+
+    GAM applies sequential channel and spatial attention while preserving 3D information
+    through dimension permutation instead of pooling operations.
+
+    Attributes:
+        channel_attention (nn.Sequential): MLP for channel attention.
+        spatial_attention (nn.Sequential): Conv layers for spatial attention.
+
+    References:
+        https://arxiv.org/abs/2112.05561
+    """
+
+    def __init__(self, c1: int, c2: int = None, rate: int = 4):
+        """Initialize GAM_Attention module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels (defaults to c1 for plug-and-play passthrough).
+            rate (int): Channel reduction ratio for efficiency.
+        """
+        super().__init__()
+        c2 = c2 or c1  # default c2 to c1 for passthrough behavior
+        # Ensure rate doesn't cause division issues
+        rate = max(1, min(rate, c1 // 4)) if c1 >= 4 else 1
+        # Channel Attention Sub-module using MLP
+        self.channel_attention = nn.Sequential(
+            nn.Linear(c1, max(c1 // rate, 1)),
+            nn.ReLU(inplace=True),
+            nn.Linear(max(c1 // rate, 1), c1),
+        )
+        # Spatial Attention Sub-module using 7x7 convolutions
+        c_hidden = max(c1 // rate, 1)
+        self.spatial_attention = nn.Sequential(
+            nn.Conv2d(c1, c_hidden, kernel_size=7, padding=3),
+            nn.BatchNorm2d(c_hidden),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(c_hidden, c1, kernel_size=7, padding=3),
+            nn.BatchNorm2d(c1),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply GAM attention to input tensor.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+
+        Returns:
+            (torch.Tensor): Attention-weighted output tensor.
+        """
+        b, c, h, w = x.shape
+
+        # Channel Attention: permute to (B, H, W, C), apply MLP, permute back
+        x_permute = x.permute(0, 2, 3, 1).view(b, -1, c)
+        x_att_permute = self.channel_attention(x_permute).view(b, h, w, c).permute(0, 3, 1, 2)
+        x_channel_att = x * x_att_permute.sigmoid()
+
+        # Spatial Attention: apply conv layers with sigmoid gating
+        x_spatial_att = self.spatial_attention(x_channel_att).sigmoid()
+
+        return x_channel_att * x_spatial_att
+
+
+class SSGA(nn.Module):
+    """Scale-Sensitive Gated Attention (SSGA).
+
+    A novel attention module for small-object (logo) detection. Unlike GAM, CBAM,
+    SE, or ECA which treat all spatial frequencies uniformly (scale-agnostic), SSGA
+    decouples each feature map into high-frequency (edges of small logos) and
+    low-frequency (background) components, reweights them with learnable per-channel
+    scale-sensitivity coefficients, then applies a lightweight context-guided spatial
+    gate using factorised 3x3 convolutions instead of a 7x7 kernel.
+
+    Attributes:
+        mlp (nn.Sequential): 1x1 conv channel-attention over global context.
+        lp (nn.AvgPool2d): depthwise low-pass filter for frequency decoupling.
+        gamma_hi, gamma_lo (nn.Parameter): learnable scale-sensitive weights.
+        spatial (nn.Sequential): factorised 3x3 context-guided spatial gate.
+    """
+
+    def __init__(self, c1: int, c2: int = None, rate: int = 4):
+        """Initialize SSGA.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels (defaults to c1 for plug-and-play passthrough).
+            rate (int): Channel reduction ratio for efficiency.
+        """
+        super().__init__()
+        c2 = c2 or c1  # passthrough
+        r = max(1, min(rate, c1 // 4)) if c1 >= 4 else 1
+        ch = max(c1 // r, 1)
+        # Channel attention over global context (1x1 conv MLP)
+        self.avg = nn.AdaptiveAvgPool2d(1)
+        self.mlp = nn.Sequential(
+            nn.Conv2d(c1, ch, 1, bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(ch, c1, 1, bias=False),
+        )
+        # Low-pass branch for frequency decoupling (high-freq = x - low-pass)
+        self.lp = nn.AvgPool2d(3, stride=1, padding=1)
+        # Learnable per-channel scale-sensitivity weights (init identity: hi+lo = x)
+        self.gamma_hi = nn.Parameter(torch.ones(1, c1, 1, 1))
+        self.gamma_lo = nn.Parameter(torch.ones(1, c1, 1, 1))
+        # Context-guided spatial gate: factorised 3x3 x3 (~7x7 RF, fewer params)
+        self.spatial = nn.Sequential(
+            nn.Conv2d(c1, ch, 3, padding=1, bias=False),
+            nn.BatchNorm2d(ch),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(ch, ch, 3, padding=1, groups=ch, bias=False),
+            nn.BatchNorm2d(ch),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(ch, c1, 3, padding=1, bias=False),
+            nn.BatchNorm2d(c1),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply scale-sensitive gated attention.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+
+        Returns:
+            (torch.Tensor): Attention-weighted output tensor of shape (B, C, H, W).
+        """
+        low = self.lp(x)  # low-frequency component
+        high = x - low  # high-frequency component (small-object edges)
+        xf = self.gamma_hi * high + self.gamma_lo * low  # scale-sensitive recombination
+        ca = torch.sigmoid(self.mlp(self.avg(xf)))  # channel attention
+        xc = xf * ca
+        sa = torch.sigmoid(self.spatial(xc))  # context-guided spatial gate
+        return xc * sa
+
+
+class C2fGhost(nn.Module):
+    """C2f module variant using GhostBottleneck for lightweight inference.
+
+    This module combines the gradient flow benefits of C2f with the computational
+    efficiency of GhostBottleneck, reducing parameters and FLOPs by ~50%.
+
+    Attributes:
+        c (int): Hidden channels.
+        cv1 (Conv): Initial 1x1 convolution.
+        cv2 (Conv): Final 1x1 convolution.
+        m (nn.ModuleList): List of GhostBottleneck modules.
+    """
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fGhost module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of GhostBottleneck blocks.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)  # hidden channels
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)  # output conv
+        self.m = nn.ModuleList(GhostBottleneck(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fGhost layer.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            (torch.Tensor): Output tensor.
+        """
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+    def forward_split(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass using split() instead of chunk().
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            (torch.Tensor): Output tensor.
+        """
+        y = list(self.cv1(x).split((self.c, self.c), 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class SPDConv(nn.Module):
+    """Space-to-Depth Convolution for preserving fine-grained features during downsampling.
+
+    This module replaces strided convolution by first rearranging spatial pixels into
+    channel dimension (space-to-depth), then applying convolution. This preserves all
+    spatial information that would otherwise be lost in strided convolution.
+
+    Critical for detecting small objects like:
+    - Malaria parasites (ring stage ~2-4 µm)
+    - Platelets (2-4 µm)
+    - Fine granules in WBCs
+
+    Attributes:
+        space_to_depth (nn.PixelUnshuffle): Rearranges spatial to channel dimension.
+        conv (Conv): Convolution after space-to-depth transformation.
+
+    References:
+        SSW-YOLO: https://arxiv.org/abs/2401.xxxxx (SPD-Conv for microscopy)
+    """
+
+    def __init__(self, c1: int, c2: int, k: int = 3, s: int = 2):
+        """Initialize SPDConv module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            k (int): Kernel size for convolution.
+            s (int): Downsampling factor (default 2).
+        """
+        super().__init__()
+        # PixelUnshuffle: (B, C, H, W) -> (B, C*s*s, H/s, W/s)
+        self.space_to_depth = nn.PixelUnshuffle(downscale_factor=s)
+        # After space-to-depth, channels are multiplied by s*s
+        self.conv = Conv(c1 * s * s, c2, k=k, s=1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply space-to-depth transformation followed by convolution.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+
+        Returns:
+            (torch.Tensor): Output tensor of shape (B, C2, H/2, W/2).
+        """
+        return self.conv(self.space_to_depth(x))
+
+
+class C2fMSA(nn.Module):
+    """C2f module with Multi-Scale Attention for enhanced morphological feature extraction.
+
+    Combines the gradient flow benefits of C2f with PSABlock attention mechanisms
+    for improved discrimination of cellular morphology. Particularly effective for:
+    - Differentiating blast cells from normal lymphocytes
+    - Identifying subtle parasitic inclusions
+    - Capturing chromatin patterns in nuclei
+
+    Attributes:
+        c (int): Hidden channels.
+        cv1 (Conv): Initial 1x1 convolution.
+        cv2 (Conv): Final 1x1 convolution.
+        m (nn.ModuleList): List of PSABlock modules.
+
+    References:
+        YOLO11 C2PSA architecture
+        MS-YOLO multi-scale approach
+    """
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fMSA module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of PSABlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)  # hidden channels
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)  # output conv
+        # Use PSABlock for attention-based feature extraction
+        num_heads = max(self.c // 64, 1)
+        self.m = nn.ModuleList(PSABlock(self.c, attn_ratio=0.5, num_heads=num_heads) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fMSA layer.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            (torch.Tensor): Output tensor with attention-enhanced features.
+        """
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+    def forward_split(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass using split() instead of chunk().
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            (torch.Tensor): Output tensor.
+        """
+        y = list(self.cv1(x).split((self.c, self.c), 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+# ==============================================================================
+# SCL-YOLO Modules
+# Reference: SCL-YOLO paper for blood cell detection on edge devices
+# ==============================================================================
+
+
+class StarBlock(nn.Module):
+    """StarNet backbone block with depthwise separable convolution and star-connection.
+
+    This block uses element-wise multiplication of two parallel pathways (star-shaped connection)
+    which is more efficient than standard convolutions while maintaining accuracy.
+
+    Reference: StarNet - https://arxiv.org/abs/1911.11907
+    """
+
+    def __init__(self, c1: int, c2: int, mlp_ratio: int = 3):
+        """Initialize StarBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            mlp_ratio (int): MLP expansion ratio.
+        """
+        super().__init__()
+        self.dwconv = nn.Conv2d(c1, c1, kernel_size=7, padding=3, groups=c1, bias=False)
+        self.bn = nn.BatchNorm2d(c1)
+        self.f1 = nn.Conv2d(c1, c1 * mlp_ratio, 1)
+        self.f2 = nn.Conv2d(c1, c1 * mlp_ratio, 1)
+        self.g = nn.Conv2d(c1 * mlp_ratio, c2, 1)
+        self.act = nn.ReLU6()
+        self.shortcut = c1 == c2
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through StarBlock."""
+        identity = x
+        x = self.bn(self.dwconv(x))
+        x1, x2 = self.f1(x), self.f2(x)
+        # Star Connection: Element-wise multiplication
+        x = self.act(x1) * x2
+        x = self.g(x)
+        return x + identity if self.shortcut else x
+
+
+class RCM(nn.Module):
+    """Rectangular Self-Calibration Module for handling overlapping cells.
+
+    Uses axial (horizontal/vertical) context to better calibrate features
+    for rectangular objects like blood cells.
+    """
+
+    def __init__(self, c1: int, c2: int):
+        """Initialize RCM.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+        """
+        super().__init__()
+        mid = c1 // 4 if c1 >= 4 else c1
+        self.pool_h = nn.AdaptiveAvgPool2d((None, 1))
+        self.pool_w = nn.AdaptiveAvgPool2d((1, None))
+        self.conv_h = nn.Conv2d(c1, mid, kernel_size=1, bias=False)
+        self.conv_w = nn.Conv2d(c1, mid, kernel_size=1, bias=False)
+        self.bn = nn.BatchNorm2d(mid)
+        self.act = nn.Sigmoid()
+        self.conv_final = Conv(c1, c2, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through RCM."""
+        b, c, h, w = x.size()
+        # Axial pooling
+        x_h = self.conv_h(self.pool_h(x))  # (B, mid, H, 1)
+        x_w = self.conv_w(self.pool_w(x))  # (B, mid, 1, W)
+        # Broadcast addition and sigmoid
+        x_h = x_h.expand(-1, -1, -1, w)
+        x_w = x_w.expand(-1, -1, h, -1)
+        attn = self.act(self.bn(x_h + x_w))
+        # Expand attention to match input channels
+        attn = attn.repeat(1, c // attn.size(1) + 1, 1, 1)[:, :c, :, :]
+        return self.conv_final(x * attn)
+
+
+class PCE(nn.Module):
+    """Pyramid Context Extraction Module for multi-scale context aggregation.
+
+    Pools features at different scales and aggregates them to capture
+    global context across the feature pyramid.
+    """
+
+    def __init__(self, c1: int, c2: int):
+        """Initialize PCE.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+        """
+        super().__init__()
+        self.pool1 = nn.AdaptiveAvgPool2d(1)
+        self.pool2 = nn.AdaptiveAvgPool2d(3)
+        self.pool3 = nn.AdaptiveAvgPool2d(5)
+        self.conv = Conv(c1 * 3, c2, 1)
+        self.rcm = RCM(c2, c2)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through PCE."""
+        b, c, h, w = x.size()
+        # Multi-scale pooling
+        p1 = F.interpolate(self.pool1(x), size=(h, w), mode='bilinear', align_corners=False)
+        p2 = F.interpolate(self.pool2(x), size=(h, w), mode='bilinear', align_corners=False)
+        p3 = F.interpolate(self.pool3(x), size=(h, w), mode='bilinear', align_corners=False)
+        # Concatenate and process
+        out = self.conv(torch.cat([p1, p2, p3], dim=1))
+        return self.rcm(out)
+
+
+class FBM(nn.Module):
+    """FuseBlockMulti for low/high resolution feature fusion.
+
+    Integrates features from different resolutions using learned attention weights.
+    """
+
+    def __init__(self, c1: int, c2: int):
+        """Initialize FBM.
+
+        Args:
+            c1 (int): Input channels (low-res features).
+            c2 (int): Output channels.
+        """
+        super().__init__()
+        self.conv_l = Conv(c1, c2, 1)
+        self.conv_h = nn.Conv2d(c1, c2, 1, bias=False)
+        self.bn = nn.BatchNorm2d(c2)
+        self.act = nn.Hardsigmoid()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through FBM with self-attention.
+
+        This version uses self-attention from the input feature itself.
+        """
+        feat = self.conv_l(x)
+        weight = self.act(self.bn(self.conv_h(x)))
+        return feat * weight + feat
+
+
+class DIF(nn.Module):
+    """Dynamic Interpolation Fusion for spatial-preserving feature fusion.
+
+    Performs residual addition with channel adjustment.
+    """
+
+    def __init__(self, c1: int, c2: int):
+        """Initialize DIF.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+        """
+        super().__init__()
+        self.conv = Conv(c1, c2, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through DIF."""
+        return self.conv(x)
+
+
+class CFCGLU(nn.Module):
+    """ConvFormer + CGLU block replacing C3k2 for adaptive feature selection.
+
+    Combines depthwise separable convolution with gated linear units
+    for efficient and adaptive feature processing.
+    """
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = True, e: float = 0.5):
+        """Initialize CFCGLU block.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of blocks.
+            shortcut (bool): Whether to use residual connection.
+            e (float): Expansion ratio.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.shortcut = shortcut and c1 == c2
+
+        # ConvFormer: Depthwise separable conv
+        self.norm1 = nn.BatchNorm2d(c1)
+        self.sep_conv = nn.Conv2d(c1, c1, kernel_size=3, padding=1, groups=c1, bias=False)
+
+        # CGLU: Gated Linear Unit with convolutions
+        self.norm2 = nn.BatchNorm2d(c1)
+        self.conv_expand = nn.Conv2d(c1, self.c * 2, 1)
+        self.dw_conv = nn.Conv2d(self.c * 2, self.c * 2, kernel_size=3, padding=1, groups=self.c * 2, bias=False)
+        self.conv_project = nn.Conv2d(self.c, c2, 1)
+
+        # Learnable scaling factors
+        self.beta1 = nn.Parameter(torch.ones(1, c1, 1, 1) * 0.1)
+        self.beta2 = nn.Parameter(torch.ones(1, c2, 1, 1) * 0.1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through CFCGLU."""
+        # ConvFormer part
+        identity = x
+        x = self.sep_conv(self.norm1(x))
+        x = x * self.beta1 + identity
+
+        # CGLU part
+        identity2 = x
+        x = self.norm2(x)
+        x = self.conv_expand(x)
+        x_dw = self.dw_conv(x)
+
+        # Gating mechanism
+        a, b = x.chunk(2, dim=1)
+        _, b_dw = x_dw.chunk(2, dim=1)
+        x = a * torch.sigmoid(b_dw)
+
+        x = self.conv_project(x)
+        return x * self.beta2 + identity2 if self.shortcut else x * self.beta2
+
+
+class C2fStar(nn.Module):
+    """C2f module variant using StarBlock for efficient backbone feature extraction.
+
+    Combines the gradient flow benefits of C2f with StarNet's efficient
+    star-shaped connections.
+    """
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fStar.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of StarBlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(StarBlock(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fStar layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+    def forward_split(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass using split() instead of chunk()."""
+        y = list(self.cv1(x).split((self.c, self.c), 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+# ==============================================================================
+# Inception / DenseNet blocks (channel-preserving c1->c2 inner blocks + C2f wrappers)
+# Inception: GoogLeNet multi-branch - https://arxiv.org/abs/1409.4842
+# DenseNet:  concatenative feature reuse - https://arxiv.org/abs/1608.06993
+# ==============================================================================
+
+
+class InceptionBlock(nn.Module):
+    """GoogLeNet-style multi-branch block (1x1, 3x3, 5x5-as-two-3x3, pool), channel-preserving."""
+
+    def __init__(self, c1: int, c2: int = None):
+        """Initialize InceptionBlock with input channels c1 and output channels c2 (default c1)."""
+        super().__init__()
+        c2 = c2 or c1
+        cb = max(c2 // 4, 1)
+        self.b1 = Conv(c1, cb, 1, 1)
+        self.b2 = nn.Sequential(Conv(c1, cb, 1, 1), Conv(cb, cb, 3, 1))
+        self.b3 = nn.Sequential(Conv(c1, cb, 1, 1), Conv(cb, cb, 3, 1), Conv(cb, cb, 3, 1))
+        self.b4 = nn.Sequential(nn.MaxPool2d(3, 1, 1), Conv(c1, cb, 1, 1))
+        self.proj = Conv(4 * cb, c2, 1, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass concatenating the four inception branches and projecting to c2."""
+        return self.proj(torch.cat([self.b1(x), self.b2(x), self.b3(x), self.b4(x)], 1))
+
+
+class DenseBlock(nn.Module):
+    """DenseNet-style block with concatenative feature reuse, channel-preserving (c1->c2)."""
+
+    def __init__(self, c1: int, c2: int = None, num_layers: int = 4):
+        """Initialize DenseBlock with num_layers growth convolutions."""
+        super().__init__()
+        c2 = c2 or c1
+        g = max(c2 // (2 * num_layers), 1)  # growth rate
+        self.layers = nn.ModuleList()
+        cin = c1
+        for _ in range(num_layers):
+            self.layers.append(Conv(cin, g, 3, 1))
+            cin += g
+        self.proj = Conv(cin, c2, 1, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass accumulating concatenated features, then projecting to c2."""
+        feats = [x]
+        for layer in self.layers:
+            feats.append(layer(torch.cat(feats, 1)))
+        return self.proj(torch.cat(feats, 1))
+
+
+class C2fInception(nn.Module):
+    """C2f variant using InceptionBlock as the inner block (drop-in for C2fStar/C2f)."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fInception; shortcut/g kept for C2f API compatibility."""
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(InceptionBlock(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fInception layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class C2fDense(nn.Module):
+    """C2f variant using DenseBlock as the inner block (drop-in for C2fStar/C2f)."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fDense; shortcut/g kept for C2f API compatibility."""
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(DenseBlock(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fDense layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+# ==============================================================================
+# Swin Transformer Modules
+# Reference: Swin Transformer - https://arxiv.org/abs/2103.14030
+# ==============================================================================
+
+
+def window_partition(x: torch.Tensor, window_size: int) -> torch.Tensor:
+    """Partition feature map into non-overlapping windows.
+    
+    Args:
+        x (torch.Tensor): Input tensor of shape (B, H, W, C).
+        window_size (int): Window size.
+        
+    Returns:
+        (torch.Tensor): Windows of shape (num_windows*B, window_size, window_size, C).
+    """
+    B, H, W, C = x.shape
+    x = x.view(B, H // window_size, window_size, W // window_size, window_size, C)
+    windows = x.permute(0, 1, 3, 2, 4, 5).contiguous().view(-1, window_size, window_size, C)
+    return windows
+
+
+def window_reverse(windows: torch.Tensor, window_size: int, H: int, W: int) -> torch.Tensor:
+    """Reverse window partition to reconstruct feature map.
+    
+    Args:
+        windows (torch.Tensor): Windows of shape (num_windows*B, window_size, window_size, C).
+        window_size (int): Window size.
+        H (int): Height of image.
+        W (int): Width of image.
+        
+    Returns:
+        (torch.Tensor): Reconstructed feature map of shape (B, H, W, C).
+    """
+    B = int(windows.shape[0] / (H * W / window_size / window_size))
+    x = windows.view(B, H // window_size, W // window_size, window_size, window_size, -1)
+    x = x.permute(0, 1, 3, 2, 4, 5).contiguous().view(B, H, W, -1)
+    return x
+
+
+class WindowAttention(nn.Module):
+    """Window-based Multi-head Self-Attention (W-MSA) module with relative position bias.
+    
+    Attributes:
+        dim (int): Number of input channels.
+        window_size (tuple[int, int]): Window size.
+        num_heads (int): Number of attention heads.
+    """
+
+    def __init__(self, dim: int, window_size: int, num_heads: int, qkv_bias: bool = True):
+        """Initialize WindowAttention module.
+        
+        Args:
+            dim (int): Number of input channels.
+            window_size (int): Window size.
+            num_heads (int): Number of attention heads.
+            qkv_bias (bool): If True, add learnable bias to query, key, value.
+        """
+        super().__init__()
+        self.dim = dim
+        self.window_size = window_size
+        self.num_heads = num_heads
+        head_dim = dim // num_heads
+        self.scale = head_dim ** -0.5
+
+        # Define relative position bias table
+        self.relative_position_bias_table = nn.Parameter(
+            torch.zeros((2 * window_size - 1) * (2 * window_size - 1), num_heads)
+        )
+
+        # Get pair-wise relative position index
+        coords_h = torch.arange(window_size)
+        coords_w = torch.arange(window_size)
+        coords = torch.stack(torch.meshgrid([coords_h, coords_w], indexing='ij'))
+        coords_flatten = torch.flatten(coords, 1)
+        relative_coords = coords_flatten[:, :, None] - coords_flatten[:, None, :]
+        relative_coords = relative_coords.permute(1, 2, 0).contiguous()
+        relative_coords[:, :, 0] += window_size - 1
+        relative_coords[:, :, 1] += window_size - 1
+        relative_coords[:, :, 0] *= 2 * window_size - 1
+        relative_position_index = relative_coords.sum(-1)
+        self.register_buffer("relative_position_index", relative_position_index)
+
+        self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
+        self.proj = nn.Linear(dim, dim)
+
+        nn.init.trunc_normal_(self.relative_position_bias_table, std=0.02)
+
+    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:
+        """Forward pass for window attention.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (num_windows*B, N, C).
+            mask (torch.Tensor, optional): Attention mask.
+            
+        Returns:
+            (torch.Tensor): Output tensor of shape (num_windows*B, N, C).
+        """
+        B_, N, C = x.shape
+        qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+        q, k, v = qkv[0], qkv[1], qkv[2]
+
+        q = q * self.scale
+        attn = q @ k.transpose(-2, -1)
+
+        relative_position_bias = self.relative_position_bias_table[
+            self.relative_position_index.view(-1)
+        ].view(self.window_size * self.window_size, self.window_size * self.window_size, -1)
+        relative_position_bias = relative_position_bias.permute(2, 0, 1).contiguous()
+        attn = attn + relative_position_bias.unsqueeze(0)
+
+        if mask is not None:
+            nW = mask.shape[0]
+            attn = attn.view(B_ // nW, nW, self.num_heads, N, N) + mask.unsqueeze(1).unsqueeze(0)
+            attn = attn.view(-1, self.num_heads, N, N)
+
+        attn = F.softmax(attn, dim=-1)
+        x = (attn @ v).transpose(1, 2).reshape(B_, N, C)
+        return self.proj(x)
+
+
+class SwinTransformerBlock(nn.Module):
+    """Swin Transformer Block with Window-based Multi-head Self-Attention.
+    
+    Supports both regular and shifted window attention for cross-window connections.
+    
+    Attributes:
+        dim (int): Number of input channels.
+        num_heads (int): Number of attention heads.
+        window_size (int): Window size for attention.
+        shift_size (int): Shift size for SW-MSA (0 for W-MSA).
+        mlp_ratio (float): Ratio of mlp hidden dim to embedding dim.
+    """
+
+    def __init__(
+        self,
+        dim: int,
+        num_heads: int = 4,
+        window_size: int = 7,
+        shift_size: int = 0,
+        mlp_ratio: float = 4.0,
+    ):
+        """Initialize SwinTransformerBlock.
+        
+        Args:
+            dim (int): Number of input channels.
+            num_heads (int): Number of attention heads.
+            window_size (int): Window size.
+            shift_size (int): Shift size for cyclic shift. 0 for no shift.
+            mlp_ratio (float): Ratio of MLP hidden dim.
+        """
+        super().__init__()
+        self.dim = dim
+        self.num_heads = num_heads
+        self.window_size = window_size
+        self.shift_size = shift_size
+        self.mlp_ratio = mlp_ratio
+
+        self.norm1 = nn.LayerNorm(dim)
+        self.attn = WindowAttention(dim, window_size=window_size, num_heads=num_heads, qkv_bias=True)
+
+        self.norm2 = nn.LayerNorm(dim)
+        mlp_hidden_dim = int(dim * mlp_ratio)
+        self.mlp = nn.Sequential(
+            nn.Linear(dim, mlp_hidden_dim),
+            nn.GELU(),
+            nn.Linear(mlp_hidden_dim, dim),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through SwinTransformerBlock.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+            
+        Returns:
+            (torch.Tensor): Output tensor of shape (B, C, H, W).
+        """
+        B, C, H, W = x.shape
+        
+        # Pad if needed to be divisible by window_size
+        pad_h = (self.window_size - H % self.window_size) % self.window_size
+        pad_w = (self.window_size - W % self.window_size) % self.window_size
+        if pad_h > 0 or pad_w > 0:
+            x = F.pad(x, (0, pad_w, 0, pad_h))
+        _, _, Hp, Wp = x.shape
+        
+        # Convert to (B, H, W, C) for attention computations
+        x = x.permute(0, 2, 3, 1)
+        
+        shortcut = x
+        x = self.norm1(x)
+        
+        # Cyclic shift
+        if self.shift_size > 0:
+            shifted_x = torch.roll(x, shifts=(-self.shift_size, -self.shift_size), dims=(1, 2))
+        else:
+            shifted_x = x
+        
+        # Partition windows
+        x_windows = window_partition(shifted_x, self.window_size)
+        x_windows = x_windows.view(-1, self.window_size * self.window_size, C)
+        
+        # W-MSA/SW-MSA
+        attn_windows = self.attn(x_windows)
+        
+        # Merge windows
+        attn_windows = attn_windows.view(-1, self.window_size, self.window_size, C)
+        shifted_x = window_reverse(attn_windows, self.window_size, Hp, Wp)
+        
+        # Reverse cyclic shift
+        if self.shift_size > 0:
+            x = torch.roll(shifted_x, shifts=(self.shift_size, self.shift_size), dims=(1, 2))
+        else:
+            x = shifted_x
+        
+        # Residual connection
+        x = shortcut + x
+        
+        # FFN
+        x = x + self.mlp(self.norm2(x))
+        
+        # Remove padding
+        if pad_h > 0 or pad_w > 0:
+            x = x[:, :H, :W, :]
+        
+        # Convert back to (B, C, H, W)
+        return x.permute(0, 3, 1, 2).contiguous()
+
+
+class C2fSwin(nn.Module):
+    """C2f module variant using Swin Transformer blocks for backbone feature extraction.
+    
+    Combines the gradient flow benefits of C2f with Swin Transformer's
+    shifted window attention mechanism.
+    
+    Attributes:
+        c (int): Hidden channels.
+        cv1 (Conv): Initial 1x1 convolution.
+        cv2 (Conv): Final 1x1 convolution.
+        m (nn.ModuleList): List of SwinTransformerBlock modules.
+    """
+
+    def __init__(
+        self,
+        c1: int,
+        c2: int,
+        n: int = 1,
+        shortcut: bool = False,
+        g: int = 1,
+        e: float = 0.5,
+        window_size: int = 7,
+        num_heads: int = 4,
+    ):
+        """Initialize C2fSwin.
+        
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of SwinTransformerBlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+            window_size (int): Window size for Swin attention.
+            num_heads (int): Number of attention heads.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        
+        # Alternate between regular and shifted window attention
+        self.m = nn.ModuleList(
+            SwinTransformerBlock(
+                dim=self.c,
+                num_heads=max(self.c // 32, 1),
+                window_size=window_size,
+                shift_size=0 if i % 2 == 0 else window_size // 2,
+            )
+            for i in range(n)
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fSwin layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+    def forward_split(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass using split() instead of chunk()."""
+        y = list(self.cv1(x).split((self.c, self.c), 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+# ==============================================================================
+# timm-based Backbone Modules
+# Reference: https://github.com/huggingface/pytorch-image-models
+# ==============================================================================
+
+
+class TimmBackbone(nn.Module):
+    """Backbone wrapper using timm (PyTorch Image Models) library.
+    
+    This module allows using any timm model as a backbone for YOLO, with
+    multi-scale feature extraction for FPN/PAN neck architectures.
+    
+    Attributes:
+        model: The timm model instance.
+        out_indices: Indices of feature map outputs to use.
+        out_channels: List of output channel counts for each feature map.
+    
+    Examples:
+        >>> backbone = TimmBackbone('swin_tiny_patch4_window7_224', pretrained=True)
+        >>> x = torch.randn(1, 3, 640, 640)
+        >>> features = backbone(x)  # Returns list of feature maps
+    """
+
+    def __init__(
+        self,
+        model_name: str = 'swin_tiny_patch4_window7_224',
+        pretrained: bool = True,
+        out_indices: tuple = (1, 2, 3, 4),
+        features_only: bool = True,
+    ):
+        """Initialize TimmBackbone.
+        
+        Args:
+            model_name (str): Name of the timm model to use.
+            pretrained (bool): Whether to load pretrained weights.
+            out_indices (tuple): Indices of feature maps to output (1-indexed stages).
+            features_only (bool): Only return feature maps, not classification head.
+        """
+        super().__init__()
+        try:
+            import timm
+        except ImportError:
+            raise ImportError(
+                "timm is required for TimmBackbone. "
+                "Install with: pip install timm"
+            )
+        
+        self.model = timm.create_model(
+            model_name,
+            pretrained=pretrained,
+            features_only=features_only,
+            out_indices=out_indices,
+        )
+        
+        # Get output channel information
+        self.out_channels = self.model.feature_info.channels()
+        self.out_indices = out_indices
+        
+    def forward(self, x: torch.Tensor) -> list:
+        """Forward pass extracting multi-scale features.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+            
+        Returns:
+            (list[torch.Tensor]): List of feature maps at different scales.
+        """
+        return self.model(x)
+
+
+class SwinBackbone(nn.Module):
+    """Swin Transformer backbone using timm library with pre-trained weights.
+    
+    This is a convenience wrapper around timm's Swin Transformer, providing
+    P3, P4, P5 outputs for YOLO FPN/PAN neck architectures.
+    
+    Available model_name options (from timm):
+        - 'swin_tiny_patch4_window7_224': ~28M params
+        - 'swin_small_patch4_window7_224': ~50M params
+        - 'swin_base_patch4_window7_224': ~88M params
+        - 'swin_v2_tiny_window8_256': SwinV2 tiny
+        - 'swin_v2_small_window8_256': SwinV2 small
+        - 'convnext_tiny': ConvNeXt alternative
+        - 'efficientnet_b0': EfficientNet alternative
+    
+    Attributes:
+        backbone: timm model instance.
+        out_channels: Output channels for each stage.
+    """
+
+    def __init__(
+        self,
+        c1: int = 3,
+        c2: int = None, # Added c2 argument (output channels)
+        model_name: str = 'swin_tiny_patch4_window7_224',
+        pretrained: bool = True,
+        out_indices: tuple = (1, 2, 3),
+    ):
+        """Initialize SwinBackbone.
+        
+        Args:
+            c1 (int): Input channels (for YOLO compatibility, typically 3).
+            model_name (str): Full timm model name or shorthand ('tiny', 'small', 'base').
+            pretrained (bool): Whether to load pretrained weights.
+            out_indices (tuple): Which stages to output (0-indexed).
+        """
+        super().__init__()
+        
+        # Support shorthand names
+        model_map = {
+            'tiny': 'swin_tiny_patch4_window7_224',
+            'small': 'swin_small_patch4_window7_224',
+            'base': 'swin_base_patch4_window7_224',
+            'large': 'swin_large_patch4_window7_224',
+            'v2_tiny': 'swin_v2_tiny_window8_256',
+            'v2_small': 'swin_v2_small_window8_256',
+            'v2_base': 'swin_v2_base_window8_256',
+        }
+        
+        # Resolve model name
+        resolved_name = model_map.get(model_name, model_name)
+        
+        try:
+            import timm
+        except ImportError:
+            raise ImportError(
+                "timm is required for SwinBackbone. "
+                "Install with: pip install timm"
+            )
+        
+        self.backbone = timm.create_model(
+            resolved_name,
+            pretrained=pretrained,
+            features_only=True,
+            out_indices=out_indices,
+            strict_img_size=False,
+        )
+        
+        self.out_channels = self.backbone.feature_info.channels()
+        self.model_name = resolved_name
+        
+    def forward(self, x: torch.Tensor) -> list:
+        """Forward pass extracting multi-scale features.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+            
+        Returns:
+            (list[torch.Tensor]): Feature maps at specified scales.
+        """
+        outputs = self.backbone(x)
+        
+        # Swin Transformer from timm returns NHWC format, YOLO needs NCHW
+        # Check and permute if necessary
+        formatted_outputs = []
+        for i, out in enumerate(outputs):
+            # Check if last dimension matches expected channels (indicates NHWC format)
+            if out.ndim == 4 and out.shape[-1] == self.out_channels[i]:
+                 # NHWC (B, H, W, C) -> NCHW (B, C, H, W)
+                 out = out.permute(0, 3, 1, 2).contiguous()
+            formatted_outputs.append(out)
+            
+        return formatted_outputs
+
+
+class SwinStage(nn.Module):
+    """Single stage wrapper for Swin Transformer using timm.
+    
+    Extracts features at a specific stage, useful for mixing with
+    standard Conv layers in YOLO backbone.
+    
+    Attributes:
+        stage_idx: Index of the stage to extract (0-3).
+        proj: Optional projection layer to adjust output channels.
+    """
+
+    def __init__(
+        self,
+        c1: int,
+        c2: int,
+        variant: str = 'tiny',
+        stage_idx: int = 0,
+        pretrained: bool = True,
+    ):
+        """Initialize SwinStage.
+        
+        Args:
+            c1 (int): Input channels (for API compatibility, may be ignored).
+            c2 (int): Output channels.
+            variant (str): Swin variant: 'tiny', 'small', 'base'.
+            stage_idx (int): Stage index to extract (0-3).
+            pretrained (bool): Whether to load pretrained weights.
+        """
+        super().__init__()
+        
+        # Get the stage from timm model
+        try:
+            import timm
+        except ImportError:
+            raise ImportError(
+                "timm is required for SwinStage. "
+                "Install with: pip install timm"
+            )
+        
+        model_map = {
+            'tiny': 'swin_tiny_patch4_window7_224',
+            'small': 'swin_small_patch4_window7_224',
+            'base': 'swin_base_patch4_window7_224',
+        }
+        
+        model_name = model_map.get(variant, model_map['tiny'])
+        
+        # Load full model and extract the specific stage
+        full_model = timm.create_model(model_name, pretrained=pretrained, features_only=True)
+        stage_channels = full_model.feature_info.channels()
+        
+        self.stage_idx = stage_idx
+        self.backbone = full_model
+        
+        # Add projection if output channels don't match
+        stage_out = stage_channels[stage_idx] if stage_idx < len(stage_channels) else stage_channels[-1]
+        self.proj = Conv(stage_out, c2, 1) if stage_out != c2 else nn.Identity()
+        
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the Swin stage.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, C, H, W).
+
+        Returns:
+            (torch.Tensor): Feature map from the specified stage.
+        """
+        features = self.backbone(x)
+        idx = min(self.stage_idx, len(features) - 1)
+        return self.proj(features[idx])
+
+
+class CoordAtt(nn.Module):
+    """Coordinate Attention: factorizes global pooling into two 1D pooling operations along height
+    and width, encoding precise positional information into channel attention. Unlike SE/CBAM/GAM,
+    which discard spatial position when pooling, CoordAtt keeps a separate long-range descriptor per
+    axis, which helps discriminate small overlapping objects that differ mainly by position.
+
+    References:
+        https://arxiv.org/abs/2103.02907
+    """
+
+    def __init__(self, c1: int, c2: int | None = None, rate: int = 32):
+        """Initialize CoordAtt.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int | None): Output channels (defaults to c1 for plug-and-play passthrough).
+            rate (int): Channel reduction ratio.
+        """
+        super().__init__()
+        c2 = c2 or c1
+        self.pool_h = nn.AdaptiveAvgPool2d((None, 1))
+        self.pool_w = nn.AdaptiveAvgPool2d((1, None))
+        c_ = max(8, c1 // rate)
+        self.conv1 = Conv(c1, c_, 1, 1)
+        self.conv_h = nn.Conv2d(c_, c2, 1)
+        self.conv_w = nn.Conv2d(c_, c2, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply coordinate attention to input tensor."""
+        _, _, h, w = x.shape
+        x_h = self.pool_h(x)  # (B, C, H, 1)
+        x_w = self.pool_w(x).permute(0, 1, 3, 2)  # (B, C, W, 1)
+        y = self.conv1(torch.cat([x_h, x_w], dim=2))  # (B, C_, H+W, 1)
+        x_h, x_w = torch.split(y, [h, w], dim=2)
+        x_w = x_w.permute(0, 1, 3, 2)  # (B, C_, 1, W)
+        a_h = self.conv_h(x_h).sigmoid()  # (B, C2, H, 1)
+        a_w = self.conv_w(x_w).sigmoid()  # (B, C2, 1, W)
+        return x * a_h * a_w
+
+
+class NonLocalBlock(nn.Module):
+    """Non-local block: embedded-Gaussian self-attention over every spatial position, capturing
+    global dependencies (e.g. between distant but morphologically similar cells) that convolution's
+    local receptive field cannot. A bottleneck reduction keeps the extra compute small, and the
+    output projection is zero-initialized so the block starts as an identity mapping.
+
+    References:
+        https://arxiv.org/abs/1711.07971
+    """
+
+    def __init__(self, c1: int, c2: int | None = None, rate: int = 2):
+        """Initialize NonLocalBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int | None): Output channels (defaults to c1 for plug-and-play passthrough).
+            rate (int): Channel reduction ratio for the embedding space.
+        """
+        super().__init__()
+        c2 = c2 or c1
+        c_ = max(1, c1 // rate)
+        self.theta = nn.Conv2d(c1, c_, 1)
+        self.phi = nn.Conv2d(c1, c_, 1)
+        self.g = nn.Conv2d(c1, c_, 1)
+        self.out = nn.Sequential(nn.Conv2d(c_, c2, 1), nn.BatchNorm2d(c2))
+        nn.init.zeros_(self.out[1].weight)
+        nn.init.zeros_(self.out[1].bias)
+        self.shortcut = Conv(c1, c2, 1, act=False) if c1 != c2 else nn.Identity()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply non-local self-attention to input tensor."""
+        b, _, h, w = x.shape
+        n = h * w
+        theta = self.theta(x).view(b, -1, n).permute(0, 2, 1)  # (B, N, C_)
+        phi = self.phi(x).view(b, -1, n)  # (B, C_, N)
+        g = self.g(x).view(b, -1, n).permute(0, 2, 1)  # (B, N, C_)
+        attn = torch.softmax(torch.bmm(theta, phi) / (phi.shape[1] ** 0.5), dim=-1)  # (B, N, N)
+        y = torch.bmm(attn, g).permute(0, 2, 1).contiguous().view(b, -1, h, w)
+        return self.shortcut(x) + self.out(y)
+
+
+class Res2NetBlock(nn.Module):
+    """Res2Net-style residual bottleneck with hierarchical multi-scale connections.
+
+    Splits the bottleneck's hidden channels into `scale` groups and connects them in a cascading
+    residual fashion (each group processes the sum of itself and the previous group's output),
+    enlarging the range of effective receptive fields within a single block without extra 1x1
+    convs. Well suited to detecting objects of widely varying size (e.g. platelets vs. blast cells)
+    at a single feature-map scale.
+
+    References:
+        https://arxiv.org/abs/1904.01169
+    """
+
+    def __init__(self, c1: int, c2: int, scale: int = 4, e: float = 0.5):
+        """Initialize Res2NetBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            scale (int): Number of hierarchical scale groups.
+            e (float): Bottleneck expansion ratio.
+        """
+        super().__init__()
+        self.scale = max(scale, 1)
+        c_ = int(c2 * e)  # hidden channels
+        self.width = max(c_ // self.scale, 1)
+        self.cv1 = Conv(c1, self.width * self.scale, 1, 1)
+        self.m = nn.ModuleList(Conv(self.width, self.width, 3, 1) for _ in range(max(self.scale - 1, 0)))
+        self.cv2 = Conv(self.width * self.scale, c2, 1, 1)
+        self.add = c1 == c2
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the Res2Net block."""
+        xs = list(self.cv1(x).chunk(self.scale, 1))
+        ys = [xs[0]]
+        for i, conv in enumerate(self.m):
+            ys.append(conv(xs[i + 1] + ys[-1]))
+        y = self.cv2(torch.cat(ys, 1))
+        return x + y if self.add else y
+
+
+class C2fRes2(nn.Module):
+    """C2f module variant using Res2NetBlock for hierarchical multi-scale feature extraction.
+
+    Combines CSP-style partial gradient flow with Res2Net's multi-scale residual connections.
+    """
+
+    def __init__(
+        self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5, scale: int = 4
+    ):
+        """Initialize C2fRes2 module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of Res2NetBlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+            scale (int): Number of Res2Net hierarchical scale groups.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(Res2NetBlock(self.c, self.c, scale=scale) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fRes2 layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class ConvNeXtBlock(nn.Module):
+    """ConvNeXt block: large-kernel depthwise convolution + inverted-bottleneck MLP with GELU and a
+    learnable per-channel LayerScale, modernizing a plain CNN block with Transformer-inspired design
+    choices (large effective receptive field, channel-wise LayerNorm, 4x MLP expansion).
+
+    References:
+        https://arxiv.org/abs/2201.03545
+    """
+
+    def __init__(self, c1: int, c2: int, k: int = 7, e: float = 4.0, layer_scale: float = 1e-6):
+        """Initialize ConvNeXtBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            k (int): Depthwise convolution kernel size.
+            e (float): MLP expansion ratio.
+            layer_scale (float): Initial value for the learnable LayerScale parameter (<=0 disables it).
+        """
+        super().__init__()
+        self.dwconv = nn.Conv2d(c1, c1, k, 1, k // 2, groups=c1)
+        self.norm = LayerNorm2d(c1)
+        c_ = int(c1 * e)
+        self.pwconv1 = nn.Conv2d(c1, c_, 1)
+        self.act = nn.GELU()
+        self.pwconv2 = nn.Conv2d(c_, c2, 1)
+        self.gamma = nn.Parameter(layer_scale * torch.ones(c2)) if layer_scale > 0 else None
+        self.shortcut = Conv(c1, c2, 1, act=False) if c1 != c2 else nn.Identity()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the ConvNeXt block."""
+        y = self.pwconv2(self.act(self.pwconv1(self.norm(self.dwconv(x)))))
+        if self.gamma is not None:
+            y = self.gamma.view(1, -1, 1, 1) * y
+        return self.shortcut(x) + y
+
+
+class MBConv(nn.Module):
+    """MBConv: MobileNetV2/V3-style inverted residual bottleneck with an optional Squeeze-and-
+    Excitation gate. Expands channels with a 1x1 conv, mixes space with a depthwise conv, gates
+    channels via SE, then projects back down with a linear (no-activation) 1x1 conv.
+
+    References:
+        https://arxiv.org/abs/1801.04381 (MobileNetV2), https://arxiv.org/abs/1905.02244 (MobileNetV3)
+    """
+
+    def __init__(self, c1: int, c2: int, k: int = 3, s: int = 1, e: float = 4.0, se: bool = True):
+        """Initialize MBConv.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            k (int): Depthwise convolution kernel size.
+            s (int): Stride.
+            e (float): Channel expansion ratio.
+            se (bool): Whether to apply a Squeeze-and-Excitation gate.
+        """
+        super().__init__()
+        c_ = int(c1 * e)
+        self.expand = Conv(c1, c_, 1, 1) if e != 1 else nn.Identity()
+        self.dwconv = Conv(c_, c_, k, s, g=c_)
+        self.se_gate = (
+            nn.Sequential(
+                nn.AdaptiveAvgPool2d(1),
+                nn.Conv2d(c_, max(c_ // 4, 1), 1),
+                nn.SiLU(),
+                nn.Conv2d(max(c_ // 4, 1), c_, 1),
+                nn.Sigmoid(),
+            )
+            if se
+            else None
+        )
+        self.project = Conv(c_, c2, 1, 1, act=False)
+        self.add = s == 1 and c1 == c2
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the MBConv block."""
+        y = self.dwconv(self.expand(x))
+        if self.se_gate is not None:
+            y = y * self.se_gate(y)
+        y = self.project(y)
+        return x + y if self.add else y
+
+
+class C2fMBConv(nn.Module):
+    """C2f module variant using MBConv (inverted residual + SE) for mobile-efficient backbones."""
+
+    def __init__(
+        self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5, expand: float = 4.0
+    ):
+        """Initialize C2fMBConv module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of MBConv blocks.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+            expand (float): Inner MBConv channel expansion ratio.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(MBConv(self.c, self.c, e=expand) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fMBConv layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class GhostBottleneckV2(nn.Module):
+    """GhostNetV2 bottleneck: a standard GhostBottleneck augmented with a Decoupled Fully-Connected
+    (DFC) attention branch that cheaply approximates long-range spatial dependencies via a pair of
+    horizontal/vertical strip convolutions, gating the ghost feature branch multiplicatively.
+
+    References:
+        https://arxiv.org/abs/2211.12905
+    """
+
+    def __init__(self, c1: int, c2: int, k: int = 3, s: int = 1):
+        """Initialize GhostBottleneckV2.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            k (int): Depthwise kernel size for the main ghost branch.
+            s (int): Stride.
+        """
+        super().__init__()
+        c_ = c2 // 2
+        self.conv = nn.Sequential(
+            GhostConv(c1, c_, 1, 1),
+            DWConv(c_, c_, k, s, act=False) if s == 2 else nn.Identity(),
+            GhostConv(c_, c2, 1, 1, act=False),
+        )
+        self.shortcut = (
+            nn.Sequential(DWConv(c1, c1, k, s, act=False), Conv(c1, c2, 1, 1, act=False))
+            if s == 2
+            else Conv(c1, c2, 1, 1, act=False)
+            if c1 != c2
+            else nn.Identity()
+        )
+        self.dfc = nn.Sequential(
+            Conv(c1, c2, 1, s, act=False),
+            Conv(c2, c2, (1, 5), 1, g=c2, act=False),
+            Conv(c2, c2, (5, 1), 1, g=c2, act=False),
+            nn.Sigmoid(),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply skip connection, ghost branch and DFC attention gate to input tensor."""
+        return (self.conv(x) + self.shortcut(x)) * self.dfc(x)
+

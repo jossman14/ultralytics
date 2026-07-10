@@ -340,6 +340,17 @@ def model_info(model, detailed=False, verbose=True, imgsz=640):
     yaml_file = getattr(model, "yaml_file", "") or getattr(model, "yaml", {}).get("yaml_file", "")
     model_name = Path(yaml_file).stem.replace("yolo", "YOLO") or "Model"
     LOGGER.info(f"{model_name} summary{fused}: {n_l:,} layers, {n_p:,} parameters, {n_g:,} gradients{fs}")
+    
+    summary_str = f"{model_name} summary{fused}: {n_l:,} layers, {n_p:,} parameters, {n_g:,} gradients{fs}"
+
+    # Save to .txt file
+    txt_path = f"{model_name}.txt"
+    with open(txt_path, 'w') as f:
+        f.write(summary_str)
+
+    # Optional: also log to console
+    print(summary_str)
+    
     return n_l, n_p, n_g, flops
 
 

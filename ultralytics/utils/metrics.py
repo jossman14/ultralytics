@@ -639,26 +639,64 @@ def plot_pr_curve(
         names (dict[int, str], optional): Dictionary mapping class indices to class names.
         on_plot (callable, optional): Function to call after plot is saved.
     """
-    import matplotlib.pyplot as plt  # scope for faster 'import ultralytics'
+    """Plot precision-recall curve and save data to Excel."""
+    import matplotlib.pyplot as plt
+    import pandas as pd
 
     fig, ax = plt.subplots(1, 1, figsize=(9, 6), tight_layout=True)
-    py = np.stack(py, axis=1)
+    py = np.stack(py, axis=1)  # shape: (n_points, n_classes)
 
-    if 0 < len(names) < 21:  # display per-class legend if < 21 classes
+    # Prepare DataFrame for Excel
+    data_dict = {"Recall": px}
+
+    if 0 < len(names) < 21:
         for i, y in enumerate(py.T):
-            ax.plot(px, y, linewidth=1, label=f"{names[i]} {ap[i, 0]:.3f}")  # plot(recall, precision)
+            class_name = names.get(i, f"class_{i}")
+            label = f"{class_name} {ap[i, 0]:.3f}"
+            ax.plot(px, y, linewidth=1, label=label)
+            data_dict[class_name] = y
     else:
-        ax.plot(px, py, linewidth=1, color="gray")  # plot(recall, precision)
+        ax.plot(px, py, linewidth=1, color="gray")
+        for i, y in enumerate(py.T):
+            data_dict[f"class_{i}"] = y
 
-    ax.plot(px, py.mean(1), linewidth=3, color="blue", label=f"all classes {ap[:, 0].mean():.3f} mAP@0.5")
+    # Plot mean curve
+    mean_precision = py.mean(1)
+    mean_ap = ap[:, 0].mean()
+    ax.plot(px, mean_precision, linewidth=3, color="blue", label=f"all classes {mean_ap:.3f} mAP@0.5")
+    data_dict["mean_precision"] = mean_precision
+
+    # Add AP values as a separate row or column (optional: add to metadata sheet)
+    ap_series = {names.get(i, f"class_{i}"): ap[i, 0] for i in range(len(ap))} if names else {f"class_{i}": ap[i, 0] for i in range(len(ap))}
+    ap_series["mean_mAP@0.5"] = mean_ap
+
+    # Plot settings
     ax.set_xlabel("Recall")
     ax.set_ylabel("Precision")
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
     ax.set_title("Precision-Recall Curve")
+
+    # Save plot
     fig.savefig(save_dir, dpi=250)
     plt.close(fig)
+
+    # Save data to Excel
+    excel_path = save_dir.with_suffix(".xlsx")
+    df = pd.DataFrame(data_dict)
+
+    with pd.ExcelWriter(excel_path, engine='openpyxl') as writer:
+        df.to_excel(writer, sheet_name='PR_Curve_Data', index=False)
+
+        # Optional: Save AP values in a separate sheet
+        ap_df = pd.DataFrame([ap_series], index=["AP@0.5"]).T.reset_index()
+        ap_df.columns = ["Class", "AP@0.5"]
+        ap_df.to_excel(writer, sheet_name='AP_Values', index=False)
+
+    print(f"✅ PR curve plot saved to: {save_dir}")
+    print(f"📊 PR curve data saved to: {excel_path}")
+
     if on_plot:
         on_plot(save_dir)
 
@@ -673,6 +711,8 @@ def plot_mc_curve(
     ylabel: str = "Metric",
     on_plot=None,
 ):
+    
+    """Plot metric-confidence curve and save data to Excel."""
     """Plot metric-confidence curve.
 
     Args:
@@ -684,26 +724,48 @@ def plot_mc_curve(
         ylabel (str, optional): Y-axis label.
         on_plot (callable, optional): Function to call after plot is saved.
     """
-    import matplotlib.pyplot as plt  # scope for faster 'import ultralytics'
+    import matplotlib.pyplot as plt
+    import pandas as pd
 
     fig, ax = plt.subplots(1, 1, figsize=(9, 6), tight_layout=True)
 
-    if 0 < len(names) < 21:  # display per-class legend if < 21 classes
-        for i, y in enumerate(py):
-            ax.plot(px, y, linewidth=1, label=f"{names[i]}")  # plot(confidence, metric)
-    else:
-        ax.plot(px, py.T, linewidth=1, color="gray")  # plot(confidence, metric)
+    # Prepare DataFrame for Excel export
+    data_dict = {"Confidence": px}
 
-    y = smooth(py.mean(0), 0.1)
-    ax.plot(px, y, linewidth=3, color="blue", label=f"all classes {y.max():.2f} at {px[y.argmax()]:.3f}")
+    if 0 < len(names) < 21:
+        for i, y in enumerate(py):
+            label = names.get(i, f"class_{i}")
+            ax.plot(px, y, linewidth=1, label=label)
+            data_dict[label] = y
+    else:
+        ax.plot(px, py.T, linewidth=1, color="gray")
+        # Still save individual class metrics if needed (optional)
+        for i, y in enumerate(py):
+            data_dict[f"class_{i}"] = y
+
+    # Compute and plot mean curve
+    smoothed_mean = smooth(py.mean(0), 0.1)
+    ax.plot(px, smoothed_mean, linewidth=3, color="blue", label=f"all classes {smoothed_mean.max():.2f} at {px[smoothed_mean.argmax()]:.3f}")
+    data_dict["mean_smoothed"] = smoothed_mean
+    data_dict["mean_raw"] = py.mean(0)
+
+    # Plot settings
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_xlim(0, 1)
     ax.set_ylim(0, 1)
     ax.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
     ax.set_title(f"{ylabel}-Confidence Curve")
+
+    # Save plot
     fig.savefig(save_dir, dpi=250)
     plt.close(fig)
+
+    # Save data to Excel
+    excel_path = save_dir.with_suffix(".xlsx")
+    df = pd.DataFrame(data_dict)
+    df.to_excel(excel_path, index=False)
+
     if on_plot:
         on_plot(save_dir)
 
@@ -1158,7 +1220,9 @@ class DetMetrics(SimpleClass, DataExportMixin):
             "Box-R": self.box.r,
             "Box-F1": self.box.f1,
         }
-        return [
+
+        # Generate list of dicts
+        summary_list = [
             {
                 "Class": self.names[self.ap_class_index[i]],
                 "Images": self.nt_per_image[self.ap_class_index[i]],
@@ -1169,6 +1233,15 @@ class DetMetrics(SimpleClass, DataExportMixin):
             }
             for i in range(len(per_class["Box-P"]))
         ]
+
+        # Save to Excel if requested
+        save_to_excel = "metrics_summary.xlsx"
+        if save_to_excel:
+            df = pd.DataFrame(summary_list)
+            df.to_excel(save_to_excel, index=False, engine='openpyxl')
+            print(f"✅ Summary saved to {save_to_excel}")
+
+        return summary_list
 
 
 class SegmentMetrics(DetMetrics):
