@@ -1879,19 +1879,15 @@ class LEDHead(Detect):
             ) for _ in ch
         )
 
-    def forward(self, x: list[torch.Tensor]) -> list[torch.Tensor] | tuple:
+    def forward(self, x: list[torch.Tensor]) -> dict[str, torch.Tensor] | tuple:
         """Forward pass with shared group convolutions."""
         # Align channels and apply shared convolution
         aligned = [self.shared_conv(self.align[i](x[i])) for i in range(self.nl)]
-        
-        # Apply detection heads
-        for i in range(self.nl):
-            x[i] = torch.cat((self.cv2[i](aligned[i]), self.cv3[i](aligned[i])), 1)
-        
+        preds = self.forward_head(aligned, box_head=self.cv2, cls_head=self.cv3)
         if self.training:
-            return x
-        y = self._inference(x)
-        return y if self.export else (y, x)
+            return preds
+        y = self._inference(preds)
+        return y if self.export else (y, preds)
 
 
 class SemanticSegment(nn.Module):
