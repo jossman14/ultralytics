@@ -172,6 +172,8 @@ weights/
 !requirements*.txt
 !**/requirements*.txt
 *.cache
+*.ipynb
+*.lock
 *.aux
 *.bbl
 *.blg
