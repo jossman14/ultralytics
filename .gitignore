@@ -177,6 +177,7 @@ weights/
 *.aux
 *.bbl
 *.blg
+*.synctex.gz
 *.spl
 *.typed
 data/
