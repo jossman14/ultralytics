@@ -46,8 +46,18 @@ from ultralytics.nn.modules import (
     NonLocalBlock,
     Res2NetBlock,
     ConvNeXtBlock,
+    C2fConvNeXt,
     MBConv,
     GhostBottleneckV2,
+    C2fGhostV2,
+    SimAM,
+    EMA,
+    SEBlock,
+    ResNeXtBlock,
+    C2fResNeXt,
+    ShuffleNetV2Block,
+    C2fShuffle,
+    MobileViTBlock,
     CBAM,
     CFCGLU,
     C2fPSA,
@@ -1953,8 +1963,15 @@ def parse_model(d, ch, verbose=True):
             C2fMBConv,
             Res2NetBlock,
             ConvNeXtBlock,
+            C2fConvNeXt,
             MBConv,
             GhostBottleneckV2,
+            C2fGhostV2,
+            ResNeXtBlock,
+            C2fResNeXt,
+            ShuffleNetV2Block,
+            C2fShuffle,
+            MobileViTBlock,
             CFCGLU,
             StarBlock,
             SwinBackbone,
@@ -1991,6 +2008,10 @@ def parse_model(d, ch, verbose=True):
             C2fSwin,
             C2fRes2,
             C2fMBConv,
+            C2fConvNeXt,
+            C2fGhostV2,
+            C2fResNeXt,
+            C2fShuffle,
             CFCGLU,
             C2PSA,
             A2C2f,
@@ -2109,6 +2130,18 @@ def parse_model(d, ch, verbose=True):
             c2 = c1  # passthrough channel
             args = [c1, *args]  # prepend c1 to args
         elif m is NonLocalBlock:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is SimAM:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel (parameter-free, needs no args)
+            args = [c1, *args]
+        elif m is EMA:
+            c1 = ch[f]
+            c2 = c1  # passthrough channel
+            args = [c1, *args]  # prepend c1 to args
+        elif m is SEBlock:
             c1 = ch[f]
             c2 = c1  # passthrough channel
             args = [c1, *args]  # prepend c1 to args

@@ -1,0 +1,57 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+#
+# YOLOv8-Hematology-v3: successor to yolov8-hematology-v2.yaml.
+# Same SPDConv + C2fMSA backbone with GAM_Attention bottleneck context (preserves fine
+# detail, multi-scale attention, global context before SPPF). The neck is upgraded to a
+# fully C2fRes2 (Res2Net hierarchical multi-scale residual) FPN/PAN, and v2's single
+# CoordAtt gate is replaced with a chained SimAM -> EMA dual attention on every scale.
+
+nc: 80 # number of classes
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024] # YOLOv8n-hematology-v3
+  s: [0.33, 0.50, 1024] # YOLOv8s-hematology-v3
+  m: [0.67, 0.75, 768]  # YOLOv8m-hematology-v3
+  l: [1.00, 1.00, 512]  # YOLOv8l-hematology-v3
+  x: [1.00, 1.25, 512]  # YOLOv8x-hematology-v3
+
+# YOLOv8-Hematology-v3 backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]]      # 0-P1/2 (stem layer)
+  - [-1, 1, SPDConv, [128]]        # 1-P2/4 (preserve fine details)
+  - [-1, 3, C2f, [128, True]]
+  - [-1, 1, SPDConv, [256]]        # 3-P3/8
+  - [-1, 6, C2f, [256, True]]
+  - [-1, 1, SPDConv, [512]]        # 5-P4/16
+  - [-1, 6, C2fMSA, [512, True]]   # 6-Multi-scale attention for medium cells
+  - [-1, 1, SPDConv, [1024]]       # 7-P5/32
+  - [-1, 3, C2fMSA, [1024, True]]  # 8-Multi-scale attention for large cells
+  - [-1, 1, GAM_Attention, []]     # 9-Global attention for context
+  - [-1, 1, SPPF, [1024, 5]]       # 10
+
+# YOLOv8-Hematology-v3 head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]]      # cat backbone P4
+  - [-1, 3, C2fRes2, [512]]        # 13
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]]      # cat backbone P3
+  - [-1, 3, C2fRes2, [256]]        # 16 (P3/8-small cells: platelets, parasites)
+
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 13], 1, Concat, [1]]     # cat head P4
+  - [-1, 3, C2fRes2, [512]]        # 19 (P4/16-medium cells: RBC, lymphocytes)
+
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 10], 1, Concat, [1]]     # cat head P5
+  - [-1, 3, C2fRes2, [1024]]       # 22 (P5/32-large cells: monocytes, WBC)
+
+  - [16, 1, SimAM, []]             # 23 SimAM on P3
+  - [23, 1, EMA, []]               # 24 EMA on P3
+  - [19, 1, SimAM, []]             # 25 SimAM on P4
+  - [25, 1, EMA, []]               # 26 EMA on P4
+  - [22, 1, SimAM, []]             # 27 SimAM on P5
+  - [27, 1, EMA, []]               # 28 EMA on P5
+  - [[24, 26, 28], 1, Detect, [nc]] # Detect(P3, P4, P5)

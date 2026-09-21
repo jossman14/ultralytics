@@ -160,6 +160,15 @@ wandb/
 weights/
 *.weights
 *.pt
+*.pth
+*.onnx
+*.zip
+*.tar.gz
+*.xlsx
+*.csv
+data/
+TOP10_WEIGHTS/
+*.comet.config
 *.ts
 *.pb
 *.onnx

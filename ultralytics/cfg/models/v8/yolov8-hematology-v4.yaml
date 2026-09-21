@@ -1,0 +1,59 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+#
+# YOLOv8-Hematology-v4: successor to yolov8-hematology-v3.yaml.
+# SPDConv (space-to-depth) downsamplers preserve fine detail for tiny cells. C2fMSA
+# (multi-scale attention) handles P2/P3 for small-object morphology, while C2fResNeXt
+# (cardinality-grouped convolutions) takes over at P4/P5 for higher-capacity deep features.
+# GAM_Attention injects global context immediately before SPPF (as in v2/v3), the neck is
+# fully C2fRes2 (Res2Net hierarchical multi-scale residual) FPN/PAN, and v3's SimAM->EMA
+# chain is replaced with a chained SEBlock->EMA dual attention on every detection scale.
+
+nc: 80 # number of classes
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024] # YOLOv8n-hematology-v4
+  s: [0.33, 0.50, 1024] # YOLOv8s-hematology-v4
+  m: [0.67, 0.75, 768]  # YOLOv8m-hematology-v4
+  l: [1.00, 1.00, 512]  # YOLOv8l-hematology-v4
+  x: [1.00, 1.25, 512]  # YOLOv8x-hematology-v4
+
+# YOLOv8-Hematology-v4 backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]]        # 0-P1/2 (stem layer)
+  - [-1, 1, SPDConv, [128]]          # 1-P2/4 (preserve fine details)
+  - [-1, 3, C2fMSA, [128, True]]
+  - [-1, 1, SPDConv, [256]]          # 3-P3/8
+  - [-1, 6, C2fMSA, [256, True]]     # 4-Multi-scale attention for small cells
+  - [-1, 1, SPDConv, [512]]          # 5-P4/16
+  - [-1, 6, C2fResNeXt, [512, True]] # 6-Cardinality-grouped convs for medium cells
+  - [-1, 1, SPDConv, [1024]]         # 7-P5/32
+  - [-1, 3, C2fResNeXt, [1024, True]] # 8-Cardinality-grouped convs for large cells
+  - [-1, 1, GAM_Attention, []]       # 9-Global attention for context
+  - [-1, 1, SPPF, [1024, 5]]         # 10
+
+# YOLOv8-Hematology-v4 head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]]      # cat backbone P4
+  - [-1, 3, C2fRes2, [512]]        # 13
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]]      # cat backbone P3
+  - [-1, 3, C2fRes2, [256]]        # 16 (P3/8-small cells: platelets, parasites)
+
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 13], 1, Concat, [1]]     # cat head P4
+  - [-1, 3, C2fRes2, [512]]        # 19 (P4/16-medium cells: RBC, lymphocytes)
+
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 10], 1, Concat, [1]]     # cat head P5
+  - [-1, 3, C2fRes2, [1024]]       # 22 (P5/32-large cells: monocytes, WBC)
+
+  - [16, 1, SEBlock, []]           # 23 SE on P3
+  - [23, 1, EMA, []]               # 24 EMA on P3
+  - [19, 1, SEBlock, []]           # 25 SE on P4
+  - [25, 1, EMA, []]               # 26 EMA on P4
+  - [22, 1, SEBlock, []]           # 27 SE on P5
+  - [27, 1, EMA, []]               # 28 EMA on P5
+  - [[24, 26, 28], 1, Detect, [nc]] # Detect(P3, P4, P5)

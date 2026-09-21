@@ -1,0 +1,44 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+# YOLO26-ConvNeXt-NonLocal-C2PSA
+# ConvNeXt backbone with a NonLocalBlock at the P5 bottleneck (global self-attention where
+# the feature map is small) stacked with YOLO26's native C2PSA area attention.
+nc: 80 # number of classes
+end2end: True # NMS-free end-to-end detection
+reg_max: 1 # DFL bins
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.50, 0.25, 1024]
+  s: [0.50, 0.50, 1024]
+  m: [0.50, 1.00, 512]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.50, 512]
+
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]] # 0-P1/2 (stem)
+  - [-1, 1, Conv, [128, 3, 2]] # 1-P2/4
+  - [-1, 2, ConvNeXtBlock, [128]]
+  - [-1, 1, Conv, [256, 3, 2]] # 3-P3/8
+  - [-1, 2, ConvNeXtBlock, [256]]
+  - [-1, 1, Conv, [512, 3, 2]] # 5-P4/16
+  - [-1, 2, ConvNeXtBlock, [512]]
+  - [-1, 1, Conv, [1024, 3, 2]] # 7-P5/32
+  - [-1, 2, ConvNeXtBlock, [1024]]
+  - [-1, 1, NonLocalBlock, []] # 9 - bottleneck attention/context
+  - [-1, 1, SPPF, [1024, 5, 3, True]]
+  - [-1, 2, C2PSA, [1024]] # 11 - YOLO26 native area attention
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]] # 13 cat backbone P4
+  - [-1, 2, C3k2, [512, True]]
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]] # 16 cat backbone P3
+  - [-1, 2, C3k2, [256, True]] # 17 (P3/8-small)
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 14], 1, Concat, [1]] # 19 cat head P4
+  - [-1, 2, C3k2, [512, True]] # 20 (P4/16-medium)
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 11], 1, Concat, [1]] # 22 cat head P5
+  - [-1, 1, C3k2, [1024, True]] # 23 (P5/32-large)
+  - [[17, 20, 23], 1, Detect, [nc]] # 24 Detect(P3, P4, P5)

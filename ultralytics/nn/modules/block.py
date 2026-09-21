@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -43,9 +44,19 @@ __all__ = (
     "Res2NetBlock",
     "C2fRes2",
     "ConvNeXtBlock",
+    "C2fConvNeXt",
     "MBConv",
     "C2fMBConv",
     "GhostBottleneckV2",
+    "C2fGhostV2",
+    "SimAM",
+    "EMA",
+    "SEBlock",
+    "ResNeXtBlock",
+    "C2fResNeXt",
+    "ShuffleNetV2Block",
+    "C2fShuffle",
+    "MobileViTBlock",
     "StarBlock",
     "SwinTransformerBlock",
     "TimmBackbone",
@@ -3591,3 +3602,335 @@ class RealNVP(nn.Module):
             self.float()
         z, log_det = self.backward_p(x)
         return self.prior.log_prob(z) + log_det
+
+
+class SimAM(nn.Module):
+    """SimAM: a Simple, Parameter-Free Attention Module.
+
+    Derives 3D attention weights from an energy function measuring neuron distinctiveness —
+    zero learnable parameters, negligible compute, works at any channel width. Ideal for
+    stacking on lightweight backbones where every parameter counts.
+
+    References:
+        http://proceedings.mlr.press/v139/yang21o/yang21o.pdf
+    """
+
+    def __init__(self, c1: int = None, c2: int = None, e_lambda: float = 1e-4):
+        """Initialize SimAM.
+
+        Args:
+            c1 (int | None): Input channels (unused, kept for parse_model API symmetry).
+            c2 (int | None): Output channels (unused; passthrough).
+            e_lambda (float): Regularization constant in the energy function.
+        """
+        super().__init__()
+        self.e_lambda = e_lambda
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply parameter-free 3D attention to input tensor."""
+        _, _, h, w = x.shape
+        n = h * w - 1
+        d = (x - x.mean(dim=[2, 3], keepdim=True)).pow(2)
+        v = d.sum(dim=[2, 3], keepdim=True) / n
+        e_inv = d / (4 * (v + self.e_lambda)) + 0.5
+        return x * torch.sigmoid(e_inv)
+
+
+class EMA(nn.Module):
+    """Efficient Multi-scale Attention (EMA) with cross-spatial learning.
+
+    Groups channels, then combines per-group 1D directional pooling (as in CoordAtt) with a
+    parallel 3x3 branch, fusing the two via cross-spatial softmax-weighted aggregation. Captures
+    both channel dependencies and multi-scale spatial structure at near-ECA cost.
+
+    References:
+        https://arxiv.org/abs/2305.13563
+    """
+
+    def __init__(self, c1: int, c2: int = None, factor: int = 8):
+        """Initialize EMA.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int | None): Output channels (unused; passthrough).
+            factor (int): Number of channel groups.
+        """
+        super().__init__()
+        self.groups = max(1, min(factor, c1 // 8)) if c1 >= 8 else 1
+        assert c1 % self.groups == 0
+        cg = c1 // self.groups
+        self.softmax = nn.Softmax(-1)
+        self.agp = nn.AdaptiveAvgPool2d((1, 1))
+        self.pool_h = nn.AdaptiveAvgPool2d((None, 1))
+        self.pool_w = nn.AdaptiveAvgPool2d((1, None))
+        self.gn = nn.GroupNorm(cg, cg)
+        self.conv1x1 = nn.Conv2d(cg, cg, 1)
+        self.conv3x3 = nn.Conv2d(cg, cg, 3, padding=1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply efficient multi-scale attention to input tensor."""
+        b, c, h, w = x.shape
+        gx = x.reshape(b * self.groups, -1, h, w)  # (b*g, cg, h, w)
+        x_h = self.pool_h(gx)  # (b*g, cg, h, 1)
+        x_w = self.pool_w(gx).permute(0, 1, 3, 2)  # (b*g, cg, w, 1)
+        hw = self.conv1x1(torch.cat([x_h, x_w], dim=2))
+        x_h, x_w = torch.split(hw, [h, w], dim=2)
+        x1 = self.gn(gx * x_h.sigmoid() * x_w.permute(0, 1, 3, 2).sigmoid())
+        x2 = self.conv3x3(gx)
+        x11 = self.softmax(self.agp(x1).reshape(b * self.groups, -1, 1).permute(0, 2, 1))
+        x12 = x2.reshape(b * self.groups, c // self.groups, -1)
+        x21 = self.softmax(self.agp(x2).reshape(b * self.groups, -1, 1).permute(0, 2, 1))
+        x22 = x1.reshape(b * self.groups, c // self.groups, -1)
+        weights = (torch.matmul(x11, x12) + torch.matmul(x21, x22)).reshape(b * self.groups, 1, h, w)
+        return (gx * weights.sigmoid()).reshape(b, c, h, w)
+
+
+class C2fConvNeXt(nn.Module):
+    """C2f module variant using ConvNeXtBlock: CSP-style partial gradient flow around
+    large-kernel depthwise + inverted-MLP ConvNeXt blocks."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fConvNeXt module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of ConvNeXtBlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(ConvNeXtBlock(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fConvNeXt layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class C2fGhostV2(nn.Module):
+    """C2f module variant using GhostBottleneckV2 (ghost conv + DFC long-range attention):
+    CSP-style partial gradient flow around GhostNetV2 bottlenecks."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fGhostV2 module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of GhostBottleneckV2 modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(GhostBottleneckV2(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fGhostV2 layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class SEBlock(nn.Module):
+    """Squeeze-and-Excitation block: channel-wise feature recalibration via global average
+    pooling followed by a bottleneck MLP gate.
+
+    References:
+        https://arxiv.org/abs/1709.01507
+    """
+
+    def __init__(self, c1: int, c2: int = None, rate: int = 16):
+        """Initialize SEBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int | None): Output channels (unused; passthrough).
+            rate (int): Channel reduction ratio.
+        """
+        super().__init__()
+        c_ = max(c1 // rate, 4)
+        self.fc = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1),
+            nn.Conv2d(c1, c_, 1),
+            nn.SiLU(),
+            nn.Conv2d(c_, c1, 1),
+            nn.Sigmoid(),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply squeeze-and-excitation gating to input tensor."""
+        return x * self.fc(x)
+
+
+class ResNeXtBlock(nn.Module):
+    """ResNeXt bottleneck: aggregated residual transformations via grouped convolution
+    (cardinality), widening representational subspaces at constant cost.
+
+    References:
+        https://arxiv.org/abs/1611.05431
+    """
+
+    def __init__(self, c1: int, c2: int, groups: int = 32, e: float = 0.5):
+        """Initialize ResNeXtBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            groups (int): Cardinality (number of conv groups).
+            e (float): Bottleneck expansion ratio.
+        """
+        super().__init__()
+        c_ = int(c2 * e)
+        g = math.gcd(groups, c_) or 1
+        self.cv1 = Conv(c1, c_, 1, 1)
+        self.cv2 = Conv(c_, c_, 3, 1, g=g)
+        self.cv3 = Conv(c_, c2, 1, 1, act=False)
+        self.shortcut = Conv(c1, c2, 1, 1, act=False) if c1 != c2 else nn.Identity()
+        self.act = nn.SiLU()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through the ResNeXt block."""
+        return self.act(self.cv3(self.cv2(self.cv1(x))) + self.shortcut(x))
+
+
+class C2fResNeXt(nn.Module):
+    """C2f module variant using ResNeXtBlock: CSP-style partial gradient flow around
+    cardinality-grouped residual bottlenecks."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fResNeXt module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of ResNeXtBlock modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(ResNeXtBlock(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fResNeXt layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+def channel_shuffle(x: torch.Tensor, groups: int) -> torch.Tensor:
+    """Rearrange channels across groups so information flows between grouped convs (ShuffleNet)."""
+    b, c, h, w = x.shape
+    return x.view(b, groups, c // groups, h, w).transpose(1, 2).contiguous().view(b, c, h, w)
+
+
+class ShuffleNetV2Block(nn.Module):
+    """ShuffleNetV2 unit (stride 1): channel split, one branch passes through, the other runs
+    1x1 -> 3x3 depthwise -> 1x1, then concat + channel shuffle for cross-group information flow.
+
+    References:
+        https://arxiv.org/abs/1807.11164
+    """
+
+    def __init__(self, c1: int, c2: int):
+        """Initialize ShuffleNetV2Block.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+        """
+        super().__init__()
+        self.proj = Conv(c1, c2, 1, 1) if c1 != c2 else nn.Identity()
+        c_ = c2 // 2
+        self.branch = nn.Sequential(
+            Conv(c_, c_, 1, 1),
+            DWConv(c_, c_, 3, 1, act=False),
+            Conv(c_, c_, 1, 1),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass with channel split, branch transform, concat and shuffle."""
+        x = self.proj(x)
+        a, b = x.chunk(2, 1)
+        return channel_shuffle(torch.cat((a, self.branch(b)), 1), 2)
+
+
+class C2fShuffle(nn.Module):
+    """C2f module variant using ShuffleNetV2Block: CSP-style partial gradient flow around
+    channel-shuffled depthwise units."""
+
+    def __init__(self, c1: int, c2: int, n: int = 1, shortcut: bool = False, g: int = 1, e: float = 0.5):
+        """Initialize C2fShuffle module.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of ShuffleNetV2Block modules.
+            shortcut (bool): Not used, kept for API compatibility.
+            g (int): Not used, kept for API compatibility.
+            e (float): Expansion ratio for hidden channels.
+        """
+        super().__init__()
+        self.c = int(c2 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv((2 + n) * self.c, c2, 1)
+        self.m = nn.ModuleList(ShuffleNetV2Block(self.c, self.c) for _ in range(n))
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass through C2fShuffle layer."""
+        y = list(self.cv1(x).chunk(2, 1))
+        y.extend(m(y[-1]) for m in self.m)
+        return self.cv2(torch.cat(y, 1))
+
+
+class MobileViTBlock(nn.Module):
+    """MobileViT block: local convolutional encoding followed by patch-wise Transformer global
+    processing, then a fusion conv over the concatenated local+global features. Lightweight
+    conv-transformer hybrid designed for mobile deployment.
+
+    References:
+        https://arxiv.org/abs/2110.02178
+    """
+
+    def __init__(self, c1: int, c2: int, n: int = 2, patch: int = 2, num_heads: int = 4):
+        """Initialize MobileViTBlock.
+
+        Args:
+            c1 (int): Input channels.
+            c2 (int): Output channels.
+            n (int): Number of Transformer layers.
+            patch (int): Patch size for unfolding (input H/W must be divisible by patch).
+            num_heads (int): Attention heads.
+        """
+        super().__init__()
+        self.patch = patch
+        self.local = nn.Sequential(Conv(c1, c1, 3, 1, g=math.gcd(c1, c1)), Conv(c1, c1, 1, 1))
+        self.transformer = TransformerBlock(c1, c1, num_heads, n)
+        self.fuse = Conv(2 * c1, c2, 3, 1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Apply local conv encoding, patch-wise global transformer, and fusion."""
+        res = x
+        y = self.local(x)
+        b, c, h, w = y.shape
+        p = self.patch
+        ph, pw = h // p, w // p
+        # unfold into (b*p*p, c, ph, pw): each grid offset becomes a batch item, transformer
+        # mixes across the ph*pw patch positions => global receptive field at low cost
+        y = y.view(b, c, ph, p, pw, p).permute(0, 3, 5, 1, 2, 4).reshape(b * p * p, c, ph, pw)
+        y = self.transformer(y)
+        y = y.reshape(b, p, p, c, ph, pw).permute(0, 3, 4, 1, 5, 2).reshape(b, c, h, w)
+        return self.fuse(torch.cat((res, y), 1))

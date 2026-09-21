@@ -1,0 +1,49 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+# YOLO26-MBConv-SimAM-LEDHead
+# Efficient MBConv backbone (C2fMBConv) + PCE bottleneck context + this project's CAPFFN
+# neck (FBM/CFCGLU) + parameter-free SimAM attention gating each LEDHead input.
+# LEDHead predates end2end dual-assignment, so this variant intentionally skips it for
+# maximum inference efficiency (single lightweight shared-conv head, classic NMS).
+nc: 80 # number of classes
+reg_max: 16 # DFL bins
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.50, 0.25, 1024]
+  s: [0.50, 0.50, 1024]
+  m: [0.50, 1.00, 512]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.50, 512]
+
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]] # 0-P1/2 (stem)
+  - [-1, 1, Conv, [128, 3, 2]] # 1-P2/4
+  - [-1, 2, C2fMBConv, [128, True]]
+  - [-1, 1, Conv, [256, 3, 2]] # 3-P3/8
+  - [-1, 2, C2fMBConv, [256, True]]
+  - [-1, 1, Conv, [512, 3, 2]] # 5-P4/16
+  - [-1, 2, C2fMBConv, [512, True]]
+  - [-1, 1, Conv, [1024, 3, 2]] # 7-P5/32
+  - [-1, 2, C2fMBConv, [1024, True]]
+  - [-1, 1, PCE, [1024]] # 9 - bottleneck attention/context
+  - [-1, 1, SPPF, [1024, 5, 3, True]]
+
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]] # 12 cat backbone P4
+  - [-1, 1, FBM, [512]] # 13 - FuseBlockMulti
+  - [-1, 2, CFCGLU, [512]]
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]] # 16 cat backbone P3
+  - [-1, 1, FBM, [256]] # 17 - FuseBlockMulti
+  - [-1, 2, CFCGLU, [256]] # 18 (P3/8-small)
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 14], 1, Concat, [1]] # 20 cat head P4
+  - [-1, 2, CFCGLU, [512]] # 21 (P4/16-medium)
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 10], 1, Concat, [1]] # 23 cat head P5
+  - [-1, 2, CFCGLU, [1024]] # 24 (P5/32-large)
+  - [18, 1, SimAM, []] # 25 SimAM on P3
+  - [21, 1, SimAM, []] # 26 SimAM on P4
+  - [24, 1, SimAM, []] # 27 SimAM on P5
+  - [[25, 26, 27], 1, LEDHead, [nc]] # 28 LEDHead(P3, P4, P5)

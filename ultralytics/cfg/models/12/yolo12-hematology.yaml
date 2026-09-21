@@ -1,0 +1,55 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLO12-Hematology: SPDConv (space-to-depth) downsamplers for fine detail on tiny blood
+# cells, C2fMSA (multi-scale PSABlock attention) shallow (P2/P3) stages, native A2C2f
+# attention at P4/P5, C2fRes2 (multi-scale residual) in the P3/P4 neck (upward) head
+# stages while keeping the P4/P5 downward head stages in native A2C2f/C3k2 style, plus
+# CoordAtt coordinate attention on all 3 head scale outputs.
+# Model docs: https://docs.ultralytics.com/models/yolo12
+# Task docs: https://docs.ultralytics.com/tasks/detect
+
+# Parameters
+nc: 80 # number of classes
+scales: # model compound scaling constants, i.e. 'model=yolo12n-hematology.yaml' will call this yaml with scale 'n'
+  # [depth, width, max_channels]
+  n: [0.50, 0.25, 1024]
+  s: [0.50, 0.50, 1024]
+  m: [0.50, 1.00, 512]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.50, 512]
+
+# YOLO12-Hematology backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, SPDConv, [64, 3, 2]] # 0-P1/2
+  - [-1, 1, SPDConv, [128, 3, 2]] # 1-P2/4
+  - [-1, 2, C2fMSA, [256, False]]
+  - [-1, 1, SPDConv, [256, 3, 2]] # 3-P3/8
+  - [-1, 2, C2fMSA, [512, False]]
+  - [-1, 1, SPDConv, [512, 3, 2]] # 5-P4/16
+  - [-1, 4, A2C2f, [512, True, 4]]
+  - [-1, 1, SPDConv, [1024, 3, 2]] # 7-P5/32
+  - [-1, 4, A2C2f, [1024, True, 1]] # 8
+
+# YOLO12-Hematology head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]] # cat backbone P4
+  - [-1, 2, C2fRes2, [512, False]] # 11 (P4 neck, multi-scale)
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]] # cat backbone P3
+  - [-1, 2, C2fRes2, [256, False]] # 14 (P3 final, multi-scale)
+  - [-1, 1, CoordAtt, []] # 15 attn on P3
+
+  - [-1, 1, SPDConv, [256, 3, 2]]
+  - [[-1, 11], 1, Concat, [1]] # cat head P4
+  - [-1, 2, A2C2f, [512, False, -1]] # 18 (P4 final, native style)
+  - [-1, 1, CoordAtt, []] # 19 attn on P4
+
+  - [-1, 1, SPDConv, [512, 3, 2]]
+  - [[-1, 8], 1, Concat, [1]] # cat head P5
+  - [-1, 2, C3k2, [1024, True]] # 22 (P5/32-large, native style)
+  - [-1, 1, CoordAtt, []] # 23 attn on P5
+
+  - [[15, 19, 23], 1, Detect, [nc]] # Detect(P3, P4, P5)
