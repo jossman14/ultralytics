@@ -1,0 +1,13 @@
+\begin{table}[t]
+\centering
+\caption{Statistical tests on per-fold mAP50-95 (Judol Detection v2, five folds). Improvements are consistent but not significant at $\alpha=0.05$ given the small fold count.}
+\label{tab:stats}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Test} & \textbf{Comparison} & \textbf{Statistic} & \textbf{$p$-value} \\
+\midrule
+Wilcoxon signed-rank & Proposed vs YOLOv8n & 0.0 & 0.068 \\
+Friedman & 6 models & 10.92 & 0.053 \\
+\bottomrule
+\end{tabular}
+\end{table}

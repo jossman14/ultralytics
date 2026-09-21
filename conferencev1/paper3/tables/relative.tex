@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Change relative to YOLOv8n on the hard dataset. Newer models save parameters but lose accuracy.}
+\label{tab:relative}
+\centering\footnotesize\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Model} & \textbf{mAP50-95} & \textbf{$\Delta$Acc} & \textbf{$\Delta$Params} \\
+\midrule
+YOLOv8n & 0.5857$\pm$0.025 & -- & -- \\
+YOLO11n & 0.5789$\pm$0.019 & -0.0068 & -16.9\% \\
+YOLO12n & 0.5678$\pm$0.027 & -0.0179 & -17.6\% \\
+YOLO26n & 0.5381$\pm$0.031 & -0.0476 & -18.5\% \\
+\bottomrule
+\end{tabular}
+\end{table}

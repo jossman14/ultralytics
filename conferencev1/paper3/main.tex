@@ -1,0 +1,495 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{placeins}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Benchmarking YOLO Generations from YOLOv8 to YOLO26\\
+for Online Gambling Content Detection on Small Data}
+
+\newcommand{\authblock}[2]{%
+  \begin{minipage}[t]{0.31\textwidth}\centering
+  {\normalsize #1}\\[3pt]
+  {\footnotesize\itshape Informatics Study Program,\\
+  Telkom University, Surabaya Campus\\
+  Center of Excellence for Motion Technology\\
+  for Safety Health and Wellness, RISS}\\[1pt]
+  {\footnotesize Surabaya, Indonesia}\\[1pt]
+  {\footnotesize #2}
+  \end{minipage}}
+\author{%
+\begin{tabular}{@{}c@{\hspace{5pt}}c@{\hspace{5pt}}c@{}}
+\authblock{Tanzilal Mustaqim}{tanzilal@telkomuniversity.ac.id} &
+\authblock{Pima Hani Safitri}{phanisafitri@telkomuniversity.ac.id} &
+\authblock{Yasinta Romadhona}{yasintaromadhona@telkomuniversity.ac.id}
+\end{tabular}
+}
+
+\maketitle
+
+\begin{abstract}
+The YOLO family releases new versions rapidly. Each is presented as faster
+and lighter than the last. Practitioners often assume the newest version is
+the best choice. We test this assumption for a small, domain-specific task.
+The task is detecting online gambling promotion. We benchmark four standard
+nano detectors: YOLOv8n, YOLO11n, YOLO12n, and YOLO26n. We use two Indonesian
+datasets. The first is a five-class gambling-logo set of 443 images. The
+second is a two-class Instagram-reel set of 3000 frames. All models share
+identical five-fold cross-validation, augmentation, and training settings. We
+report accuracy, parameters, computation, and measured inference speed. The
+result is clear and counterintuitive. On the hard logo dataset, accuracy falls
+monotonically from the oldest model to the newest. YOLOv8n reaches 0.586
+mAP50-95 while YOLO26n reaches only 0.538. A Friedman test confirms the trend
+is statistically significant. The newer models are smaller, yet less accurate
+here, and one is also slower. The degradation concentrates on the hardest,
+text-like logo class. On the easy screening dataset all models saturate. We
+conclude that a newer YOLO version is not automatically better on small
+domain-specific data. Version choice should be validated on the target task.
+\end{abstract}
+
+\begin{IEEEkeywords}
+object detection, YOLO, benchmark, model efficiency, online gambling
+detection, small datasets
+\end{IEEEkeywords}
+
+\section{Introduction}
+The YOLO family is the default choice for real-time object
+detection~\cite{redmon2016you, jocher2023yolov8}. New versions appear
+frequently. Each release reports gains on large benchmarks such as
+COCO~\cite{lin2014microsoft}. Each is usually smaller and faster than the
+last. A common assumption follows. Practitioners often pick the newest version
+by default. They assume newer means better.
+
+This assumption is rarely tested on small, domain-specific tasks. Many real
+applications have only a few hundred labelled images. On such data, the gains
+reported on large benchmarks may not hold. A smaller model can even underfit or
+generalise worse. The safest choice is therefore not obvious.
+
+We study this question for a concrete and socially relevant task. Online
+gambling promotion spreads across social media through brand logos and short
+videos. It often targets young audiences. In many countries, including
+Indonesia, the activity is illegal. Automated visual detection can support
+content moderation. The available datasets are small, which makes the version
+question sharp.
+
+This paper benchmarks four standard nano detectors on this task. We compare
+YOLOv8n, YOLO11n, YOLO12n, and YOLO26n. We do not modify the architectures. We
+evaluate them under one identical protocol on two datasets. We report accuracy
+jointly with parameters, computation, and measured speed. We also test the
+differences statistically.
+
+Our contributions are as follows. First, we provide a controlled benchmark of
+four YOLO generations for gambling-content detection. Second, we show a clear
+and counterintuitive result: on the hard dataset, accuracy falls monotonically
+as the version gets newer, and the trend is statistically significant. Third,
+we locate the degradation in the hardest logo class and confirm no regression
+on the easy task. Fourth, we give a practical recommendation: validate version
+choice on the target task, because newer is not automatically better on small
+domain data.
+
+\section{Related Work}
+
+\subsection{Evolution of the YOLO family}
+YOLO framed detection as a single regression problem~\cite{redmon2016you}.
+Later versions refined the backbone, neck, and training
+recipe~\cite{redmon2018yolov3, bochkovskiy2020yolov4}. Ultralytics
+YOLOv8~\cite{jocher2023yolov8} became a widely used, deployable baseline.
+YOLO11 refined the backbone for a better accuracy-efficiency
+balance~\cite{jocher2024yolo11}. YOLO12 introduced an attention-centric
+design~\cite{tian2025yolov12}. YOLO26 is an end-to-end, NMS-free nano release
+aimed at edge devices~\cite{ultralytics2025yolo26}. Each newer version reduces
+parameters while claiming competitive accuracy on COCO. Whether these gains
+transfer to small domain-specific data is our question.
+
+\subsection{Attention and efficient design}
+Newer detectors lean on attention and efficient blocks. Channel attention
+reweights features by learned importance~\cite{hu2018squeeze, wang2020eca}.
+Attention-centric backbones bring global context at a runtime
+cost~\cite{tian2025yolov12}. Efficient units such as
+ShuffleNetV2~\cite{ma2018shufflenet} and MobileNetV2~\cite{sandler2018mobilenetv2}
+cut parameters and computation. These designs are tuned to help in the
+large-benchmark regime. On small data, the same designs can trade away accuracy
+that the task cannot spare.
+
+\subsection{Detectors on small and domain-specific data}
+On large benchmarks, newer and larger designs usually help. On small
+task-specific data the picture differs. Cross-validation gives a more reliable
+estimate than a single split on small data~\cite{kohavi1995study}. Two-stage
+and single-stage detectors alike~\cite{ren2015faster, liu2016ssd, lin2017focal,
+tan2020efficientdet} were tuned on large corpora. Their behaviour on a few
+hundred images is not guaranteed. This motivates a controlled benchmark rather
+than an assumption.
+
+\subsection{Detecting online gambling promotion}
+Detecting gambling promotion is a visual content-moderation task. The target
+marks are small and appear over dynamic backgrounds. Public datasets are
+scarce. We use two recent community datasets~\cite{dataset_v21_roboflow,
+dataset_judi3k_kaggle}. One isolates gambling brand logos as objects. The other
+labels whole reel frames. Together they cover fine-grained detection and
+frame-level screening.
+
+\section{Materials and Methods}
+
+\subsection{Datasets}
+We use two Indonesian datasets, shown in Fig.~\ref{fig:samples}. The first,
+\textbf{Judol Detection v2}~\cite{dataset_v21_roboflow}, holds 443 images across
+five gambling-brand classes. The classes are BK8, Gate-of-olympus, Princess,
+Starlight-Princess, and Zeus. It is released under CC BY 4.0. Its objects are
+compact logos in larger scenes. This makes it the discriminative, hard test
+bed. The second, the \textbf{Online Gambling Logo in Instagram Reels Video}
+dataset~\cite{dataset_judi3k_kaggle} (Instagram Reels), holds 3000 whole frames
+labelled gambling or nongambling. It labels whole frames, not cropped objects.
+It is a frame-level screening task on which strong models saturate.
+
+Table~\ref{tab:classdist} lists the class distribution of the hard dataset. The
+five classes are moderately balanced. BK8 is the second most common class. Yet
+BK8 is the hardest to detect, as shown later. Its difficulty comes from small,
+text-like logos, not from scarcity.
+
+\input{tables/class_dist}
+
+\begin{figure}[t]
+\centering
+\begin{minipage}[b]{0.48\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/samples_v21.png}\\[2pt]
+{\scriptsize (a) Judol Detection v2}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.48\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/samples_judi3k.png}\\[2pt]
+{\scriptsize (b) Instagram Reels}
+\end{minipage}
+\caption{Dataset examples: logo-level detection and whole-frame screening.}
+\label{fig:samples}
+\end{figure}
+
+\subsection{Benchmarked models}
+We benchmark four standard nano detectors. \textbf{YOLOv8n} (2023) is the widely
+used baseline~\cite{jocher2023yolov8}. \textbf{YOLO11n} (2024) refines the
+backbone for efficiency~\cite{jocher2024yolo11}. \textbf{YOLO12n} (2025) adopts
+an attention-centric design~\cite{tian2025yolov12}. \textbf{YOLO26n} (2025) is
+an end-to-end, NMS-free release for edge
+devices~\cite{ultralytics2025yolo26}. We use the official configurations without
+modification. Each newer model is smaller than the last. This lets us test
+whether the size reduction costs accuracy on our task.
+
+\subsection{Evaluation metrics}
+We report accuracy with mean average precision. Precision and recall come from
+the detection counts. Let $\mathrm{TP}$, $\mathrm{FP}$, and $\mathrm{FN}$ denote
+true positives, false positives, and false negatives:
+\begin{equation}
+\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}},
+\qquad
+\mathrm{Recall} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}} .
+\end{equation}
+Average precision (AP) is the area under the precision--recall curve. Mean
+average precision averages AP over all $K$ classes:
+\begin{equation}
+\mathrm{AP} = \int_0^1 p(r)\,dr,
+\qquad
+\mathrm{mAP} = \frac{1}{K}\sum_{k=1}^{K}\mathrm{AP}_k .
+\end{equation}
+We report mAP50 at IoU $0.5$ and mAP50-95 averaged over IoU $0.5$ to $0.95$. We
+also report parameters, GFLOPs for a $640\times640$ forward pass, and measured
+inference speed.
+
+\subsection{Fold construction}
+We build five folds with stratified sampling. Cross-validation is more reliable
+than a single split on small data~\cite{kohavi1995study}. The strata are the
+dominant class of each image. Stratification keeps class ratios stable across
+folds. The split uses a fixed seed of 0. The same folds are reused for every
+model. This removes split luck as a confounder.
+
+\subsection{Training and evaluation protocol}
+Training settings are identical across all four models. Images are letterboxed
+to $640\times640$. Augmentation uses mosaic, translation $0.1$, scaling $0.5$,
+and horizontal flip $0.5$. Mosaic is disabled for the final ten epochs. Training
+uses SGD with initial learning rate $0.01$, momentum $0.937$, and weight decay
+$0.0005$. The batch size is $16$ and the seed is $0$. Each model trains for 100
+epochs with early stopping at patience $30$. Inference speed is measured on a
+single NVIDIA RTX A4000 over 60 forward passes after ten warm-up passes. The
+stack is PyTorch 2.12 with CUDA 13.
+
+\section{Results and Discussion}
+
+\subsection{Main comparison}
+Table~\ref{tab:main} reports the full results. On the hard dataset, YOLOv8n
+obtains the best mAP50 and mAP50-95. The newer models trail on every accuracy
+metric. YOLO26n, the newest and smallest, is the weakest. It reaches only
+$0.5381$ mAP50-95 against the YOLOv8n $0.5857$.
+
+The trend is monotonic with release order. Each newer version scores below the
+one before it. This is visible in Fig.~\ref{fig:trend}. The gap between the
+oldest and newest model is $0.048$ mAP50-95. That gap is large for a
+five-class detection task of this size.
+
+The complexity columns tell the other half. Each newer model uses fewer
+parameters and fewer GFLOPs. The saving does not buy accuracy here. It costs
+accuracy instead. The next subsections examine speed, stability, and where the
+loss occurs.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/trend.pdf}
+\caption{Mean mAP50-95 on the hard dataset by release year. Accuracy falls
+monotonically from YOLOv8n to YOLO26n. Bars show the fold standard deviation.}
+\label{fig:trend}
+\end{figure}
+
+\input{tables/main}
+
+\subsection{Performance preservation on Instagram Reels}
+The easy dataset is a preservation check. All four models score near $0.99$
+mAP50-95 on it (Table~\ref{tab:main}). The frame-level task carries strong
+holistic cues. It does not separate the versions.
+
+The small differences that remain do not follow the hard-dataset order. YOLO12n
+even ties for the best value here. This confirms that the version differences
+surface only on the harder task.
+
+A single easy benchmark would therefore hide the effect. This is itself a
+lesson: an easy dataset can make all versions look equal. Evaluation must
+include a discriminative task.
+
+\subsection{Accuracy versus complexity}
+Table~\ref{tab:relative} makes the trade explicit. Each newer model is smaller
+but less accurate. YOLO26n saves $18.5\%$ of the parameters. It loses $0.048$
+mAP50-95 in return. YOLO12n and YOLO11n follow the same pattern with smaller
+losses. The parameter saving is real but unhelpful on this data.
+
+On small domain-specific data, the newer designs trade away accuracy that the
+task cannot spare. The efficient blocks that help on large benchmarks do not
+pay off here. Capacity is not the bottleneck; data is.
+
+\input{tables/relative}
+
+\subsection{Inference speed}
+Fewer parameters do not guarantee faster inference.
+Fig.~\ref{fig:speed} shows measured GPU throughput. YOLOv8n is the fastest at
+$137$ FPS. All four run above the $30$ FPS real-time threshold.
+
+YOLO12n is the slowest at $58$ FPS despite having fewer parameters. Its
+attention-centric design adds runtime cost~\cite{tian2025yolov12}. The
+parameter count hides this cost. Speed must be measured, not inferred from size.
+
+For a deployment that needs both accuracy and speed, the oldest model is the
+strongest here. It is both the most accurate and the fastest. The newer models
+offer neither advantage on this task.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/speed.pdf}
+\caption{Measured GPU inference speed. YOLOv8n is fastest; the attention-centric
+YOLO12n is slowest.}
+\label{fig:speed}
+\end{figure}
+
+\subsection{Per-fold stability}
+Each model varies by about $0.07$ mAP50-95 across folds, shown by the error
+bars in Fig.~\ref{fig:trend}. The fold variation does not overturn the ranking.
+YOLOv8n stays highest in most folds and YOLO26n stays lowest. The order is
+stable, not an artifact of one split. This consistency is why the statistical
+test later confirms the effect.
+
+\subsection{Precision and recall}
+Table~\ref{tab:pr} reports precision and recall. YOLOv8n keeps a strong balance
+of both. The newest YOLO26n has the lowest recall by a wide margin at $0.700$.
+
+The recall drop is the main failure of the newer models. They miss more
+gambling logos. In a moderation setting, a missed logo is content that slips
+through. Recall matters most for this task.
+
+The precision differences are smaller. The newer models do not trade recall for
+precision; they simply detect less. This points to reduced capacity on small
+objects, which the per-class analysis confirms.
+
+\input{tables/precision_recall}
+
+\subsection{Training convergence}
+Fig.~\ref{fig:conv} plots the fold-mean mAP50-95 against the epoch. All four
+curves rise quickly and then plateau. The curves separate by version late in
+training.
+
+YOLOv8n converges to the highest plateau. YOLO26n settles lowest. The ordering
+appears early and holds to the end. The gap is not a checkpoint artifact.
+
+The convergence view rules out under-training as the cause. Every model trains
+for the same schedule with early stopping. The newer models simply reach a lower
+ceiling on this data.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/convergence.pdf}
+\caption{Fold-mean mAP50-95 versus epoch on the hard dataset. Newer versions
+converge to a lower plateau.}
+\label{fig:conv}
+\end{figure}
+
+\subsection{Where the loss occurs: confusion matrices}
+Fig.~\ref{fig:cm} compares the confusion matrices of the best and worst models.
+YOLOv8n keeps strong diagonal values for four of five classes. YOLO26n weakens
+across the board, especially on BK8.
+
+The main error is confusion with background. Both models miss some BK8 logos.
+YOLO26n misses far more. Its background column grows, meaning more objects go
+undetected.
+
+The newer model does not confuse one logo for another. It simply fails to detect
+them. This matches the low recall in Table~\ref{tab:pr}. The loss is a detection
+loss, not a classification loss.
+
+\begin{figure}[t]
+\centering
+\begin{minipage}[b]{0.49\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/cm_v8.png}\\[1pt]{\scriptsize (a) YOLOv8n}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.49\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/cm_v26.png}\\[1pt]{\scriptsize (b) YOLO26n}
+\end{minipage}
+\caption{Confusion matrices of the best (YOLOv8n) and worst (YOLO26n) models on
+the hard dataset. The newer model misses more logos.}
+\label{fig:cm}
+\end{figure}
+
+\subsection{Per-class detection difficulty}
+Table~\ref{tab:perclass} breaks accuracy down by class. Four of the five classes
+are relatively easy. All models detect them above $0.86$ mAP50.
+
+BK8 is the hardest class for every model. It is a small, text-like wordmark on
+busy scenes. The newest model loses the most on it. BK8 mAP50 falls from $0.612$
+for YOLOv8n to $0.466$ for YOLO26n.
+
+The version degradation concentrates on this one hard class, as
+Table~\ref{tab:perclass} and Fig.~\ref{fig:perclass} show. The easy classes
+barely change. This locates the weakness precisely: the newer, smaller models
+struggle most with small, text-like marks. Higher-resolution or tiled inference
+is the clearest remedy.
+
+\input{tables/perclass}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/perclass.pdf}
+\caption{Per-class mAP50 on the hard dataset. The version degradation
+concentrates on the hard BK8 class.}
+\label{fig:perclass}
+\end{figure}
+
+\subsection{Qualitative detection results}
+Fig.~\ref{fig:det} shows YOLOv8n detections on validation images. The model
+localises gambling logos with tight boxes and high confidence. It handles varied
+sports and advertising backgrounds. The one weaker case is a small BK8 wordmark,
+detected at lower confidence. This agrees with the confusion matrix and the
+per-class table. The detectors rely on the gambling brand identity, and their
+failures are confined to the small, text-like logo class.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/detections.png}
+\caption{YOLOv8n detections on Judol Detection v2 validation images.}
+\label{fig:det}
+\end{figure}
+
+\subsection{Statistical analysis}
+Table~\ref{tab:stats} reports the tests. The Friedman test across the four
+models gives $p=0.011$. The differences are significant at $\alpha=0.05$.
+
+The pairwise Wilcoxon tests against YOLOv8n are consistent in direction. With
+five folds they do not each reach significance. The overall Friedman result
+still confirms the effect.
+
+The statistics support the visual and per-class evidence. The accuracy
+differences among the four generations are real, not noise. The monotonic trend
+is a genuine effect on this task.
+
+\input{tables/stats}
+
+\subsection{Discussion}
+The results caution against a common habit. Adopting the newest YOLO version by
+default is not safe on small domain-specific data. The newer designs optimise
+for the large-benchmark regime. There, efficient backbones and attention pay
+off. On a few hundred images of small logos, the same designs lose accuracy, and
+one loses speed as well.
+
+We now examine why the degradation occurs. The newer models are smaller by
+design. Each trims parameters to improve efficiency on COCO. On a large dataset,
+the trimmed capacity is still enough to fit the data. On 443 images the picture
+is different. The task does not cause overfitting that extra capacity would
+waste. Instead the larger YOLOv8n capacity acts as useful headroom. The smaller
+models reach a lower ceiling because they have less of it. Fewer parameters here
+mean a lower accuracy limit, not a free saving.
+
+The attention-centric YOLO12n illustrates a second cause. Attention layers learn
+where to look from data. They need many examples to learn useful attention
+patterns. A few hundred images do not provide that signal. The attention then
+adds cost without a matching benefit. This shows in two ways. YOLO12n is less
+accurate than YOLOv8n, and it is also the slowest at $58$ FPS. Its runtime cost
+is real while its data-hungry benefit does not appear.
+
+The end-to-end YOLO26n shows a third cause. It removes non-maximum suppression
+and learns a one-to-one label assignment. This design needs abundant data to
+learn stable assignments. On a small dataset the assignment is harder to learn.
+The effect appears as the sharp recall drop to $0.700$ in Table~\ref{tab:pr}.
+The model misses more logos rather than misclassifying them. This is the most
+costly error for moderation, where a missed promo slips through.
+
+The degradation is therefore regime-specific, not a flaw in the newer models.
+On large datasets their efficient designs would likely pay off as intended. The
+lesson is about matching a model to a data regime. Small, fine-grained tasks
+favour capacity and mature, well-understood designs. This is also why the loss
+concentrates on the small BK8 class: fine detail is exactly what a trimmed model
+sacrifices first.
+
+The practical recommendation is simple. Version choice should be validated on
+the target task and dataset. It should not be assumed from release order. The
+oldest model in our study, YOLOv8n, is the best all-round choice here. It is the
+most accurate and the fastest.
+
+Reporting accuracy jointly with measured speed guards against a misleading
+conclusion. Testing the differences statistically guards against reading noise
+as signal. Using both an easy and a hard dataset guards against a saturated
+benchmark hiding the effect. These practices matter for any small-data
+deployment.
+
+\subsection{Threats to validity}
+We group the limitations by the kind of validity they affect.
+
+\textit{External validity.} Both datasets are Indonesian and centre on a limited
+set of brands. Results may not transfer to other regions or platforms. More
+datasets would strengthen the claim.
+
+\textit{Statistical conclusion validity.} The hard dataset is small and uses
+five folds. The Friedman test is significant, but the pairwise tests are
+underpowered. More folds or datasets would tighten the pairwise evidence.
+
+\textit{Construct validity.} We measure cost as parameters, GFLOPs, and GPU
+latency. Latency on edge hardware may differ. Edge timing is a natural next
+step.
+
+\FloatBarrier
+\section{Conclusion}
+We benchmarked four YOLO generations, YOLOv8n through YOLO26n, for online
+gambling-content detection on small domain-specific data. On the hard logo
+dataset, accuracy fell monotonically as the version got newer, from $0.586$ to
+$0.538$ mAP50-95, and a Friedman test confirmed the trend is significant. The
+newer models were smaller but less accurate, and the attention-centric YOLO12n
+was also the slowest. The degradation concentrated on the hardest, text-like
+BK8 class. On the easy screening dataset all models saturated. The lesson is
+that a newer YOLO version is not automatically better on small domain-specific
+data, and version choice should be validated on the target task. Future work
+will extend the benchmark to more datasets and regions, target the small
+text-like logo class with higher-resolution inference, and measure latency on
+edge devices.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,16 @@
+\begin{table}[t]
+\caption{Per-fold mAP50-95 on Judol Detection v2 for the four variants. Last column is the mean.}
+\label{tab:perfold}
+\centering\footnotesize\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Model} & \textbf{F1} & \textbf{F2} & \textbf{F3} & \textbf{F4} & \textbf{F5} & \textbf{Mean} \\
+\midrule
+Baseline & 0.6052 & 0.5827 & 0.5787 & 0.5449 & 0.6169 & 0.5857 \\
+SE (ours) & 0.6016 & 0.5719 & 0.6004 & 0.5438 & 0.6305 & 0.5896 \\
+Res2Net-SPD & 0.6260 & 0.5714 & 0.5813 & 0.5441 & 0.6046 & 0.5855 \\
+Shuffle-SE & 0.6101 & 0.5721 & 0.5848 & 0.5270 & 0.5809 & 0.5750 \\
+\bottomrule
+\end{tabular}
+\end{table}

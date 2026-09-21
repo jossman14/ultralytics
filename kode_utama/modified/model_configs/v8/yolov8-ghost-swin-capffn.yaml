@@ -1,0 +1,55 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLOv8-Ghost-Swin-CAPFFN: Full Ablation - Ghost+Swin backbone with CAPFFN neck
+# Combines Ghost convolution, Swin attention, and CAPFFN neck
+# 
+# Ablation Study Purpose:
+#   - Test full hybrid architecture
+#   - Compare with individual components
+
+# Parameters
+nc: 80 # number of classes
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024]
+  s: [0.33, 0.50, 1024]
+  m: [0.67, 0.75, 768]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.25, 512]
+
+# Ghost + Swin backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]]           # 0-P1/2
+  - [-1, 1, GhostConv, [128, 3, 2]]     # 1-P2/4
+  - [-1, 3, C2fSwin, [128, True]]       # 2 - Swin attention block
+  - [-1, 1, GhostConv, [256, 3, 2]]     # 3-P3/8
+  - [-1, 6, C2fSwin, [256, True]]       # 4 - Swin attention block
+  - [-1, 1, GhostConv, [512, 3, 2]]     # 5-P4/16
+  - [-1, 6, C2fSwin, [512, True]]       # 6 - Swin attention block
+  - [-1, 1, GhostConv, [1024, 3, 2]]    # 7-P5/32
+  - [-1, 3, C2fSwin, [1024, True]]      # 8 - Swin attention block
+  - [-1, 1, SPPF, [1024, 5]]            # 9
+  - [-1, 1, PCE, [1024]]                # 10 - Pyramid Context Extraction
+
+# CAPFFN head with FBM and CFCGLU
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]]           # cat backbone P4
+  - [-1, 1, FBM, [512]]                 # 13 - FuseBlockMulti
+  - [-1, 3, CFCGLU, [512]]              # 14 - CFCGLU block
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]]           # cat backbone P3
+  - [-1, 1, FBM, [256]]                 # 17 - FuseBlockMulti
+  - [-1, 3, CFCGLU, [256]]              # 18 (P3/8-small)
+
+  - [-1, 1, GhostConv, [256, 3, 2]]
+  - [[-1, 14], 1, Concat, [1]]          # cat head P4
+  - [-1, 3, CFCGLU, [512]]              # 21 (P4/16-medium)
+
+  - [-1, 1, GhostConv, [512, 3, 2]]
+  - [[-1, 10], 1, Concat, [1]]          # cat head P5
+  - [-1, 3, CFCGLU, [1024]]             # 24 (P5/32-large)
+
+  - [[18, 21, 24], 1, Detect, [nc]]     # Detect(P3, P4, P5)

@@ -1,0 +1,19 @@
+\begin{table*}[t]
+\caption{Accuracy and complexity of the four variants on both datasets. Values are fold means; std is shown for Judol Detection v2. Best per column in bold.}
+\label{tab:main}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccccrr@{}}
+\toprule
+& \multicolumn{2}{c}{\textbf{Judol Detection v2}} & \multicolumn{2}{c}{\textbf{Instagram Reels}} & & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Model} & \textbf{mAP50} & \textbf{mAP50-95} & \textbf{mAP50} & \textbf{mAP50-95} & \textbf{Params} & \textbf{GFLOPs} \\
+\midrule
+YOLOv8n (baseline)          & $0.8736 \pm 0.019$ & $0.5857 \pm 0.025$ & $\mathbf{0.9949}$ & $0.9945$ & $3.157$M & $8.86$ \\
+\textbf{YOLOv8-SE (proposed)} & $\mathbf{0.8751} \pm 0.025$ & $\mathbf{0.5896} \pm 0.030$ & $0.9948$ & $\mathbf{0.9948}$ & $3.168$M & $8.87$ \\
+YOLOv8-Res2Net-SPD-SSGA     & $0.8716 \pm 0.027$ & $0.5855 \pm 0.028$ & $0.9948$ & $0.9948$ & $4.448$M & $10.98$ \\
+YOLOv8-Shuffle-SE           & $0.8675 \pm 0.020$ & $0.5750 \pm 0.027$ & $0.9942$ & $0.9929$ & $\mathbf{2.699}$M & $\mathbf{7.50}$ \\
+\bottomrule
+\end{tabular}
+\end{table*}

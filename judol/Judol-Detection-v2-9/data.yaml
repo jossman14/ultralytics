@@ -1,0 +1,12 @@
+train: ../train/images
+val: ../valid/images
+
+nc: 5
+names: ['BK8', 'Gate-of-olympus', 'Princess', 'Starlight-Princess', 'Zeus']
+
+roboflow:
+  workspace: binus-farrel
+  project: judol-detection-v2
+  version: 9
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/binus-farrel/judol-detection-v2/dataset/9

@@ -1,0 +1,7069 @@
+{
+ "yolov8n-base|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8894,
+  "mAP50-95": 0.6052,
+  "precision": 0.9113,
+  "recall": 0.8544,
+  "minutes": 5.2
+ },
+ "yolov8n-base|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8638,
+  "mAP50-95": 0.5827,
+  "precision": 0.9423,
+  "recall": 0.8032,
+  "minutes": 5.2
+ },
+ "yolov8n-base|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8657,
+  "mAP50-95": 0.5787,
+  "precision": 0.9456,
+  "recall": 0.8169,
+  "minutes": 5.3
+ },
+ "yolov8n-base|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.849,
+  "mAP50-95": 0.5449,
+  "precision": 0.9524,
+  "recall": 0.7671,
+  "minutes": 5.2
+ },
+ "yolov8n-base|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9001,
+  "mAP50-95": 0.6169,
+  "precision": 0.9606,
+  "recall": 0.8368,
+  "minutes": 5.3
+ },
+ "yolov8n-base|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9934,
+  "precision": 0.9656,
+  "recall": 0.9898,
+  "minutes": 27.4
+ },
+ "yolov8n-base|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9888,
+  "recall": 0.999,
+  "minutes": 30.8
+ },
+ "yolov8n-base|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9922,
+  "recall": 0.996,
+  "minutes": 30.4
+ },
+ "yolov8n-base|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9945,
+  "precision": 0.987,
+  "recall": 0.9918,
+  "minutes": 31.3
+ },
+ "yolov8n-base|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9809,
+  "recall": 0.9869,
+  "minutes": 31.5
+ },
+ "yolo26n-base|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8178,
+  "mAP50-95": 0.5599,
+  "precision": 0.8619,
+  "recall": 0.7208,
+  "minutes": 9.9
+ },
+ "yolo26n-base|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8365,
+  "mAP50-95": 0.5387,
+  "precision": 0.8867,
+  "recall": 0.7424,
+  "minutes": 9.6
+ },
+ "yolo26n-base|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8141,
+  "mAP50-95": 0.5511,
+  "precision": 0.8123,
+  "recall": 0.7117,
+  "minutes": 9.5
+ },
+ "yolo26n-base|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.756,
+  "mAP50-95": 0.4789,
+  "precision": 0.8419,
+  "recall": 0.6214,
+  "minutes": 9.5
+ },
+ "yolo26n-base|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8377,
+  "mAP50-95": 0.562,
+  "precision": 0.8761,
+  "recall": 0.7032,
+  "minutes": 8.7
+ },
+ "yolo26n-base|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9932,
+  "mAP50-95": 0.9926,
+  "precision": 0.9671,
+  "recall": 0.9781,
+  "minutes": 55.3
+ },
+ "yolo26n-base|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9867,
+  "recall": 0.9871,
+  "minutes": 56.1
+ },
+ "yolo26n-base|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9917,
+  "precision": 0.9785,
+  "recall": 0.9881,
+  "minutes": 50.9
+ },
+ "yolo26n-base|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.9918,
+  "recall": 0.9933,
+  "minutes": 49.9
+ },
+ "yolo26n-base|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.994,
+  "precision": 0.9844,
+  "recall": 0.9767,
+  "minutes": 47.8
+ },
+ "yolo11n-base|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8802,
+  "mAP50-95": 0.6017,
+  "precision": 0.9331,
+  "recall": 0.8112,
+  "minutes": 6.2
+ },
+ "yolo11n-base|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8628,
+  "mAP50-95": 0.5668,
+  "precision": 0.9256,
+  "recall": 0.8391,
+  "minutes": 6.3
+ },
+ "yolo11n-base|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8775,
+  "mAP50-95": 0.5821,
+  "precision": 0.9371,
+  "recall": 0.7974,
+  "minutes": 6.1
+ },
+ "yolo11n-base|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8302,
+  "mAP50-95": 0.5497,
+  "precision": 0.8451,
+  "recall": 0.8205,
+  "minutes": 6.1
+ },
+ "yolo11n-base|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8928,
+  "mAP50-95": 0.5941,
+  "precision": 0.9669,
+  "recall": 0.8293,
+  "minutes": 6.2
+ },
+ "yolo11n-base|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9945,
+  "precision": 0.9937,
+  "recall": 0.9983,
+  "minutes": 38.1
+ },
+ "yolo11n-base|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9932,
+  "precision": 0.9727,
+  "recall": 0.9952,
+  "minutes": 31.1
+ },
+ "yolo11n-base|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9948,
+  "precision": 0.9853,
+  "recall": 0.9921,
+  "minutes": 37.2
+ },
+ "yolo11n-base|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9888,
+  "mAP50-95": 0.9666,
+  "precision": 0.9688,
+  "recall": 0.98,
+  "minutes": 20.6
+ },
+ "yolo11n-base|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.988,
+  "precision": 0.9933,
+  "recall": 0.9931,
+  "minutes": 33.2
+ },
+ "yolo12n-base|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8598,
+  "mAP50-95": 0.6024,
+  "precision": 0.9091,
+  "recall": 0.8048,
+  "minutes": 8.4
+ },
+ "yolo12n-base|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8361,
+  "mAP50-95": 0.5486,
+  "precision": 0.8687,
+  "recall": 0.8148,
+  "minutes": 8.4
+ },
+ "yolo12n-base|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8436,
+  "mAP50-95": 0.5601,
+  "precision": 0.9163,
+  "recall": 0.7899,
+  "minutes": 8.4
+ },
+ "yolo12n-base|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8145,
+  "mAP50-95": 0.5324,
+  "precision": 0.8858,
+  "recall": 0.7723,
+  "minutes": 8.3
+ },
+ "yolo12n-base|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8851,
+  "mAP50-95": 0.5956,
+  "precision": 0.9486,
+  "recall": 0.8371,
+  "minutes": 8.2
+ },
+ "yolo12n-base|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9946,
+  "precision": 0.9875,
+  "recall": 0.9887,
+  "minutes": 45.0
+ },
+ "yolo12n-base|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.996,
+  "recall": 1.0,
+  "minutes": 50.8
+ },
+ "yolo12n-base|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.995,
+  "recall": 0.9958,
+  "minutes": 49.8
+ },
+ "yolo12n-base|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.993,
+  "mAP50-95": 0.993,
+  "precision": 0.9903,
+  "recall": 0.994,
+  "minutes": 46.9
+ },
+ "yolo12n-base|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.9921,
+  "recall": 0.9962,
+  "minutes": 49.2
+ },
+ "yolov8-res2net-spd-ssga|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8886,
+  "mAP50-95": 0.626,
+  "precision": 0.9705,
+  "recall": 0.8005,
+  "minutes": 7.6
+ },
+ "yolov8-res2net-spd-ssga|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8613,
+  "mAP50-95": 0.5714,
+  "precision": 0.9589,
+  "recall": 0.8229,
+  "minutes": 7.0
+ },
+ "yolov8-res2net-spd-ssga|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8642,
+  "mAP50-95": 0.5813,
+  "precision": 0.9287,
+  "recall": 0.8488,
+  "minutes": 6.7
+ },
+ "yolov8-res2net-spd-ssga|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8321,
+  "mAP50-95": 0.5441,
+  "precision": 0.8849,
+  "recall": 0.7823,
+  "minutes": 6.9
+ },
+ "yolov8-res2net-spd-ssga|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9118,
+  "mAP50-95": 0.6046,
+  "precision": 0.9244,
+  "recall": 0.8631,
+  "minutes": 6.7
+ },
+ "yolov8-res2net-spd-ssga|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9947,
+  "precision": 0.9874,
+  "recall": 0.9892,
+  "minutes": 39.1
+ },
+ "yolov8-res2net-spd-ssga|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9959,
+  "recall": 0.9967,
+  "minutes": 44.3
+ },
+ "yolov8-res2net-spd-ssga|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9969,
+  "recall": 0.9971,
+  "minutes": 41.3
+ },
+ "yolov8-res2net-spd-ssga|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9821,
+  "recall": 0.9944,
+  "minutes": 40.0
+ },
+ "yolov8-res2net-spd-ssga|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9892,
+  "recall": 0.9926,
+  "minutes": 39.3
+ },
+ "yolo26-sgsa-coordatt|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.7985,
+  "mAP50-95": 0.5397,
+  "precision": 0.8867,
+  "recall": 0.677,
+  "minutes": 8.5
+ },
+ "yolo26-sgsa-coordatt|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8035,
+  "mAP50-95": 0.5199,
+  "precision": 0.8153,
+  "recall": 0.7588,
+  "minutes": 7.7
+ },
+ "yolo26-sgsa-coordatt|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7981,
+  "mAP50-95": 0.5324,
+  "precision": 0.7936,
+  "recall": 0.7478,
+  "minutes": 7.7
+ },
+ "yolo26-sgsa-coordatt|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7557,
+  "mAP50-95": 0.47,
+  "precision": 0.814,
+  "recall": 0.6827,
+  "minutes": 7.7
+ },
+ "yolo26-sgsa-coordatt|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8231,
+  "mAP50-95": 0.5402,
+  "precision": 0.8621,
+  "recall": 0.7583,
+  "minutes": 7.6
+ },
+ "yolo26-sgsa-coordatt|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9935,
+  "precision": 0.9887,
+  "recall": 0.9815,
+  "minutes": 49.6
+ },
+ "yolo26-sgsa-coordatt|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9968,
+  "recall": 0.9961,
+  "minutes": 46.1
+ },
+ "yolo26-sgsa-coordatt|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9907,
+  "precision": 0.9873,
+  "recall": 0.9921,
+  "minutes": 40.7
+ },
+ "yolo26-sgsa-coordatt|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9936,
+  "mAP50-95": 0.9924,
+  "precision": 0.9923,
+  "recall": 0.9909,
+  "minutes": 46.6
+ },
+ "yolo26-sgsa-coordatt|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9942,
+  "precision": 0.9891,
+  "recall": 0.9869,
+  "minutes": 46.8
+ },
+ "yolov8-sgsa|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8634,
+  "mAP50-95": 0.5884,
+  "precision": 0.9724,
+  "recall": 0.7902,
+  "minutes": 8.0
+ },
+ "yolov8-sgsa|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8287,
+  "mAP50-95": 0.5502,
+  "precision": 0.9267,
+  "recall": 0.7682,
+  "minutes": 7.0
+ },
+ "yolov8-sgsa|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8442,
+  "mAP50-95": 0.5539,
+  "precision": 0.9445,
+  "recall": 0.7952,
+  "minutes": 7.1
+ },
+ "yolov8-sgsa|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8021,
+  "mAP50-95": 0.5203,
+  "precision": 0.8811,
+  "recall": 0.7533,
+  "minutes": 7.1
+ },
+ "yolov8-sgsa|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8871,
+  "mAP50-95": 0.595,
+  "precision": 0.9124,
+  "recall": 0.8445,
+  "minutes": 7.0
+ },
+ "yolov8-sgsa|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9948,
+  "recall": 0.9964,
+  "minutes": 41.8
+ },
+ "yolov8-sgsa|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9975,
+  "recall": 0.9982,
+  "minutes": 44.1
+ },
+ "yolov8-sgsa|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9973,
+  "recall": 0.9985,
+  "minutes": 41.8
+ },
+ "yolov8-sgsa|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.988,
+  "recall": 0.9983,
+  "minutes": 40.5
+ },
+ "yolov8-sgsa|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.99,
+  "recall": 0.994,
+  "minutes": 40.9
+ },
+ "yolov8-resnext-sgsa|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8764,
+  "mAP50-95": 0.5995,
+  "precision": 0.9403,
+  "recall": 0.8159,
+  "minutes": 6.1
+ },
+ "yolov8-resnext-sgsa|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8562,
+  "mAP50-95": 0.559,
+  "precision": 0.9307,
+  "recall": 0.8092,
+  "minutes": 6.0
+ },
+ "yolov8-resnext-sgsa|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8691,
+  "mAP50-95": 0.5777,
+  "precision": 0.9038,
+  "recall": 0.8295,
+  "minutes": 6.0
+ },
+ "yolov8-resnext-sgsa|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8244,
+  "mAP50-95": 0.5269,
+  "precision": 0.9355,
+  "recall": 0.7544,
+  "minutes": 6.1
+ },
+ "yolov8-resnext-sgsa|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8912,
+  "mAP50-95": 0.5916,
+  "precision": 0.9668,
+  "recall": 0.8206,
+  "minutes": 6.0
+ },
+ "yolov8-resnext-sgsa|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.992,
+  "recall": 0.9978,
+  "minutes": 35.5
+ },
+ "yolov8-resnext-sgsa|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9981,
+  "recall": 0.9998,
+  "minutes": 37.1
+ },
+ "yolov8-resnext-sgsa|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9955,
+  "recall": 0.998,
+  "minutes": 37.0
+ },
+ "yolov8-resnext-sgsa|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9926,
+  "recall": 0.995,
+  "minutes": 36.4
+ },
+ "yolov8-resnext-sgsa|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9942,
+  "precision": 0.99,
+  "recall": 0.9923,
+  "minutes": 35.7
+ },
+ "yolo26-sota-fusion-a|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.6412,
+  "mAP50-95": 0.4255,
+  "precision": 0.8317,
+  "recall": 0.4995,
+  "minutes": 7.5
+ },
+ "yolo26-sota-fusion-a|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.568,
+  "mAP50-95": 0.353,
+  "precision": 0.6986,
+  "recall": 0.5057,
+  "minutes": 7.1
+ },
+ "yolo26-sota-fusion-a|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.6479,
+  "mAP50-95": 0.4324,
+  "precision": 0.8129,
+  "recall": 0.5492,
+  "minutes": 7.5
+ },
+ "yolo26-sota-fusion-a|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.5982,
+  "mAP50-95": 0.3739,
+  "precision": 0.7271,
+  "recall": 0.5724,
+  "minutes": 7.0
+ },
+ "yolo26-sota-fusion-a|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.7245,
+  "mAP50-95": 0.4632,
+  "precision": 0.881,
+  "recall": 0.595,
+  "minutes": 7.3
+ },
+ "yolo26-sota-fusion-a|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.6916,
+  "mAP50-95": 0.5262,
+  "precision": 0.4431,
+  "recall": 0.995,
+  "minutes": 18.7
+ },
+ "yolo26-sota-fusion-a|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9404,
+  "mAP50-95": 0.7468,
+  "precision": 0.7445,
+  "recall": 0.4817,
+  "minutes": 38.6
+ },
+ "yolo26-sota-fusion-a|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9738,
+  "mAP50-95": 0.83,
+  "precision": 0.9498,
+  "recall": 0.5477,
+  "minutes": 43.7
+ },
+ "yolo26-sota-fusion-a|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.3514,
+  "mAP50-95": 0.1763,
+  "precision": 0.2106,
+  "recall": 0.9967,
+  "minutes": 15.8
+ },
+ "yolo26-sota-fusion-a|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.697,
+  "mAP50-95": 0.346,
+  "precision": 0.4799,
+  "recall": 0.925,
+  "minutes": 18.5
+ },
+ "yolo26-sota-fusion-dfl|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8438,
+  "mAP50-95": 0.5818,
+  "precision": 0.8965,
+  "recall": 0.7669,
+  "minutes": 8.3
+ },
+ "yolov8-se-baseline|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8765,
+  "mAP50-95": 0.6016,
+  "precision": 0.9524,
+  "recall": 0.7903,
+  "minutes": 6.6,
+  "worker": 0
+ },
+ "yolov8-se-baseline|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8616,
+  "mAP50-95": 0.5719,
+  "precision": 0.9143,
+  "recall": 0.8252,
+  "minutes": 7.8,
+  "worker": 1
+ },
+ "yolov8-se-baseline|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8673,
+  "mAP50-95": 0.6004,
+  "precision": 0.9459,
+  "recall": 0.8258,
+  "minutes": 7.9,
+  "worker": 0
+ },
+ "yolov8-se-baseline|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.849,
+  "mAP50-95": 0.5438,
+  "precision": 0.9243,
+  "recall": 0.7651,
+  "minutes": 7.9,
+  "worker": 1
+ },
+ "yolov8-se-baseline|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.921,
+  "mAP50-95": 0.6305,
+  "precision": 0.922,
+  "recall": 0.8825,
+  "minutes": 8.4,
+  "worker": 0
+ },
+ "yolov8-se-baseline|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9919,
+  "recall": 0.9943,
+  "minutes": 48.7,
+  "worker": 1
+ },
+ "yolov8-se-baseline|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9929,
+  "recall": 1.0,
+  "minutes": 50.8,
+  "worker": 0
+ },
+ "yolov8-se-baseline|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9896,
+  "recall": 0.9984,
+  "minutes": 49.6,
+  "worker": 1
+ },
+ "yolov8-se-baseline|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9943,
+  "precision": 0.9919,
+  "recall": 0.9946,
+  "minutes": 52.0,
+  "worker": 0
+ },
+ "yolov8-se-baseline|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9872,
+  "recall": 0.9897,
+  "minutes": 48.9,
+  "worker": 1
+ },
+ "yolo11-convnext-shuffle-mix|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8719,
+  "mAP50-95": 0.5975,
+  "precision": 0.9088,
+  "recall": 0.8199,
+  "minutes": 11.9,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.852,
+  "mAP50-95": 0.5644,
+  "precision": 0.9561,
+  "recall": 0.7737,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8602,
+  "mAP50-95": 0.583,
+  "precision": 0.961,
+  "recall": 0.8,
+  "minutes": 11.2,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8396,
+  "mAP50-95": 0.5359,
+  "precision": 0.9408,
+  "recall": 0.7874,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9039,
+  "mAP50-95": 0.6089,
+  "precision": 0.9228,
+  "recall": 0.8325,
+  "minutes": 11.7,
+  "worker": 1
+ },
+ "yolo11-convnext-shuffle-mix|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9877,
+  "precision": 0.9944,
+  "recall": 0.9903,
+  "minutes": 55.2,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9987,
+  "recall": 1.0,
+  "minutes": 70.5,
+  "worker": 1
+ },
+ "yolo11-convnext-shuffle-mix|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9981,
+  "recall": 0.9972,
+  "minutes": 73.0,
+  "worker": 0
+ },
+ "yolo11-convnext-shuffle-mix|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9928,
+  "precision": 0.9921,
+  "recall": 0.9936,
+  "minutes": 69.8,
+  "worker": 1
+ },
+ "yolo11-convnext-shuffle-mix|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.992,
+  "precision": 0.9945,
+  "recall": 0.9964,
+  "minutes": 65.5,
+  "worker": 0
+ },
+ "yolo11-shuffle|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8703,
+  "mAP50-95": 0.5979,
+  "precision": 0.9215,
+  "recall": 0.81,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolo11-shuffle|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8781,
+  "mAP50-95": 0.5687,
+  "precision": 0.8894,
+  "recall": 0.8448,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolo11-shuffle|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8701,
+  "mAP50-95": 0.5853,
+  "precision": 0.9308,
+  "recall": 0.8019,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolo11-shuffle|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8267,
+  "mAP50-95": 0.5482,
+  "precision": 0.9109,
+  "recall": 0.7688,
+  "minutes": 10.9,
+  "worker": 1
+ },
+ "yolo11-shuffle|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8969,
+  "mAP50-95": 0.6011,
+  "precision": 0.9599,
+  "recall": 0.8567,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolo11-shuffle|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9908,
+  "precision": 0.9878,
+  "recall": 0.9977,
+  "minutes": 50.3,
+  "worker": 0
+ },
+ "yolo11-shuffle|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9921,
+  "recall": 0.9985,
+  "minutes": 54.2,
+  "worker": 1
+ },
+ "yolo11-shuffle|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9931,
+  "recall": 0.9951,
+  "minutes": 58.4,
+  "worker": 0
+ },
+ "yolo11-shuffle|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9939,
+  "mAP50-95": 0.9923,
+  "precision": 0.9933,
+  "recall": 0.9949,
+  "minutes": 55.9,
+  "worker": 1
+ },
+ "yolo11-shuffle|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.989,
+  "precision": 0.9899,
+  "recall": 0.9894,
+  "minutes": 46.2,
+  "worker": 0
+ },
+ "yolo11-shuffle-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8899,
+  "mAP50-95": 0.6146,
+  "precision": 0.9102,
+  "recall": 0.8421,
+  "minutes": 10.7,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8671,
+  "mAP50-95": 0.5664,
+  "precision": 0.9368,
+  "recall": 0.8101,
+  "minutes": 10.7,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8503,
+  "mAP50-95": 0.5764,
+  "precision": 0.8982,
+  "recall": 0.8256,
+  "minutes": 10.5,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8302,
+  "mAP50-95": 0.5354,
+  "precision": 0.9285,
+  "recall": 0.7546,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8921,
+  "mAP50-95": 0.5896,
+  "precision": 0.9153,
+  "recall": 0.8379,
+  "minutes": 11.4,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9867,
+  "recall": 1.0,
+  "minutes": 62.1,
+  "worker": 0
+ },
+ "yolo11-shuffle-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9941,
+  "precision": 0.9948,
+  "recall": 0.9986,
+  "minutes": 61.5,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9972,
+  "recall": 0.9986,
+  "minutes": 64.5,
+  "worker": 0
+ },
+ "yolo11-shuffle-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9936,
+  "precision": 0.9929,
+  "recall": 0.9936,
+  "minutes": 62.0,
+  "worker": 1
+ },
+ "yolo11-shuffle-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9935,
+  "precision": 0.9896,
+  "recall": 0.9917,
+  "minutes": 57.8,
+  "worker": 0
+ },
+ "yolo11-spd-shuffle-coordatt|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.898,
+  "mAP50-95": 0.623,
+  "precision": 0.9587,
+  "recall": 0.8322,
+  "minutes": 11.0,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.875,
+  "mAP50-95": 0.5839,
+  "precision": 0.9283,
+  "recall": 0.8341,
+  "minutes": 11.2,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8709,
+  "mAP50-95": 0.5852,
+  "precision": 0.9544,
+  "recall": 0.8408,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8458,
+  "mAP50-95": 0.5641,
+  "precision": 0.8977,
+  "recall": 0.809,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9249,
+  "mAP50-95": 0.6324,
+  "precision": 0.937,
+  "recall": 0.8653,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9977,
+  "recall": 0.9983,
+  "minutes": 61.4,
+  "worker": 0
+ },
+ "yolo11-spd-shuffle-coordatt|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9973,
+  "recall": 1.0,
+  "minutes": 61.2,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9947,
+  "recall": 0.9948,
+  "minutes": 62.3,
+  "worker": 0
+ },
+ "yolo11-spd-shuffle-coordatt|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9936,
+  "recall": 0.995,
+  "minutes": 61.7,
+  "worker": 1
+ },
+ "yolo11-spd-shuffle-coordatt|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9939,
+  "recall": 0.99,
+  "minutes": 59.0,
+  "worker": 0
+ },
+ "yolo12-shuffle|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8634,
+  "mAP50-95": 0.5932,
+  "precision": 0.9434,
+  "recall": 0.8005,
+  "minutes": 13.4,
+  "worker": 1
+ },
+ "yolo12-shuffle|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.833,
+  "mAP50-95": 0.5622,
+  "precision": 0.9061,
+  "recall": 0.8172,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolo12-shuffle|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8391,
+  "mAP50-95": 0.573,
+  "precision": 0.9411,
+  "recall": 0.7843,
+  "minutes": 13.2,
+  "worker": 1
+ },
+ "yolo12-shuffle|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7991,
+  "mAP50-95": 0.5218,
+  "precision": 0.8636,
+  "recall": 0.7606,
+  "minutes": 13.1,
+  "worker": 1
+ },
+ "yolo12-shuffle|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8966,
+  "mAP50-95": 0.5894,
+  "precision": 0.9529,
+  "recall": 0.8371,
+  "minutes": 13.0,
+  "worker": 1
+ },
+ "yolo12-shuffle|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9946,
+  "precision": 0.9898,
+  "recall": 0.9953,
+  "minutes": 77.9,
+  "worker": 0
+ },
+ "yolo12-shuffle|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9922,
+  "recall": 0.9991,
+  "minutes": 77.6,
+  "worker": 1
+ },
+ "yolo12-shuffle|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9912,
+  "recall": 0.9987,
+  "minutes": 80.1,
+  "worker": 0
+ },
+ "yolo12-shuffle|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9942,
+  "precision": 0.9935,
+  "recall": 0.9883,
+  "minutes": 77.9,
+  "worker": 1
+ },
+ "yolo12-shuffle|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9942,
+  "precision": 0.9884,
+  "recall": 0.9947,
+  "minutes": 73.1,
+  "worker": 0
+ },
+ "yolo12-shuffle-se|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8732,
+  "mAP50-95": 0.5966,
+  "precision": 0.9531,
+  "recall": 0.8245,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8516,
+  "mAP50-95": 0.5549,
+  "precision": 0.9441,
+  "recall": 0.7995,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8495,
+  "mAP50-95": 0.5691,
+  "precision": 0.8158,
+  "recall": 0.8411,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8044,
+  "mAP50-95": 0.5279,
+  "precision": 0.8785,
+  "recall": 0.7696,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9013,
+  "mAP50-95": 0.6142,
+  "precision": 0.9614,
+  "recall": 0.8132,
+  "minutes": 13.0,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9955,
+  "recall": 0.9967,
+  "minutes": 77.7,
+  "worker": 0
+ },
+ "yolo12-shuffle-se|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9951,
+  "recall": 0.9978,
+  "minutes": 77.6,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.994,
+  "precision": 0.9874,
+  "recall": 0.9946,
+  "minutes": 78.1,
+  "worker": 1
+ },
+ "yolo12-shuffle-se|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9888,
+  "recall": 0.993,
+  "minutes": 78.2,
+  "worker": 0
+ },
+ "yolo12-shuffle-se|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9941,
+  "precision": 0.987,
+  "recall": 0.9919,
+  "minutes": 74.4,
+  "worker": 1
+ },
+ "yolo12-spd-shuffle|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8874,
+  "mAP50-95": 0.6102,
+  "precision": 0.9604,
+  "recall": 0.8432,
+  "minutes": 15.5,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8567,
+  "mAP50-95": 0.5861,
+  "precision": 0.9099,
+  "recall": 0.8347,
+  "minutes": 14.1,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8716,
+  "mAP50-95": 0.5687,
+  "precision": 0.9595,
+  "recall": 0.822,
+  "minutes": 14.4,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8543,
+  "mAP50-95": 0.5558,
+  "precision": 0.9003,
+  "recall": 0.8059,
+  "minutes": 14.2,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9051,
+  "mAP50-95": 0.6115,
+  "precision": 0.9236,
+  "recall": 0.8618,
+  "minutes": 14.7,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9941,
+  "precision": 0.9888,
+  "recall": 0.9931,
+  "minutes": 83.6,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9962,
+  "recall": 1.0,
+  "minutes": 80.9,
+  "worker": 1
+ },
+ "yolo12-spd-shuffle|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9991,
+  "recall": 0.9947,
+  "minutes": 81.3,
+  "worker": 0
+ },
+ "yolo12-spd-shuffle|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9947,
+  "recall": 0.9967,
+  "minutes": 81.2,
+  "worker": 1
+ },
+ "yolo12-spd-shuffle|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9929,
+  "recall": 0.99,
+  "minutes": 70.2,
+  "worker": 0
+ },
+ "yolo26-shuffle-ghost-mix|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8307,
+  "mAP50-95": 0.5646,
+  "precision": 0.8865,
+  "recall": 0.7531,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8035,
+  "mAP50-95": 0.5065,
+  "precision": 0.8173,
+  "recall": 0.7599,
+  "minutes": 12.6,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8584,
+  "mAP50-95": 0.5495,
+  "precision": 0.8372,
+  "recall": 0.7937,
+  "minutes": 12.4,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8016,
+  "mAP50-95": 0.5022,
+  "precision": 0.879,
+  "recall": 0.7201,
+  "minutes": 12.6,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8357,
+  "mAP50-95": 0.5587,
+  "precision": 0.788,
+  "recall": 0.8026,
+  "minutes": 12.0,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9944,
+  "precision": 0.976,
+  "recall": 0.9816,
+  "minutes": 58.9,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9937,
+  "precision": 0.9975,
+  "recall": 0.9983,
+  "minutes": 58.5,
+  "worker": 0
+ },
+ "yolo26-shuffle-ghost-mix|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9967,
+  "recall": 0.9995,
+  "minutes": 58.3,
+  "worker": 1
+ },
+ "yolo26-shuffle-ghost-mix|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9908,
+  "mAP50-95": 0.9881,
+  "precision": 0.9886,
+  "recall": 0.9717,
+  "minutes": 51.9,
+  "worker": 0
+ },
+ "yolo26-shuffle-ghost-mix|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9921,
+  "mAP50-95": 0.9921,
+  "precision": 0.9846,
+  "recall": 0.9669,
+  "minutes": 58.7,
+  "worker": 1
+ },
+ "yolo26-shuffle-se|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8339,
+  "mAP50-95": 0.5665,
+  "precision": 0.8996,
+  "recall": 0.7395,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8461,
+  "mAP50-95": 0.5475,
+  "precision": 0.9005,
+  "recall": 0.7413,
+  "minutes": 11.1,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8411,
+  "mAP50-95": 0.5397,
+  "precision": 0.8886,
+  "recall": 0.7581,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7893,
+  "mAP50-95": 0.4948,
+  "precision": 0.8134,
+  "recall": 0.7195,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8449,
+  "mAP50-95": 0.5517,
+  "precision": 0.8746,
+  "recall": 0.7352,
+  "minutes": 11.1,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9892,
+  "mAP50-95": 0.9721,
+  "precision": 0.9762,
+  "recall": 0.946,
+  "minutes": 52.7,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9872,
+  "precision": 0.9825,
+  "recall": 0.9933,
+  "minutes": 52.4,
+  "worker": 1
+ },
+ "yolo26-shuffle-se|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9937,
+  "mAP50-95": 0.9929,
+  "precision": 0.9839,
+  "recall": 0.985,
+  "minutes": 52.3,
+  "worker": 0
+ },
+ "yolo26-shuffle-se|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9739,
+  "precision": 0.9899,
+  "recall": 0.9757,
+  "minutes": 52.9,
+  "worker": 1
+ },
+ "yolo26-shuffle-se|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9906,
+  "mAP50-95": 0.9821,
+  "precision": 0.9654,
+  "recall": 0.9691,
+  "minutes": 55.3,
+  "worker": 0
+ },
+ "yolo26-shuffle-spd-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8494,
+  "mAP50-95": 0.588,
+  "precision": 0.8773,
+  "recall": 0.7735,
+  "minutes": 10.2,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8527,
+  "mAP50-95": 0.5466,
+  "precision": 0.8774,
+  "recall": 0.7837,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8533,
+  "mAP50-95": 0.5822,
+  "precision": 0.9042,
+  "recall": 0.7996,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8044,
+  "mAP50-95": 0.5292,
+  "precision": 0.865,
+  "recall": 0.7021,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8775,
+  "mAP50-95": 0.5839,
+  "precision": 0.8338,
+  "recall": 0.8225,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9936,
+  "precision": 0.9928,
+  "recall": 0.9914,
+  "minutes": 54.2,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.994,
+  "precision": 0.9691,
+  "recall": 0.9929,
+  "minutes": 53.8,
+  "worker": 0
+ },
+ "yolo26-shuffle-spd-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.994,
+  "precision": 0.9787,
+  "recall": 0.9865,
+  "minutes": 54.0,
+  "worker": 0
+ },
+ "yolo26-shuffle-spd-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.994,
+  "mAP50-95": 0.9918,
+  "precision": 0.9797,
+  "recall": 0.969,
+  "minutes": 54.0,
+  "worker": 1
+ },
+ "yolo26-shuffle-spd-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9899,
+  "mAP50-95": 0.9892,
+  "precision": 0.9674,
+  "recall": 0.96,
+  "minutes": 55.5,
+  "worker": 0
+ },
+ "yolov8-resnext-shuffle-mix|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8675,
+  "mAP50-95": 0.5975,
+  "precision": 0.9688,
+  "recall": 0.7908,
+  "minutes": 9.0,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8442,
+  "mAP50-95": 0.5739,
+  "precision": 0.9468,
+  "recall": 0.7551,
+  "minutes": 8.8,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8426,
+  "mAP50-95": 0.5649,
+  "precision": 0.9491,
+  "recall": 0.7898,
+  "minutes": 8.8,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8226,
+  "mAP50-95": 0.5147,
+  "precision": 0.9156,
+  "recall": 0.7498,
+  "minutes": 8.8,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8942,
+  "mAP50-95": 0.5871,
+  "precision": 0.9101,
+  "recall": 0.8636,
+  "minutes": 9.1,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9937,
+  "recall": 0.9946,
+  "minutes": 48.2,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.994,
+  "recall": 0.9952,
+  "minutes": 48.0,
+  "worker": 0
+ },
+ "yolov8-resnext-shuffle-mix|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9913,
+  "recall": 0.9958,
+  "minutes": 48.0,
+  "worker": 1
+ },
+ "yolov8-resnext-shuffle-mix|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9946,
+  "precision": 0.9892,
+  "recall": 0.9918,
+  "minutes": 47.9,
+  "worker": 0
+ },
+ "yolov8-resnext-shuffle-mix|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9943,
+  "precision": 0.9849,
+  "recall": 0.9888,
+  "minutes": 52.0,
+  "worker": 1
+ },
+ "yolov8-shuffle-ghost-ledh|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.7945,
+  "mAP50-95": 0.5065,
+  "precision": 0.7978,
+  "recall": 0.725,
+  "minutes": 12.0,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7482,
+  "mAP50-95": 0.4866,
+  "precision": 0.727,
+  "recall": 0.724,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7431,
+  "mAP50-95": 0.4929,
+  "precision": 0.7551,
+  "recall": 0.7239,
+  "minutes": 11.6,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.6719,
+  "mAP50-95": 0.419,
+  "precision": 0.6858,
+  "recall": 0.726,
+  "minutes": 11.3,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8127,
+  "mAP50-95": 0.5259,
+  "precision": 0.8186,
+  "recall": 0.7854,
+  "minutes": 12.4,
+  "worker": 1
+ },
+ "yolov8-shuffle-ghost-ledh|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9934,
+  "mAP50-95": 0.9818,
+  "precision": 0.9212,
+  "recall": 0.944,
+  "minutes": 67.7,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9926,
+  "mAP50-95": 0.9903,
+  "precision": 0.8778,
+  "recall": 0.9235,
+  "minutes": 59.9,
+  "worker": 1
+ },
+ "yolov8-shuffle-ghost-ledh|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9821,
+  "mAP50-95": 0.9271,
+  "precision": 0.8904,
+  "recall": 0.9325,
+  "minutes": 41.3,
+  "worker": 1
+ },
+ "yolov8-shuffle-ghost-ledh|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9882,
+  "mAP50-95": 0.9764,
+  "precision": 0.8493,
+  "recall": 0.876,
+  "minutes": 63.0,
+  "worker": 0
+ },
+ "yolov8-shuffle-ghost-ledh|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9901,
+  "mAP50-95": 0.9626,
+  "precision": 0.9706,
+  "recall": 0.9651,
+  "minutes": 63.2,
+  "worker": 1
+ },
+ "yolov8-shuffle-se|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8765,
+  "mAP50-95": 0.6101,
+  "precision": 0.9502,
+  "recall": 0.8104,
+  "minutes": 9.7,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8699,
+  "mAP50-95": 0.5721,
+  "precision": 0.853,
+  "recall": 0.8299,
+  "minutes": 9.4,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.862,
+  "mAP50-95": 0.5848,
+  "precision": 0.8876,
+  "recall": 0.8214,
+  "minutes": 9.6,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8332,
+  "mAP50-95": 0.527,
+  "precision": 0.908,
+  "recall": 0.7732,
+  "minutes": 9.9,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8957,
+  "mAP50-95": 0.5809,
+  "precision": 0.8737,
+  "recall": 0.858,
+  "minutes": 8.9,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9942,
+  "recall": 0.995,
+  "minutes": 46.9,
+  "worker": 1
+ },
+ "yolov8-shuffle-se|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9985,
+  "recall": 0.9949,
+  "minutes": 46.6,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.997,
+  "recall": 0.9957,
+  "minutes": 46.6,
+  "worker": 1
+ },
+ "yolov8-shuffle-se|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.991,
+  "mAP50-95": 0.9849,
+  "precision": 0.9824,
+  "recall": 0.9883,
+  "minutes": 45.5,
+  "worker": 0
+ },
+ "yolov8-shuffle-se|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.988,
+  "recall": 0.9919,
+  "minutes": 48.0,
+  "worker": 1
+ },
+ "yolov8-spd-shuffle-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8946,
+  "mAP50-95": 0.6217,
+  "precision": 0.9739,
+  "recall": 0.8016,
+  "minutes": 9.7,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8909,
+  "mAP50-95": 0.5827,
+  "precision": 0.8953,
+  "recall": 0.8632,
+  "minutes": 9.6,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8777,
+  "mAP50-95": 0.5851,
+  "precision": 0.937,
+  "recall": 0.8459,
+  "minutes": 9.5,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.844,
+  "mAP50-95": 0.5589,
+  "precision": 0.9061,
+  "recall": 0.8005,
+  "minutes": 9.4,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.911,
+  "mAP50-95": 0.62,
+  "precision": 0.9272,
+  "recall": 0.8548,
+  "minutes": 9.1,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.9929,
+  "recall": 0.9964,
+  "minutes": 52.2,
+  "worker": 1
+ },
+ "yolov8-spd-shuffle-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9919,
+  "recall": 0.9982,
+  "minutes": 52.9,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9961,
+  "recall": 0.9983,
+  "minutes": 52.1,
+  "worker": 1
+ },
+ "yolov8-spd-shuffle-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.988,
+  "recall": 0.9933,
+  "minutes": 52.4,
+  "worker": 0
+ },
+ "yolov8-spd-shuffle-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9829,
+  "recall": 0.9917,
+  "minutes": 51.7,
+  "worker": 1
+ },
+ "yolo11-ghostv2|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8854,
+  "mAP50-95": 0.6007,
+  "precision": 0.9742,
+  "recall": 0.7963,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolo11-ghostv2|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8628,
+  "mAP50-95": 0.5648,
+  "precision": 0.9153,
+  "recall": 0.8095,
+  "minutes": 11.5,
+  "worker": 0
+ },
+ "yolo11-ghostv2|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8562,
+  "mAP50-95": 0.5821,
+  "precision": 0.9386,
+  "recall": 0.8033,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolo11-ghostv2|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.802,
+  "mAP50-95": 0.5242,
+  "precision": 0.9448,
+  "recall": 0.7613,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo11-ghostv2|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9037,
+  "mAP50-95": 0.5983,
+  "precision": 0.9148,
+  "recall": 0.8537,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolo11-ghostv2|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9932,
+  "precision": 0.9851,
+  "recall": 0.9921,
+  "minutes": 43.1,
+  "worker": 1
+ },
+ "yolo11-ghostv2|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9937,
+  "recall": 0.9983,
+  "minutes": 62.6,
+  "worker": 0
+ },
+ "yolo11-ghostv2|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9911,
+  "precision": 0.9914,
+  "recall": 0.997,
+  "minutes": 60.8,
+  "worker": 1
+ },
+ "yolo11-ghostv2|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9928,
+  "mAP50-95": 0.9884,
+  "precision": 0.9874,
+  "recall": 0.9933,
+  "minutes": 51.3,
+  "worker": 0
+ },
+ "yolo11-ghostv2|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9907,
+  "recall": 0.9927,
+  "minutes": 59.8,
+  "worker": 1
+ },
+ "yolo11-ghostv2-nonlocal|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8665,
+  "mAP50-95": 0.6096,
+  "precision": 0.9521,
+  "recall": 0.8048,
+  "minutes": 11.3,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.863,
+  "mAP50-95": 0.5742,
+  "precision": 0.9759,
+  "recall": 0.8118,
+  "minutes": 11.3,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8538,
+  "mAP50-95": 0.5942,
+  "precision": 0.927,
+  "recall": 0.8096,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8155,
+  "mAP50-95": 0.5218,
+  "precision": 0.8784,
+  "recall": 0.7699,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9061,
+  "mAP50-95": 0.6029,
+  "precision": 0.9431,
+  "recall": 0.8484,
+  "minutes": 11.4,
+  "worker": 1
+ },
+ "yolo11-ghostv2-nonlocal|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9937,
+  "mAP50-95": 0.9901,
+  "precision": 0.9409,
+  "recall": 0.9558,
+  "minutes": 42.9,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9928,
+  "precision": 0.9946,
+  "recall": 0.9966,
+  "minutes": 55.9,
+  "worker": 1
+ },
+ "yolo11-ghostv2-nonlocal|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9961,
+  "recall": 0.9999,
+  "minutes": 63.7,
+  "worker": 0
+ },
+ "yolo11-ghostv2-nonlocal|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9935,
+  "precision": 0.9932,
+  "recall": 0.995,
+  "minutes": 63.3,
+  "worker": 1
+ },
+ "yolo11-ghostv2-nonlocal|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9917,
+  "recall": 0.9934,
+  "minutes": 61.3,
+  "worker": 0
+ },
+ "yolo11-resnext-ghost-mix|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8781,
+  "mAP50-95": 0.5935,
+  "precision": 0.9257,
+  "recall": 0.8194,
+  "minutes": 11.3,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8598,
+  "mAP50-95": 0.5566,
+  "precision": 0.9283,
+  "recall": 0.8328,
+  "minutes": 11.2,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8646,
+  "mAP50-95": 0.5768,
+  "precision": 0.93,
+  "recall": 0.785,
+  "minutes": 11.4,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8329,
+  "mAP50-95": 0.5354,
+  "precision": 0.9004,
+  "recall": 0.7977,
+  "minutes": 10.9,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9016,
+  "mAP50-95": 0.593,
+  "precision": 0.9174,
+  "recall": 0.8666,
+  "minutes": 10.0,
+  "worker": 0
+ },
+ "yolo11-resnext-ghost-mix|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9992,
+  "recall": 1.0,
+  "minutes": 58.8,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9934,
+  "precision": 0.9945,
+  "recall": 0.995,
+  "minutes": 50.2,
+  "worker": 0
+ },
+ "yolo11-resnext-ghost-mix|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9938,
+  "precision": 0.9879,
+  "recall": 0.9802,
+  "minutes": 60.1,
+  "worker": 0
+ },
+ "yolo11-resnext-ghost-mix|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9907,
+  "recall": 0.9931,
+  "minutes": 60.0,
+  "worker": 1
+ },
+ "yolo11-resnext-ghost-mix|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9871,
+  "recall": 0.9939,
+  "minutes": 57.4,
+  "worker": 0
+ },
+ "yolo11-star-ghost-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8678,
+  "mAP50-95": 0.604,
+  "precision": 0.9493,
+  "recall": 0.8317,
+  "minutes": 11.5,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8559,
+  "mAP50-95": 0.5623,
+  "precision": 0.9081,
+  "recall": 0.805,
+  "minutes": 11.6,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.856,
+  "mAP50-95": 0.5827,
+  "precision": 0.8413,
+  "recall": 0.8444,
+  "minutes": 11.7,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8475,
+  "mAP50-95": 0.536,
+  "precision": 0.9252,
+  "recall": 0.7992,
+  "minutes": 11.5,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.895,
+  "mAP50-95": 0.5941,
+  "precision": 0.8656,
+  "recall": 0.854,
+  "minutes": 10.9,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9932,
+  "recall": 0.997,
+  "minutes": 67.7,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9987,
+  "recall": 0.9999,
+  "minutes": 67.5,
+  "worker": 0
+ },
+ "yolo11-star-ghost-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9945,
+  "precision": 0.9974,
+  "recall": 0.9985,
+  "minutes": 67.8,
+  "worker": 1
+ },
+ "yolo11-star-ghost-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9942,
+  "precision": 0.9946,
+  "recall": 0.995,
+  "minutes": 67.8,
+  "worker": 0
+ },
+ "yolo11-star-ghost-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9902,
+  "recall": 0.9909,
+  "minutes": 64.0,
+  "worker": 1
+ },
+ "yolo12-ghost|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8745,
+  "mAP50-95": 0.5818,
+  "precision": 0.9297,
+  "recall": 0.8301,
+  "minutes": 14.8,
+  "worker": 0
+ },
+ "yolo12-ghost|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8235,
+  "mAP50-95": 0.5541,
+  "precision": 0.9258,
+  "recall": 0.7742,
+  "minutes": 14.5,
+  "worker": 0
+ },
+ "yolo12-ghost|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.822,
+  "mAP50-95": 0.5508,
+  "precision": 0.9264,
+  "recall": 0.7718,
+  "minutes": 14.6,
+  "worker": 0
+ },
+ "yolo12-ghost|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7893,
+  "mAP50-95": 0.5292,
+  "precision": 0.9043,
+  "recall": 0.7554,
+  "minutes": 14.7,
+  "worker": 0
+ },
+ "yolo12-ghost|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8772,
+  "mAP50-95": 0.5928,
+  "precision": 0.9326,
+  "recall": 0.7995,
+  "minutes": 14.3,
+  "worker": 0
+ },
+ "yolo12-ghost|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9937,
+  "precision": 0.9912,
+  "recall": 0.9948,
+  "minutes": 82.6,
+  "worker": 1
+ },
+ "yolo12-ghost|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9875,
+  "precision": 0.9941,
+  "recall": 0.995,
+  "minutes": 83.2,
+  "worker": 0
+ },
+ "yolo12-ghost|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9944,
+  "precision": 0.9883,
+  "recall": 0.9937,
+  "minutes": 83.0,
+  "worker": 0
+ },
+ "yolo12-ghost|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.994,
+  "mAP50-95": 0.9934,
+  "precision": 0.9825,
+  "recall": 0.9903,
+  "minutes": 82.9,
+  "worker": 1
+ },
+ "yolo12-ghost|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9946,
+  "recall": 0.995,
+  "minutes": 70.8,
+  "worker": 1
+ },
+ "yolo12-ghost-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8628,
+  "mAP50-95": 0.5922,
+  "precision": 0.942,
+  "recall": 0.7993,
+  "minutes": 10.6,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8425,
+  "mAP50-95": 0.5503,
+  "precision": 0.9241,
+  "recall": 0.7954,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8229,
+  "mAP50-95": 0.563,
+  "precision": 0.9272,
+  "recall": 0.7809,
+  "minutes": 10.4,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7731,
+  "mAP50-95": 0.5084,
+  "precision": 0.8662,
+  "recall": 0.7435,
+  "minutes": 10.6,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8579,
+  "mAP50-95": 0.5829,
+  "precision": 0.9371,
+  "recall": 0.7928,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.991,
+  "recall": 0.9967,
+  "minutes": 53.4,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9988,
+  "recall": 0.9998,
+  "minutes": 44.4,
+  "worker": 1
+ },
+ "yolo12-ghost-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9852,
+  "recall": 0.9954,
+  "minutes": 51.4,
+  "worker": 0
+ },
+ "yolo12-ghost-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9941,
+  "precision": 0.9917,
+  "recall": 0.9946,
+  "minutes": 51.0,
+  "worker": 1
+ },
+ "yolo12-ghost-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9917,
+  "recall": 0.99,
+  "minutes": 53.1,
+  "worker": 0
+ },
+ "yolo12-ghostv2-coordatt|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8624,
+  "mAP50-95": 0.5845,
+  "precision": 0.9225,
+  "recall": 0.8186,
+  "minutes": 14.7,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8494,
+  "mAP50-95": 0.5546,
+  "precision": 0.9149,
+  "recall": 0.8267,
+  "minutes": 14.0,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8535,
+  "mAP50-95": 0.5761,
+  "precision": 0.9434,
+  "recall": 0.7684,
+  "minutes": 14.0,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8103,
+  "mAP50-95": 0.5339,
+  "precision": 0.8862,
+  "recall": 0.7418,
+  "minutes": 14.4,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8756,
+  "mAP50-95": 0.5816,
+  "precision": 0.8905,
+  "recall": 0.8252,
+  "minutes": 15.1,
+  "worker": 0
+ },
+ "yolo12-ghostv2-coordatt|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9942,
+  "precision": 0.9848,
+  "recall": 0.986,
+  "minutes": 89.7,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9928,
+  "recall": 0.9968,
+  "minutes": 89.6,
+  "worker": 0
+ },
+ "yolo12-ghostv2-coordatt|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9935,
+  "mAP50-95": 0.9911,
+  "precision": 0.9799,
+  "recall": 0.9738,
+  "minutes": 80.7,
+  "worker": 1
+ },
+ "yolo12-ghostv2-coordatt|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.9884,
+  "recall": 0.9635,
+  "minutes": 90.1,
+  "worker": 0
+ },
+ "yolo12-ghostv2-coordatt|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9905,
+  "recall": 0.995,
+  "minutes": 84.1,
+  "worker": 1
+ },
+ "yolo12-ghostv2-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8679,
+  "mAP50-95": 0.6084,
+  "precision": 0.9705,
+  "recall": 0.8064,
+  "minutes": 15.9,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8577,
+  "mAP50-95": 0.5776,
+  "precision": 0.9382,
+  "recall": 0.7931,
+  "minutes": 15.9,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8294,
+  "mAP50-95": 0.5693,
+  "precision": 0.8854,
+  "recall": 0.7955,
+  "minutes": 15.6,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.816,
+  "mAP50-95": 0.5353,
+  "precision": 0.863,
+  "recall": 0.7772,
+  "minutes": 15.9,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9021,
+  "mAP50-95": 0.5951,
+  "precision": 0.9522,
+  "recall": 0.8404,
+  "minutes": 15.2,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9998,
+  "recall": 0.9979,
+  "minutes": 90.1,
+  "worker": 1
+ },
+ "yolo12-ghostv2-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9852,
+  "precision": 0.9884,
+  "recall": 0.9902,
+  "minutes": 90.1,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9927,
+  "precision": 0.9828,
+  "recall": 0.9956,
+  "minutes": 89.5,
+  "worker": 1
+ },
+ "yolo12-ghostv2-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.994,
+  "mAP50-95": 0.9892,
+  "precision": 0.969,
+  "recall": 0.9832,
+  "minutes": 89.6,
+  "worker": 0
+ },
+ "yolo12-ghostv2-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9945,
+  "precision": 0.9893,
+  "recall": 0.99,
+  "minutes": 74.3,
+  "worker": 1
+ },
+ "yolo26-ghost-nonlocal-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8119,
+  "mAP50-95": 0.5468,
+  "precision": 0.8491,
+  "recall": 0.721,
+  "minutes": 12.9,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8304,
+  "mAP50-95": 0.5416,
+  "precision": 0.8385,
+  "recall": 0.7396,
+  "minutes": 12.5,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8091,
+  "mAP50-95": 0.5369,
+  "precision": 0.8675,
+  "recall": 0.7452,
+  "minutes": 12.5,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.755,
+  "mAP50-95": 0.4751,
+  "precision": 0.8393,
+  "recall": 0.7304,
+  "minutes": 12.6,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8523,
+  "mAP50-95": 0.5726,
+  "precision": 0.8709,
+  "recall": 0.7754,
+  "minutes": 12.7,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9942,
+  "precision": 0.986,
+  "recall": 0.9833,
+  "minutes": 60.0,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9921,
+  "precision": 0.9882,
+  "recall": 0.9845,
+  "minutes": 59.3,
+  "worker": 1
+ },
+ "yolo26-ghost-nonlocal-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9942,
+  "precision": 0.9917,
+  "recall": 0.9914,
+  "minutes": 62.4,
+  "worker": 0
+ },
+ "yolo26-ghost-nonlocal-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9895,
+  "mAP50-95": 0.986,
+  "precision": 0.9778,
+  "recall": 0.975,
+  "minutes": 49.2,
+  "worker": 1
+ },
+ "yolo26-ghost-nonlocal-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9934,
+  "mAP50-95": 0.9928,
+  "precision": 0.9857,
+  "recall": 0.9722,
+  "minutes": 60.8,
+  "worker": 1
+ },
+ "yolo26-ghostv2-c2psa|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.795,
+  "mAP50-95": 0.5249,
+  "precision": 0.8788,
+  "recall": 0.7044,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7981,
+  "mAP50-95": 0.5115,
+  "precision": 0.8401,
+  "recall": 0.7458,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7975,
+  "mAP50-95": 0.5103,
+  "precision": 0.8347,
+  "recall": 0.7252,
+  "minutes": 12.0,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7621,
+  "mAP50-95": 0.4723,
+  "precision": 0.8382,
+  "recall": 0.7011,
+  "minutes": 12.2,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8001,
+  "mAP50-95": 0.5344,
+  "precision": 0.8772,
+  "recall": 0.7213,
+  "minutes": 12.0,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9922,
+  "precision": 0.9779,
+  "recall": 0.9667,
+  "minutes": 67.6,
+  "worker": 1
+ },
+ "yolo26-ghostv2-c2psa|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9946,
+  "precision": 0.9854,
+  "recall": 0.9858,
+  "minutes": 67.1,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9928,
+  "precision": 0.9847,
+  "recall": 0.972,
+  "minutes": 67.8,
+  "worker": 1
+ },
+ "yolo26-ghostv2-c2psa|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9936,
+  "precision": 0.9937,
+  "recall": 0.9901,
+  "minutes": 68.0,
+  "worker": 0
+ },
+ "yolo26-ghostv2-c2psa|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9943,
+  "precision": 0.9821,
+  "recall": 0.9651,
+  "minutes": 66.5,
+  "worker": 1
+ },
+ "yolo26-ghostv2-coordatt|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8039,
+  "mAP50-95": 0.5187,
+  "precision": 0.9034,
+  "recall": 0.7068,
+  "minutes": 12.8,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7843,
+  "mAP50-95": 0.4895,
+  "precision": 0.8335,
+  "recall": 0.7061,
+  "minutes": 12.9,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8036,
+  "mAP50-95": 0.5238,
+  "precision": 0.8114,
+  "recall": 0.7545,
+  "minutes": 12.5,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7308,
+  "mAP50-95": 0.4511,
+  "precision": 0.8397,
+  "recall": 0.6833,
+  "minutes": 12.6,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8015,
+  "mAP50-95": 0.5172,
+  "precision": 0.8198,
+  "recall": 0.7647,
+  "minutes": 12.3,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.989,
+  "recall": 0.995,
+  "minutes": 69.3,
+  "worker": 1
+ },
+ "yolo26-ghostv2-coordatt|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9942,
+  "precision": 0.9835,
+  "recall": 0.9767,
+  "minutes": 69.1,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9939,
+  "mAP50-95": 0.986,
+  "precision": 0.9934,
+  "recall": 0.9862,
+  "minutes": 58.1,
+  "worker": 1
+ },
+ "yolo26-ghostv2-coordatt|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9936,
+  "mAP50-95": 0.9899,
+  "precision": 0.9896,
+  "recall": 0.9896,
+  "minutes": 72.2,
+  "worker": 0
+ },
+ "yolo26-ghostv2-coordatt|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9942,
+  "precision": 0.9882,
+  "recall": 0.9817,
+  "minutes": 71.5,
+  "worker": 1
+ },
+ "yolo26-ghostv2-csp|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.793,
+  "mAP50-95": 0.5354,
+  "precision": 0.8275,
+  "recall": 0.7356,
+  "minutes": 13.0,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7862,
+  "mAP50-95": 0.5113,
+  "precision": 0.8412,
+  "recall": 0.7314,
+  "minutes": 13.3,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.796,
+  "mAP50-95": 0.5351,
+  "precision": 0.8245,
+  "recall": 0.7361,
+  "minutes": 15.3,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.73,
+  "mAP50-95": 0.4596,
+  "precision": 0.7763,
+  "recall": 0.6628,
+  "minutes": 13.4,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8191,
+  "mAP50-95": 0.5448,
+  "precision": 0.8804,
+  "recall": 0.7107,
+  "minutes": 12.1,
+  "worker": 1
+ },
+ "yolo26-ghostv2-csp|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9934,
+  "mAP50-95": 0.9923,
+  "precision": 0.9675,
+  "recall": 0.9789,
+  "minutes": 60.3,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9917,
+  "recall": 0.9918,
+  "minutes": 66.2,
+  "worker": 1
+ },
+ "yolo26-ghostv2-csp|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9937,
+  "precision": 0.9868,
+  "recall": 0.9946,
+  "minutes": 64.7,
+  "worker": 0
+ },
+ "yolo26-ghostv2-csp|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9931,
+  "precision": 0.9918,
+  "recall": 0.9933,
+  "minutes": 64.3,
+  "worker": 1
+ },
+ "yolo26-ghostv2-csp|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9935,
+  "precision": 0.9818,
+  "recall": 0.9817,
+  "minutes": 68.5,
+  "worker": 0
+ },
+ "yolo26-ghostv2-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.7917,
+  "mAP50-95": 0.5395,
+  "precision": 0.8616,
+  "recall": 0.7335,
+  "minutes": 13.3,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7817,
+  "mAP50-95": 0.4936,
+  "precision": 0.8374,
+  "recall": 0.6999,
+  "minutes": 12.5,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7597,
+  "mAP50-95": 0.4882,
+  "precision": 0.8016,
+  "recall": 0.6708,
+  "minutes": 13.3,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7263,
+  "mAP50-95": 0.4503,
+  "precision": 0.8164,
+  "recall": 0.6832,
+  "minutes": 13.2,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8138,
+  "mAP50-95": 0.5274,
+  "precision": 0.7888,
+  "recall": 0.7454,
+  "minutes": 14.0,
+  "worker": 0
+ },
+ "yolo26-ghostv2-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9941,
+  "precision": 0.9881,
+  "recall": 0.9966,
+  "minutes": 74.0,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.994,
+  "recall": 0.9963,
+  "minutes": 73.4,
+  "worker": 0
+ },
+ "yolo26-ghostv2-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9942,
+  "precision": 0.9906,
+  "recall": 0.99,
+  "minutes": 73.3,
+  "worker": 1
+ },
+ "yolo26-ghostv2-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9932,
+  "mAP50-95": 0.9926,
+  "precision": 0.9875,
+  "recall": 0.9912,
+  "minutes": 73.2,
+  "worker": 0
+ },
+ "yolo26-ghostv2-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9927,
+  "precision": 0.9906,
+  "recall": 0.9874,
+  "minutes": 72.7,
+  "worker": 1
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.854,
+  "mAP50-95": 0.5711,
+  "precision": 0.9207,
+  "recall": 0.775,
+  "minutes": 14.1,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8502,
+  "mAP50-95": 0.5488,
+  "precision": 0.846,
+  "recall": 0.7832,
+  "minutes": 14.0,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8115,
+  "mAP50-95": 0.5568,
+  "precision": 0.8404,
+  "recall": 0.7531,
+  "minutes": 14.4,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8049,
+  "mAP50-95": 0.5175,
+  "precision": 0.8357,
+  "recall": 0.7418,
+  "minutes": 14.2,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8545,
+  "mAP50-95": 0.5743,
+  "precision": 0.8844,
+  "recall": 0.7754,
+  "minutes": 13.8,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9945,
+  "precision": 0.9992,
+  "recall": 0.9946,
+  "minutes": 75.6,
+  "worker": 1
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9974,
+  "recall": 0.9975,
+  "minutes": 75.3,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9936,
+  "recall": 0.9934,
+  "minutes": 75.5,
+  "worker": 1
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9944,
+  "precision": 0.9795,
+  "recall": 0.9858,
+  "minutes": 75.1,
+  "worker": 0
+ },
+ "yolo26-spd-ghostv2-coordatt-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9939,
+  "mAP50-95": 0.9939,
+  "precision": 0.9906,
+  "recall": 0.9728,
+  "minutes": 77.8,
+  "worker": 1
+ },
+ "yolo26-star-ghostv2-swin|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8049,
+  "mAP50-95": 0.5519,
+  "precision": 0.8174,
+  "recall": 0.742,
+  "minutes": 13.9,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8395,
+  "mAP50-95": 0.5319,
+  "precision": 0.8506,
+  "recall": 0.7639,
+  "minutes": 13.3,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.797,
+  "mAP50-95": 0.5198,
+  "precision": 0.8575,
+  "recall": 0.7232,
+  "minutes": 13.5,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7789,
+  "mAP50-95": 0.4737,
+  "precision": 0.862,
+  "recall": 0.6819,
+  "minutes": 13.3,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8369,
+  "mAP50-95": 0.5443,
+  "precision": 0.8496,
+  "recall": 0.7554,
+  "minutes": 13.6,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9927,
+  "mAP50-95": 0.9905,
+  "precision": 0.9815,
+  "recall": 0.97,
+  "minutes": 75.5,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9777,
+  "precision": 0.9867,
+  "recall": 0.9917,
+  "minutes": 75.9,
+  "worker": 1
+ },
+ "yolo26-star-ghostv2-swin|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9934,
+  "mAP50-95": 0.9824,
+  "precision": 0.9724,
+  "recall": 0.956,
+  "minutes": 75.9,
+  "worker": 0
+ },
+ "yolo26-star-ghostv2-swin|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9897,
+  "mAP50-95": 0.9134,
+  "precision": 0.9646,
+  "recall": 0.97,
+  "minutes": 54.9,
+  "worker": 1
+ },
+ "yolo26-star-ghostv2-swin|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9799,
+  "precision": 0.9784,
+  "recall": 0.9907,
+  "minutes": 73.8,
+  "worker": 1
+ },
+ "yolov8-convnext-ghostv2-mix|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8819,
+  "mAP50-95": 0.6067,
+  "precision": 0.9339,
+  "recall": 0.8417,
+  "minutes": 11.5,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8765,
+  "mAP50-95": 0.5751,
+  "precision": 0.9342,
+  "recall": 0.8108,
+  "minutes": 11.9,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8619,
+  "mAP50-95": 0.5897,
+  "precision": 0.9317,
+  "recall": 0.8051,
+  "minutes": 12.3,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8357,
+  "mAP50-95": 0.5418,
+  "precision": 0.9192,
+  "recall": 0.7975,
+  "minutes": 12.9,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8706,
+  "mAP50-95": 0.5896,
+  "precision": 0.9394,
+  "recall": 0.8194,
+  "minutes": 11.9,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9948,
+  "precision": 0.991,
+  "recall": 0.9956,
+  "minutes": 61.6,
+  "worker": 1
+ },
+ "yolov8-convnext-ghostv2-mix|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.995,
+  "recall": 0.9972,
+  "minutes": 69.1,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9955,
+  "recall": 0.9999,
+  "minutes": 61.9,
+  "worker": 1
+ },
+ "yolov8-convnext-ghostv2-mix|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.987,
+  "recall": 0.9934,
+  "minutes": 68.9,
+  "worker": 0
+ },
+ "yolov8-convnext-ghostv2-mix|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9907,
+  "recall": 0.9934,
+  "minutes": 60.4,
+  "worker": 1
+ },
+ "yolov8-ghost-capffn|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8443,
+  "mAP50-95": 0.5887,
+  "precision": 0.9644,
+  "recall": 0.7516,
+  "minutes": 13.1,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.826,
+  "mAP50-95": 0.5439,
+  "precision": 0.9175,
+  "recall": 0.7817,
+  "minutes": 12.7,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8241,
+  "mAP50-95": 0.5555,
+  "precision": 0.885,
+  "recall": 0.7832,
+  "minutes": 12.9,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7593,
+  "mAP50-95": 0.4958,
+  "precision": 0.8979,
+  "recall": 0.7363,
+  "minutes": 12.8,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8608,
+  "mAP50-95": 0.5621,
+  "precision": 0.8697,
+  "recall": 0.8251,
+  "minutes": 11.9,
+  "worker": 1
+ },
+ "yolov8-ghost-capffn|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9893,
+  "recall": 0.9996,
+  "minutes": 64.5,
+  "worker": 1
+ },
+ "yolov8-ghost-capffn|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9983,
+  "recall": 0.9959,
+  "minutes": 56.1,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9955,
+  "recall": 0.9969,
+  "minutes": 64.8,
+  "worker": 0
+ },
+ "yolov8-ghost-capffn|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9941,
+  "precision": 0.9927,
+  "recall": 0.9882,
+  "minutes": 64.6,
+  "worker": 1
+ },
+ "yolov8-ghost-capffn|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9906,
+  "recall": 0.9921,
+  "minutes": 63.5,
+  "worker": 0
+ },
+ "yolov8-ghost-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8372,
+  "mAP50-95": 0.5929,
+  "precision": 0.9625,
+  "recall": 0.7506,
+  "minutes": 10.5,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8158,
+  "mAP50-95": 0.55,
+  "precision": 0.9631,
+  "recall": 0.7252,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8362,
+  "mAP50-95": 0.5665,
+  "precision": 0.9696,
+  "recall": 0.7734,
+  "minutes": 11.1,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7497,
+  "mAP50-95": 0.4895,
+  "precision": 0.862,
+  "recall": 0.6963,
+  "minutes": 10.5,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8591,
+  "mAP50-95": 0.5765,
+  "precision": 0.9372,
+  "recall": 0.7774,
+  "minutes": 10.5,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.997,
+  "recall": 0.9889,
+  "minutes": 52.8,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9942,
+  "precision": 0.9973,
+  "recall": 0.989,
+  "minutes": 41.4,
+  "worker": 0
+ },
+ "yolov8-ghost-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9929,
+  "recall": 0.9895,
+  "minutes": 52.4,
+  "worker": 0
+ },
+ "yolov8-ghost-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9941,
+  "precision": 0.987,
+  "recall": 0.991,
+  "minutes": 52.8,
+  "worker": 1
+ },
+ "yolov8-ghost-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9946,
+  "precision": 0.9871,
+  "recall": 0.9961,
+  "minutes": 55.8,
+  "worker": 0
+ },
+ "yolov8-ghost-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.859,
+  "mAP50-95": 0.5909,
+  "precision": 0.9637,
+  "recall": 0.796,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.828,
+  "mAP50-95": 0.546,
+  "precision": 0.8848,
+  "recall": 0.7767,
+  "minutes": 9.9,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8193,
+  "mAP50-95": 0.5572,
+  "precision": 0.9206,
+  "recall": 0.7757,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7894,
+  "mAP50-95": 0.5064,
+  "precision": 0.9054,
+  "recall": 0.755,
+  "minutes": 9.9,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8693,
+  "mAP50-95": 0.5838,
+  "precision": 0.9442,
+  "recall": 0.7906,
+  "minutes": 9.8,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9972,
+  "recall": 0.9982,
+  "minutes": 50.8,
+  "worker": 0
+ },
+ "yolov8-ghost-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9969,
+  "recall": 0.9996,
+  "minutes": 51.5,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9954,
+  "recall": 0.9986,
+  "minutes": 50.9,
+  "worker": 0
+ },
+ "yolov8-ghost-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9889,
+  "recall": 0.992,
+  "minutes": 50.9,
+  "worker": 1
+ },
+ "yolov8-ghost-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.9899,
+  "recall": 0.9912,
+  "minutes": 56.2,
+  "worker": 0
+ },
+ "yolov8-ghost-kd|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8382,
+  "mAP50-95": 0.5785,
+  "precision": 0.9396,
+  "recall": 0.7762,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8159,
+  "mAP50-95": 0.5459,
+  "precision": 0.9233,
+  "recall": 0.7584,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8294,
+  "mAP50-95": 0.5682,
+  "precision": 0.9546,
+  "recall": 0.7841,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7809,
+  "mAP50-95": 0.5055,
+  "precision": 0.8737,
+  "recall": 0.7316,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8446,
+  "mAP50-95": 0.5732,
+  "precision": 0.9447,
+  "recall": 0.7839,
+  "minutes": 10.2,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9938,
+  "recall": 0.9933,
+  "minutes": 52.3,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9969,
+  "recall": 0.9989,
+  "minutes": 52.2,
+  "worker": 0
+ },
+ "yolov8-ghost-kd|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9953,
+  "recall": 0.9996,
+  "minutes": 52.5,
+  "worker": 1
+ },
+ "yolov8-ghost-kd|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9938,
+  "recall": 0.995,
+  "minutes": 52.1,
+  "worker": 0
+ },
+ "yolov8-ghost-kd|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9927,
+  "recall": 0.995,
+  "minutes": 53.4,
+  "worker": 1
+ },
+ "yolov8-ghost-nonlocal-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8697,
+  "mAP50-95": 0.6063,
+  "precision": 0.9735,
+  "recall": 0.7851,
+  "minutes": 10.7,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8577,
+  "mAP50-95": 0.5736,
+  "precision": 0.9479,
+  "recall": 0.775,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8481,
+  "mAP50-95": 0.5788,
+  "precision": 0.95,
+  "recall": 0.7988,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7943,
+  "mAP50-95": 0.5225,
+  "precision": 0.8649,
+  "recall": 0.7672,
+  "minutes": 11.2,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8844,
+  "mAP50-95": 0.5899,
+  "precision": 0.9329,
+  "recall": 0.8462,
+  "minutes": 10.6,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9921,
+  "recall": 0.9976,
+  "minutes": 54.5,
+  "worker": 1
+ },
+ "yolov8-ghost-nonlocal-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9939,
+  "recall": 0.9987,
+  "minutes": 54.2,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.992,
+  "recall": 0.9967,
+  "minutes": 58.4,
+  "worker": 1
+ },
+ "yolov8-ghost-nonlocal-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9911,
+  "recall": 0.995,
+  "minutes": 53.0,
+  "worker": 0
+ },
+ "yolov8-ghost-nonlocal-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9943,
+  "precision": 0.9861,
+  "recall": 0.9917,
+  "minutes": 59.2,
+  "worker": 0
+ },
+ "yolov8-ghost-swin|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8527,
+  "mAP50-95": 0.5864,
+  "precision": 0.9553,
+  "recall": 0.7791,
+  "minutes": 11.7,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8479,
+  "mAP50-95": 0.5699,
+  "precision": 0.9389,
+  "recall": 0.8023,
+  "minutes": 11.9,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8367,
+  "mAP50-95": 0.5728,
+  "precision": 0.8898,
+  "recall": 0.7987,
+  "minutes": 12.0,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7984,
+  "mAP50-95": 0.5046,
+  "precision": 0.9103,
+  "recall": 0.7742,
+  "minutes": 11.9,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8785,
+  "mAP50-95": 0.592,
+  "precision": 0.9599,
+  "recall": 0.802,
+  "minutes": 11.3,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.993,
+  "precision": 0.9934,
+  "recall": 0.9923,
+  "minutes": 71.7,
+  "worker": 0
+ },
+ "yolov8-ghost-swin|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9926,
+  "precision": 0.9917,
+  "recall": 0.9833,
+  "minutes": 71.4,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9928,
+  "recall": 0.9967,
+  "minutes": 72.0,
+  "worker": 1
+ },
+ "yolov8-ghost-swin|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.994,
+  "mAP50-95": 0.9921,
+  "precision": 0.9916,
+  "recall": 0.9867,
+  "minutes": 72.0,
+  "worker": 0
+ },
+ "yolov8-ghost-swin|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9927,
+  "mAP50-95": 0.984,
+  "precision": 0.9862,
+  "recall": 0.9717,
+  "minutes": 72.0,
+  "worker": 0
+ },
+ "yolov8-ghost-swin-capffn|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8506,
+  "mAP50-95": 0.5788,
+  "precision": 0.9463,
+  "recall": 0.7768,
+  "minutes": 14.4,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8471,
+  "mAP50-95": 0.5588,
+  "precision": 0.9458,
+  "recall": 0.7644,
+  "minutes": 14.3,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8453,
+  "mAP50-95": 0.55,
+  "precision": 0.9034,
+  "recall": 0.8065,
+  "minutes": 14.2,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8114,
+  "mAP50-95": 0.5188,
+  "precision": 0.9132,
+  "recall": 0.7581,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8946,
+  "mAP50-95": 0.5809,
+  "precision": 0.9595,
+  "recall": 0.8238,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9928,
+  "mAP50-95": 0.9487,
+  "precision": 0.9832,
+  "recall": 0.9758,
+  "minutes": 77.7,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9824,
+  "mAP50-95": 0.8646,
+  "precision": 0.9506,
+  "recall": 0.953,
+  "minutes": 50.5,
+  "worker": 0
+ },
+ "yolov8-ghost-swin-capffn|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.923,
+  "precision": 0.9804,
+  "recall": 0.987,
+  "minutes": 74.9,
+  "worker": 0
+ },
+ "yolov8-ghost-swin-capffn|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9867,
+  "mAP50-95": 0.938,
+  "precision": 0.9641,
+  "recall": 0.9737,
+  "minutes": 74.9,
+  "worker": 1
+ },
+ "yolov8-ghost-swin-capffn|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9835,
+  "mAP50-95": 0.8423,
+  "precision": 0.9596,
+  "recall": 0.9537,
+  "minutes": 54.7,
+  "worker": 0
+ },
+ "yolov8-ghostv2-coordatt|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8442,
+  "mAP50-95": 0.5863,
+  "precision": 0.9354,
+  "recall": 0.787,
+  "minutes": 13.1,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8328,
+  "mAP50-95": 0.5594,
+  "precision": 0.9134,
+  "recall": 0.7714,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8208,
+  "mAP50-95": 0.5584,
+  "precision": 0.9242,
+  "recall": 0.7728,
+  "minutes": 11.6,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7744,
+  "mAP50-95": 0.4986,
+  "precision": 0.8263,
+  "recall": 0.7715,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolov8-ghostv2-coordatt|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8454,
+  "mAP50-95": 0.5797,
+  "precision": 0.8792,
+  "recall": 0.8296,
+  "minutes": 11.9,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9927,
+  "recall": 0.995,
+  "minutes": 67.9,
+  "worker": 0
+ },
+ "yolov8-ghostv2-coordatt|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9959,
+  "recall": 0.997,
+  "minutes": 67.0,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9978,
+  "recall": 0.9973,
+  "minutes": 67.8,
+  "worker": 0
+ },
+ "yolov8-ghostv2-coordatt|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.9908,
+  "recall": 0.9935,
+  "minutes": 67.8,
+  "worker": 1
+ },
+ "yolov8-ghostv2-coordatt|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9914,
+  "recall": 0.9948,
+  "minutes": 65.6,
+  "worker": 0
+ },
+ "yolov8-ghostv2-csp-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8578,
+  "mAP50-95": 0.5975,
+  "precision": 0.9198,
+  "recall": 0.7748,
+  "minutes": 12.0,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8387,
+  "mAP50-95": 0.5704,
+  "precision": 0.916,
+  "recall": 0.8,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8319,
+  "mAP50-95": 0.5617,
+  "precision": 0.9507,
+  "recall": 0.7757,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8005,
+  "mAP50-95": 0.5214,
+  "precision": 0.9153,
+  "recall": 0.7492,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.857,
+  "mAP50-95": 0.5815,
+  "precision": 0.9047,
+  "recall": 0.8087,
+  "minutes": 11.9,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9954,
+  "recall": 0.9888,
+  "minutes": 64.7,
+  "worker": 0
+ },
+ "yolov8-ghostv2-csp-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9996,
+  "recall": 0.9996,
+  "minutes": 62.6,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9919,
+  "recall": 0.9925,
+  "minutes": 64.5,
+  "worker": 0
+ },
+ "yolov8-ghostv2-csp-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9862,
+  "recall": 0.9917,
+  "minutes": 64.7,
+  "worker": 1
+ },
+ "yolov8-ghostv2-csp-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9927,
+  "recall": 0.986,
+  "minutes": 64.9,
+  "worker": 0
+ },
+ "yolov8-ghostv2-spd-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8787,
+  "mAP50-95": 0.6186,
+  "precision": 0.9826,
+  "recall": 0.798,
+  "minutes": 12.0,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8613,
+  "mAP50-95": 0.5823,
+  "precision": 0.9207,
+  "recall": 0.8174,
+  "minutes": 12.6,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8695,
+  "mAP50-95": 0.5865,
+  "precision": 0.9254,
+  "recall": 0.812,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8339,
+  "mAP50-95": 0.5348,
+  "precision": 0.9379,
+  "recall": 0.7806,
+  "minutes": 12.6,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8827,
+  "mAP50-95": 0.5981,
+  "precision": 0.9449,
+  "recall": 0.8444,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9939,
+  "recall": 0.9981,
+  "minutes": 68.0,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.995,
+  "recall": 0.9936,
+  "minutes": 50.0,
+  "worker": 0
+ },
+ "yolov8-ghostv2-spd-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9922,
+  "recall": 0.9967,
+  "minutes": 67.3,
+  "worker": 0
+ },
+ "yolov8-ghostv2-spd-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9932,
+  "recall": 0.9946,
+  "minutes": 67.3,
+  "worker": 1
+ },
+ "yolov8-ghostv2-spd-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9934,
+  "recall": 0.9929,
+  "minutes": 63.2,
+  "worker": 0
+ },
+ "yolov8-sgsaB1-ghost|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8482,
+  "mAP50-95": 0.5961,
+  "precision": 0.9546,
+  "recall": 0.7906,
+  "minutes": 11.2,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8313,
+  "mAP50-95": 0.5506,
+  "precision": 0.9558,
+  "recall": 0.7884,
+  "minutes": 11.2,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8375,
+  "mAP50-95": 0.5673,
+  "precision": 0.8994,
+  "recall": 0.7905,
+  "minutes": 11.4,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7865,
+  "mAP50-95": 0.5071,
+  "precision": 0.8415,
+  "recall": 0.7647,
+  "minutes": 11.5,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8526,
+  "mAP50-95": 0.5688,
+  "precision": 0.939,
+  "recall": 0.8028,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.9919,
+  "recall": 0.982,
+  "minutes": 57.9,
+  "worker": 0
+ },
+ "yolov8-sgsaB1-ghost|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9958,
+  "recall": 0.9983,
+  "minutes": 58.4,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9944,
+  "precision": 0.965,
+  "recall": 0.9878,
+  "minutes": 42.2,
+  "worker": 0
+ },
+ "yolov8-sgsaB1-ghost|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9954,
+  "recall": 0.9947,
+  "minutes": 57.4,
+  "worker": 1
+ },
+ "yolov8-sgsaB1-ghost|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9921,
+  "recall": 0.9916,
+  "minutes": 58.1,
+  "worker": 0
+ },
+ "yolov8-spd-ghostv2-sgsa|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8838,
+  "mAP50-95": 0.6166,
+  "precision": 0.94,
+  "recall": 0.8207,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8624,
+  "mAP50-95": 0.5842,
+  "precision": 0.9313,
+  "recall": 0.8339,
+  "minutes": 13.0,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8689,
+  "mAP50-95": 0.5893,
+  "precision": 0.9453,
+  "recall": 0.8128,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.836,
+  "mAP50-95": 0.5557,
+  "precision": 0.9417,
+  "recall": 0.773,
+  "minutes": 12.2,
+  "worker": 0
+ },
+ "yolov8-spd-ghostv2-sgsa|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9064,
+  "mAP50-95": 0.6064,
+  "precision": 0.9451,
+  "recall": 0.8526,
+  "minutes": 12.2,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9952,
+  "recall": 0.9996,
+  "minutes": 69.2,
+  "worker": 0
+ },
+ "yolov8-spd-ghostv2-sgsa|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9936,
+  "recall": 0.9961,
+  "minutes": 69.5,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9956,
+  "recall": 0.9985,
+  "minutes": 65.3,
+  "worker": 0
+ },
+ "yolov8-spd-ghostv2-sgsa|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9934,
+  "recall": 0.995,
+  "minutes": 69.4,
+  "worker": 1
+ },
+ "yolov8-spd-ghostv2-sgsa|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9952,
+  "recall": 0.9936,
+  "minutes": 67.7,
+  "worker": 0
+ },
+ "yolov8-starghost|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.874,
+  "mAP50-95": 0.6036,
+  "precision": 0.9465,
+  "recall": 0.7962,
+  "minutes": 10.6,
+  "worker": 1
+ },
+ "yolov8-starghost|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8467,
+  "mAP50-95": 0.5561,
+  "precision": 0.9562,
+  "recall": 0.7831,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-starghost|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.833,
+  "mAP50-95": 0.5572,
+  "precision": 0.9484,
+  "recall": 0.7987,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-starghost|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7969,
+  "mAP50-95": 0.5253,
+  "precision": 0.8528,
+  "recall": 0.766,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-starghost|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8935,
+  "mAP50-95": 0.5865,
+  "precision": 0.9382,
+  "recall": 0.8197,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-starghost|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9937,
+  "precision": 0.9884,
+  "recall": 0.9924,
+  "minutes": 41.1,
+  "worker": 1
+ },
+ "yolov8-starghost|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.996,
+  "recall": 0.997,
+  "minutes": 57.6,
+  "worker": 0
+ },
+ "yolov8-starghost|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9904,
+  "recall": 0.975,
+  "minutes": 57.7,
+  "worker": 1
+ },
+ "yolov8-starghost|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9947,
+  "recall": 0.9866,
+  "minutes": 57.5,
+  "worker": 0
+ },
+ "yolov8-starghost|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9956,
+  "recall": 0.989,
+  "minutes": 60.3,
+  "worker": 1
+ },
+ "yolov8s-ghost-capffn|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8827,
+  "mAP50-95": 0.6037,
+  "precision": 0.9606,
+  "recall": 0.8247,
+  "minutes": 15.5,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8658,
+  "mAP50-95": 0.5799,
+  "precision": 0.9154,
+  "recall": 0.8297,
+  "minutes": 15.8,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8714,
+  "mAP50-95": 0.5975,
+  "precision": 0.9204,
+  "recall": 0.8223,
+  "minutes": 16.1,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8312,
+  "mAP50-95": 0.5391,
+  "precision": 0.9025,
+  "recall": 0.7746,
+  "minutes": 16.5,
+  "worker": 1
+ },
+ "yolov8s-ghost-capffn|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9205,
+  "mAP50-95": 0.6211,
+  "precision": 0.9195,
+  "recall": 0.8754,
+  "minutes": 16.4,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9949,
+  "recall": 0.9967,
+  "minutes": 99.4,
+  "worker": 1
+ },
+ "yolov8s-ghost-capffn|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9991,
+  "recall": 1.0,
+  "minutes": 79.7,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9909,
+  "recall": 0.9972,
+  "minutes": 101.0,
+  "worker": 0
+ },
+ "yolov8s-ghost-capffn|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9923,
+  "recall": 0.9965,
+  "minutes": 100.9,
+  "worker": 1
+ },
+ "yolov8s-ghost-capffn|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9932,
+  "recall": 0.995,
+  "minutes": 87.3,
+  "worker": 0
+ },
+ "yolov8s-ghost-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8901,
+  "mAP50-95": 0.6342,
+  "precision": 0.9723,
+  "recall": 0.8132,
+  "minutes": 14.4,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8719,
+  "mAP50-95": 0.5839,
+  "precision": 0.9242,
+  "recall": 0.8173,
+  "minutes": 14.6,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8591,
+  "mAP50-95": 0.5876,
+  "precision": 0.9294,
+  "recall": 0.8021,
+  "minutes": 14.3,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.842,
+  "mAP50-95": 0.5558,
+  "precision": 0.8969,
+  "recall": 0.7986,
+  "minutes": 14.5,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.895,
+  "mAP50-95": 0.612,
+  "precision": 0.963,
+  "recall": 0.8126,
+  "minutes": 14.5,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9923,
+  "recall": 0.9993,
+  "minutes": 74.8,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.995,
+  "recall": 1.0,
+  "minutes": 66.1,
+  "worker": 0
+ },
+ "yolov8s-ghost-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9952,
+  "recall": 0.999,
+  "minutes": 68.8,
+  "worker": 0
+ },
+ "yolov8s-ghost-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9847,
+  "recall": 0.996,
+  "minutes": 75.2,
+  "worker": 1
+ },
+ "yolov8s-ghost-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9934,
+  "recall": 0.9939,
+  "minutes": 70.9,
+  "worker": 0
+ },
+ "yolov8s-ghost-gam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8846,
+  "mAP50-95": 0.6212,
+  "precision": 0.9596,
+  "recall": 0.8044,
+  "minutes": 13.5,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8742,
+  "mAP50-95": 0.5927,
+  "precision": 0.9666,
+  "recall": 0.8172,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.904,
+  "mAP50-95": 0.6193,
+  "precision": 0.9417,
+  "recall": 0.8506,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8533,
+  "mAP50-95": 0.5456,
+  "precision": 0.8882,
+  "recall": 0.8172,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9193,
+  "mAP50-95": 0.6211,
+  "precision": 0.9437,
+  "recall": 0.8663,
+  "minutes": 13.7,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9945,
+  "recall": 1.0,
+  "minutes": 77.1,
+  "worker": 0
+ },
+ "yolov8s-ghost-gam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9897,
+  "recall": 0.9985,
+  "minutes": 76.0,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9911,
+  "recall": 0.9969,
+  "minutes": 77.9,
+  "worker": 0
+ },
+ "yolov8s-ghost-gam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9931,
+  "recall": 0.9947,
+  "minutes": 78.6,
+  "worker": 1
+ },
+ "yolov8s-ghost-gam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9947,
+  "recall": 0.9894,
+  "minutes": 70.7,
+  "worker": 0
+ },
+ "yolov8s-ghost-kd|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8817,
+  "mAP50-95": 0.6273,
+  "precision": 0.9685,
+  "recall": 0.8137,
+  "minutes": 13.1,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8928,
+  "mAP50-95": 0.5812,
+  "precision": 0.9406,
+  "recall": 0.8318,
+  "minutes": 13.8,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8685,
+  "mAP50-95": 0.5936,
+  "precision": 0.9632,
+  "recall": 0.7876,
+  "minutes": 13.5,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8542,
+  "mAP50-95": 0.558,
+  "precision": 0.8548,
+  "recall": 0.8376,
+  "minutes": 13.3,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8963,
+  "mAP50-95": 0.6104,
+  "precision": 0.9573,
+  "recall": 0.8495,
+  "minutes": 12.9,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9935,
+  "recall": 0.9973,
+  "minutes": 73.3,
+  "worker": 0
+ },
+ "yolov8s-ghost-kd|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9939,
+  "recall": 0.9948,
+  "minutes": 51.8,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9943,
+  "precision": 0.9924,
+  "recall": 0.9939,
+  "minutes": 59.4,
+  "worker": 1
+ },
+ "yolov8s-ghost-kd|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9946,
+  "recall": 0.995,
+  "minutes": 74.4,
+  "worker": 0
+ },
+ "yolov8s-ghost-kd|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9919,
+  "recall": 0.994,
+  "minutes": 71.7,
+  "worker": 1
+ },
+ "yolo11-convnext-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8788,
+  "mAP50-95": 0.5973,
+  "precision": 0.9145,
+  "recall": 0.812,
+  "minutes": 13.4,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8621,
+  "mAP50-95": 0.5669,
+  "precision": 0.9019,
+  "recall": 0.8245,
+  "minutes": 13.9,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8527,
+  "mAP50-95": 0.5765,
+  "precision": 0.9346,
+  "recall": 0.7707,
+  "minutes": 13.6,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8347,
+  "mAP50-95": 0.5586,
+  "precision": 0.9364,
+  "recall": 0.7686,
+  "minutes": 13.6,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9154,
+  "mAP50-95": 0.5972,
+  "precision": 0.9556,
+  "recall": 0.8615,
+  "minutes": 13.1,
+  "worker": 1
+ },
+ "yolo11-convnext-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9943,
+  "precision": 0.9884,
+  "recall": 0.9967,
+  "minutes": 63.8,
+  "worker": 1
+ },
+ "yolo11-convnext-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9985,
+  "recall": 0.9998,
+  "minutes": 77.8,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9975,
+  "recall": 0.9983,
+  "minutes": 77.4,
+  "worker": 1
+ },
+ "yolo11-convnext-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9931,
+  "recall": 0.9933,
+  "minutes": 77.5,
+  "worker": 0
+ },
+ "yolo11-convnext-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9926,
+  "recall": 0.9892,
+  "minutes": 72.0,
+  "worker": 1
+ },
+ "yolo12-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8716,
+  "mAP50-95": 0.6086,
+  "precision": 0.9444,
+  "recall": 0.788,
+  "minutes": 14.3,
+  "worker": 0
+ },
+ "yolo12-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8384,
+  "mAP50-95": 0.5591,
+  "precision": 0.9327,
+  "recall": 0.7931,
+  "minutes": 15.2,
+  "worker": 0
+ },
+ "yolo12-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8342,
+  "mAP50-95": 0.5627,
+  "precision": 0.9219,
+  "recall": 0.786,
+  "minutes": 14.7,
+  "worker": 0
+ },
+ "yolo12-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8112,
+  "mAP50-95": 0.5352,
+  "precision": 0.9175,
+  "recall": 0.7695,
+  "minutes": 13.9,
+  "worker": 0
+ },
+ "yolo12-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9236,
+  "mAP50-95": 0.6133,
+  "precision": 0.9468,
+  "recall": 0.8409,
+  "minutes": 13.5,
+  "worker": 1
+ },
+ "yolo12-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9912,
+  "recall": 0.9955,
+  "minutes": 79.1,
+  "worker": 0
+ },
+ "yolo12-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9975,
+  "recall": 1.0,
+  "minutes": 79.9,
+  "worker": 1
+ },
+ "yolo12-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9937,
+  "recall": 0.9982,
+  "minutes": 80.0,
+  "worker": 0
+ },
+ "yolo12-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.994,
+  "precision": 0.9947,
+  "recall": 0.995,
+  "minutes": 80.6,
+  "worker": 1
+ },
+ "yolo12-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9936,
+  "recall": 0.995,
+  "minutes": 77.4,
+  "worker": 0
+ },
+ "yolo12-res2-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8802,
+  "mAP50-95": 0.6211,
+  "precision": 0.9781,
+  "recall": 0.8009,
+  "minutes": 15.0,
+  "worker": 1
+ },
+ "yolo12-res2-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8528,
+  "mAP50-95": 0.5628,
+  "precision": 0.925,
+  "recall": 0.8066,
+  "minutes": 15.1,
+  "worker": 1
+ },
+ "yolo12-res2-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8414,
+  "mAP50-95": 0.5623,
+  "precision": 0.9032,
+  "recall": 0.7967,
+  "minutes": 15.1,
+  "worker": 1
+ },
+ "yolo12-res2-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8121,
+  "mAP50-95": 0.5234,
+  "precision": 0.8693,
+  "recall": 0.7771,
+  "minutes": 14.9,
+  "worker": 1
+ },
+ "yolo12-res2-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8763,
+  "mAP50-95": 0.5874,
+  "precision": 0.938,
+  "recall": 0.8205,
+  "minutes": 14.6,
+  "worker": 1
+ },
+ "yolo12-res2-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9944,
+  "precision": 0.9937,
+  "recall": 0.9957,
+  "minutes": 87.1,
+  "worker": 0
+ },
+ "yolo12-res2-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9974,
+  "recall": 0.9964,
+  "minutes": 87.5,
+  "worker": 1
+ },
+ "yolo12-res2-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9927,
+  "recall": 0.997,
+  "minutes": 87.5,
+  "worker": 0
+ },
+ "yolo12-res2-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9862,
+  "recall": 0.9962,
+  "minutes": 87.6,
+  "worker": 1
+ },
+ "yolo12-res2-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9948,
+  "precision": 0.9914,
+  "recall": 0.9938,
+  "minutes": 80.2,
+  "worker": 0
+ },
+ "yolo12-resnext-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8825,
+  "mAP50-95": 0.6121,
+  "precision": 0.9534,
+  "recall": 0.8228,
+  "minutes": 14.9,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8312,
+  "mAP50-95": 0.5551,
+  "precision": 0.8694,
+  "recall": 0.7923,
+  "minutes": 15.4,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8374,
+  "mAP50-95": 0.5606,
+  "precision": 0.8822,
+  "recall": 0.7997,
+  "minutes": 15.4,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.822,
+  "mAP50-95": 0.5387,
+  "precision": 0.8813,
+  "recall": 0.7876,
+  "minutes": 14.9,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8813,
+  "mAP50-95": 0.5859,
+  "precision": 0.924,
+  "recall": 0.8143,
+  "minutes": 14.4,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9872,
+  "recall": 0.9959,
+  "minutes": 83.4,
+  "worker": 0
+ },
+ "yolo12-resnext-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.998,
+  "recall": 0.9996,
+  "minutes": 83.9,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9911,
+  "recall": 0.9969,
+  "minutes": 83.9,
+  "worker": 0
+ },
+ "yolo12-resnext-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9946,
+  "precision": 0.992,
+  "recall": 0.9867,
+  "minutes": 83.9,
+  "worker": 1
+ },
+ "yolo12-resnext-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9946,
+  "recall": 0.9967,
+  "minutes": 74.9,
+  "worker": 0
+ },
+ "yolo26-convnext-ema-c2psa|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8039,
+  "mAP50-95": 0.5344,
+  "precision": 0.8139,
+  "recall": 0.7645,
+  "minutes": 13.6,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8361,
+  "mAP50-95": 0.527,
+  "precision": 0.8931,
+  "recall": 0.7495,
+  "minutes": 13.6,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8239,
+  "mAP50-95": 0.5321,
+  "precision": 0.847,
+  "recall": 0.7712,
+  "minutes": 13.6,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7893,
+  "mAP50-95": 0.4847,
+  "precision": 0.73,
+  "recall": 0.7432,
+  "minutes": 13.5,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8518,
+  "mAP50-95": 0.5678,
+  "precision": 0.8446,
+  "recall": 0.7863,
+  "minutes": 13.4,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9944,
+  "precision": 0.9928,
+  "recall": 0.9922,
+  "minutes": 75.7,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9903,
+  "precision": 0.9882,
+  "recall": 0.9809,
+  "minutes": 75.6,
+  "worker": 0
+ },
+ "yolo26-convnext-ema-c2psa|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.994,
+  "precision": 0.979,
+  "recall": 0.9923,
+  "minutes": 76.3,
+  "worker": 1
+ },
+ "yolo26-convnext-ema-c2psa|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9921,
+  "precision": 0.9896,
+  "recall": 0.9938,
+  "minutes": 76.3,
+  "worker": 0
+ },
+ "yolo26-convnext-ema-c2psa|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9943,
+  "precision": 0.9856,
+  "recall": 0.9899,
+  "minutes": 66.3,
+  "worker": 1
+ },
+ "yolo26-res2net-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8063,
+  "mAP50-95": 0.5558,
+  "precision": 0.7942,
+  "recall": 0.7293,
+  "minutes": 12.3,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.823,
+  "mAP50-95": 0.5297,
+  "precision": 0.8798,
+  "recall": 0.7384,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8495,
+  "mAP50-95": 0.5462,
+  "precision": 0.8731,
+  "recall": 0.7767,
+  "minutes": 11.6,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7895,
+  "mAP50-95": 0.4862,
+  "precision": 0.8368,
+  "recall": 0.7208,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8308,
+  "mAP50-95": 0.5376,
+  "precision": 0.9229,
+  "recall": 0.7185,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9929,
+  "precision": 0.9901,
+  "recall": 0.9911,
+  "minutes": 62.2,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9939,
+  "precision": 0.9914,
+  "recall": 0.9898,
+  "minutes": 61.4,
+  "worker": 1
+ },
+ "yolo26-res2net-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9946,
+  "precision": 0.9953,
+  "recall": 0.9941,
+  "minutes": 61.4,
+  "worker": 0
+ },
+ "yolo26-res2net-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9942,
+  "mAP50-95": 0.9939,
+  "precision": 0.9897,
+  "recall": 0.9876,
+  "minutes": 61.5,
+  "worker": 1
+ },
+ "yolo26-res2net-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9924,
+  "mAP50-95": 0.99,
+  "precision": 0.9798,
+  "recall": 0.969,
+  "minutes": 58.2,
+  "worker": 0
+ },
+ "yolo26-resnext-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8123,
+  "mAP50-95": 0.5351,
+  "precision": 0.8117,
+  "recall": 0.7565,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8237,
+  "mAP50-95": 0.5359,
+  "precision": 0.8808,
+  "recall": 0.737,
+  "minutes": 10.7,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8076,
+  "mAP50-95": 0.5185,
+  "precision": 0.804,
+  "recall": 0.7178,
+  "minutes": 10.3,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7906,
+  "mAP50-95": 0.4779,
+  "precision": 0.7855,
+  "recall": 0.7274,
+  "minutes": 10.3,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8388,
+  "mAP50-95": 0.5364,
+  "precision": 0.8446,
+  "recall": 0.7547,
+  "minutes": 10.5,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9805,
+  "precision": 0.9889,
+  "recall": 0.9681,
+  "minutes": 60.9,
+  "worker": 0
+ },
+ "yolo26-resnext-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9806,
+  "precision": 0.9934,
+  "recall": 0.9928,
+  "minutes": 46.7,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9933,
+  "mAP50-95": 0.9758,
+  "precision": 0.9789,
+  "recall": 0.9782,
+  "minutes": 48.0,
+  "worker": 1
+ },
+ "yolo26-resnext-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.992,
+  "precision": 0.9905,
+  "recall": 0.9863,
+  "minutes": 59.9,
+  "worker": 0
+ },
+ "yolo26-resnext-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.993,
+  "precision": 0.9733,
+  "recall": 0.9915,
+  "minutes": 61.6,
+  "worker": 1
+ },
+ "yolov8-res2net-ema-ledh|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.6039,
+  "mAP50-95": 0.3686,
+  "precision": 0.4884,
+  "recall": 0.6474,
+  "minutes": 12.0,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.6493,
+  "mAP50-95": 0.3959,
+  "precision": 0.6337,
+  "recall": 0.5829,
+  "minutes": 11.7,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7254,
+  "mAP50-95": 0.4583,
+  "precision": 0.6459,
+  "recall": 0.6641,
+  "minutes": 11.6,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.6706,
+  "mAP50-95": 0.4041,
+  "precision": 0.7129,
+  "recall": 0.6676,
+  "minutes": 13.1,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.7629,
+  "mAP50-95": 0.4735,
+  "precision": 0.6802,
+  "recall": 0.7223,
+  "minutes": 12.7,
+  "worker": 1
+ },
+ "yolov8-res2net-ema-ledh|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.924,
+  "mAP50-95": 0.5406,
+  "precision": 0.2627,
+  "recall": 1.0,
+  "minutes": 67.4,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9214,
+  "mAP50-95": 0.7005,
+  "precision": 0.8461,
+  "recall": 0.9098,
+  "minutes": 77.5,
+  "worker": 1
+ },
+ "yolov8-res2net-ema-ledh|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.964,
+  "mAP50-95": 0.5904,
+  "precision": 0.9278,
+  "recall": 0.9501,
+  "minutes": 77.5,
+  "worker": 0
+ },
+ "yolov8-res2net-ema-ledh|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9832,
+  "mAP50-95": 0.7578,
+  "precision": 0.7221,
+  "recall": 0.9917,
+  "minutes": 77.5,
+  "worker": 1
+ },
+ "yolov8-res2net-ema-ledh|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9587,
+  "mAP50-95": 0.6968,
+  "precision": 0.4813,
+  "recall": 1.0,
+  "minutes": 68.8,
+  "worker": 0
+ },
+ "yolov8-resnext-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8786,
+  "mAP50-95": 0.6147,
+  "precision": 0.9197,
+  "recall": 0.8312,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8397,
+  "mAP50-95": 0.5573,
+  "precision": 0.8898,
+  "recall": 0.8144,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8717,
+  "mAP50-95": 0.6036,
+  "precision": 0.9554,
+  "recall": 0.8093,
+  "minutes": 10.0,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8143,
+  "mAP50-95": 0.5388,
+  "precision": 0.9228,
+  "recall": 0.7565,
+  "minutes": 10.0,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8626,
+  "mAP50-95": 0.5797,
+  "precision": 0.9528,
+  "recall": 0.8169,
+  "minutes": 10.0,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9902,
+  "recall": 0.9951,
+  "minutes": 55.6,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9978,
+  "recall": 0.9985,
+  "minutes": 54.8,
+  "worker": 0
+ },
+ "yolov8-resnext-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.989,
+  "recall": 0.9996,
+  "minutes": 54.8,
+  "worker": 1
+ },
+ "yolov8-resnext-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9947,
+  "precision": 0.9938,
+  "recall": 0.9933,
+  "minutes": 54.9,
+  "worker": 0
+ },
+ "yolov8-resnext-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.991,
+  "recall": 0.9914,
+  "minutes": 55.1,
+  "worker": 1
+ },
+ "yolov8-swin-ema|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8746,
+  "mAP50-95": 0.6179,
+  "precision": 0.9688,
+  "recall": 0.791,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolov8-swin-ema|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8804,
+  "mAP50-95": 0.5733,
+  "precision": 0.9421,
+  "recall": 0.7969,
+  "minutes": 11.9,
+  "worker": 0
+ },
+ "yolov8-swin-ema|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8722,
+  "mAP50-95": 0.5999,
+  "precision": 0.9074,
+  "recall": 0.8241,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolov8-swin-ema|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8372,
+  "mAP50-95": 0.5471,
+  "precision": 0.9506,
+  "recall": 0.7436,
+  "minutes": 11.8,
+  "worker": 0
+ },
+ "yolov8-swin-ema|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8924,
+  "mAP50-95": 0.5978,
+  "precision": 0.9048,
+  "recall": 0.8443,
+  "minutes": 12.8,
+  "worker": 0
+ },
+ "yolov8-swin-ema|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9932,
+  "mAP50-95": 0.9911,
+  "precision": 0.9941,
+  "recall": 0.97,
+  "minutes": 77.0,
+  "worker": 1
+ },
+ "yolov8-swin-ema|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9982,
+  "recall": 1.0,
+  "minutes": 77.4,
+  "worker": 0
+ },
+ "yolov8-swin-ema|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9941,
+  "precision": 0.9847,
+  "recall": 0.998,
+  "minutes": 77.5,
+  "worker": 1
+ },
+ "yolov8-swin-ema|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.994,
+  "mAP50-95": 0.9939,
+  "precision": 0.988,
+  "recall": 0.9922,
+  "minutes": 77.5,
+  "worker": 0
+ },
+ "yolov8-swin-ema|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9936,
+  "precision": 0.9863,
+  "recall": 0.9947,
+  "minutes": 73.9,
+  "worker": 1
+ },
+ "yolo12-mbconv-eca-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8815,
+  "mAP50-95": 0.6109,
+  "precision": 0.9225,
+  "recall": 0.8436,
+  "minutes": 15.3,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8638,
+  "mAP50-95": 0.569,
+  "precision": 0.9142,
+  "recall": 0.8158,
+  "minutes": 15.3,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8415,
+  "mAP50-95": 0.5742,
+  "precision": 0.9512,
+  "recall": 0.7551,
+  "minutes": 15.3,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8428,
+  "mAP50-95": 0.5487,
+  "precision": 0.9337,
+  "recall": 0.7527,
+  "minutes": 15.1,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9061,
+  "mAP50-95": 0.5941,
+  "precision": 0.9378,
+  "recall": 0.8561,
+  "minutes": 17.6,
+  "worker": 1
+ },
+ "yolo12-mbconv-eca-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9968,
+  "recall": 0.9972,
+  "minutes": 89.7,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9949,
+  "precision": 0.9972,
+  "recall": 0.9983,
+  "minutes": 109.2,
+  "worker": 1
+ },
+ "yolo12-mbconv-eca-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9938,
+  "precision": 0.9971,
+  "recall": 0.9865,
+  "minutes": 86.3,
+  "worker": 0
+ },
+ "yolo12-mbconv-eca-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9946,
+  "precision": 0.9909,
+  "recall": 0.995,
+  "minutes": 110.7,
+  "worker": 1
+ },
+ "yolo12-mbconv-eca-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.993,
+  "recall": 0.995,
+  "minutes": 107.2,
+  "worker": 0
+ },
+ "yolo26-mbconv-simam-ledh|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.7846,
+  "mAP50-95": 0.5112,
+  "precision": 0.8222,
+  "recall": 0.7056,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.7921,
+  "mAP50-95": 0.5018,
+  "precision": 0.8235,
+  "recall": 0.751,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.7979,
+  "mAP50-95": 0.524,
+  "precision": 0.7608,
+  "recall": 0.7697,
+  "minutes": 12.1,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7674,
+  "mAP50-95": 0.4736,
+  "precision": 0.7977,
+  "recall": 0.7395,
+  "minutes": 12.5,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8348,
+  "mAP50-95": 0.525,
+  "precision": 0.8163,
+  "recall": 0.7742,
+  "minutes": 12.3,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.8591,
+  "mAP50-95": 0.59,
+  "precision": 0.2291,
+  "recall": 1.0,
+  "minutes": 63.5,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9698,
+  "mAP50-95": 0.6327,
+  "precision": 0.8847,
+  "recall": 0.8897,
+  "minutes": 67.2,
+  "worker": 0
+ },
+ "yolo26-mbconv-simam-ledh|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9802,
+  "mAP50-95": 0.6691,
+  "precision": 0.9634,
+  "recall": 0.913,
+  "minutes": 75.2,
+  "worker": 1
+ },
+ "yolo26-mbconv-simam-ledh|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9761,
+  "mAP50-95": 0.6621,
+  "precision": 0.973,
+  "recall": 0.9255,
+  "minutes": 53.6,
+  "worker": 0
+ },
+ "yolo26-mbconv-simam-ledh|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.8824,
+  "mAP50-95": 0.677,
+  "precision": 0.698,
+  "recall": 0.9317,
+  "minutes": 56.8,
+  "worker": 1
+ },
+ "yolo26-star-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8102,
+  "mAP50-95": 0.5539,
+  "precision": 0.8299,
+  "recall": 0.7295,
+  "minutes": 12.3,
+  "worker": 0
+ },
+ "yolo26-star-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.843,
+  "mAP50-95": 0.5413,
+  "precision": 0.8652,
+  "recall": 0.7545,
+  "minutes": 12.4,
+  "worker": 0
+ },
+ "yolo26-star-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8326,
+  "mAP50-95": 0.5536,
+  "precision": 0.9089,
+  "recall": 0.7311,
+  "minutes": 11.6,
+  "worker": 0
+ },
+ "yolo26-star-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8056,
+  "mAP50-95": 0.5148,
+  "precision": 0.839,
+  "recall": 0.7499,
+  "minutes": 11.1,
+  "worker": 1
+ },
+ "yolo26-star-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8489,
+  "mAP50-95": 0.5687,
+  "precision": 0.8636,
+  "recall": 0.7633,
+  "minutes": 11.4,
+  "worker": 0
+ },
+ "yolo26-star-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9981,
+  "recall": 0.9989,
+  "minutes": 68.0,
+  "worker": 1
+ },
+ "yolo26-star-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9934,
+  "mAP50-95": 0.9895,
+  "precision": 0.969,
+  "recall": 0.9717,
+  "minutes": 44.7,
+  "worker": 0
+ },
+ "yolo26-star-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9944,
+  "precision": 0.9911,
+  "recall": 0.9882,
+  "minutes": 67.6,
+  "worker": 0
+ },
+ "yolo26-star-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9921,
+  "precision": 0.9874,
+  "recall": 0.9916,
+  "minutes": 61.5,
+  "worker": 1
+ },
+ "yolo26-star-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9942,
+  "precision": 0.9907,
+  "recall": 0.99,
+  "minutes": 66.5,
+  "worker": 0
+ },
+ "yolov8-mbconv-coordatt-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8797,
+  "mAP50-95": 0.615,
+  "precision": 0.93,
+  "recall": 0.8092,
+  "minutes": 10.7,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8626,
+  "mAP50-95": 0.5818,
+  "precision": 0.8756,
+  "recall": 0.8433,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8709,
+  "mAP50-95": 0.6064,
+  "precision": 0.9413,
+  "recall": 0.8158,
+  "minutes": 10.9,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8302,
+  "mAP50-95": 0.541,
+  "precision": 0.9283,
+  "recall": 0.7746,
+  "minutes": 10.8,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8941,
+  "mAP50-95": 0.5994,
+  "precision": 0.9455,
+  "recall": 0.8469,
+  "minutes": 10.7,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9938,
+  "recall": 0.9983,
+  "minutes": 61.6,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9944,
+  "precision": 0.9939,
+  "recall": 1.0,
+  "minutes": 83.2,
+  "worker": 0
+ },
+ "yolov8-mbconv-coordatt-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9928,
+  "precision": 0.9877,
+  "recall": 0.9967,
+  "minutes": 61.5,
+  "worker": 1
+ },
+ "yolov8-mbconv-coordatt-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9944,
+  "precision": 0.9861,
+  "recall": 0.9856,
+  "minutes": 82.8,
+  "worker": 0
+ },
+ "yolov8-mbconv-coordatt-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9917,
+  "precision": 0.9833,
+  "recall": 0.9801,
+  "minutes": 51.9,
+  "worker": 1
+ },
+ "yolov8-star-simam|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8634,
+  "mAP50-95": 0.6052,
+  "precision": 0.9591,
+  "recall": 0.797,
+  "minutes": 9.9,
+  "worker": 0
+ },
+ "yolov8-star-simam|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8683,
+  "mAP50-95": 0.5784,
+  "precision": 0.914,
+  "recall": 0.8155,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolov8-star-simam|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8735,
+  "mAP50-95": 0.593,
+  "precision": 0.8501,
+  "recall": 0.8463,
+  "minutes": 10.4,
+  "worker": 0
+ },
+ "yolov8-star-simam|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8015,
+  "mAP50-95": 0.5146,
+  "precision": 0.8815,
+  "recall": 0.7901,
+  "minutes": 10.1,
+  "worker": 1
+ },
+ "yolov8-star-simam|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8765,
+  "mAP50-95": 0.5931,
+  "precision": 0.9273,
+  "recall": 0.8314,
+  "minutes": 10.2,
+  "worker": 0
+ },
+ "yolov8-star-simam|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9978,
+  "recall": 0.9977,
+  "minutes": 60.0,
+  "worker": 1
+ },
+ "yolov8-star-simam|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9985,
+  "recall": 0.9999,
+  "minutes": 60.1,
+  "worker": 0
+ },
+ "yolov8-star-simam|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.9948,
+  "precision": 0.9947,
+  "recall": 0.9967,
+  "minutes": 60.0,
+  "worker": 1
+ },
+ "yolov8-star-simam|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9944,
+  "precision": 0.9918,
+  "recall": 0.9912,
+  "minutes": 60.0,
+  "worker": 0
+ },
+ "yolov8-star-simam|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9911,
+  "recall": 0.9917,
+  "minutes": 56.5,
+  "worker": 1
+ },
+ "yolo11-mbconv-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.883,
+  "mAP50-95": 0.6138,
+  "precision": 0.9711,
+  "recall": 0.799,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.88,
+  "mAP50-95": 0.5875,
+  "precision": 0.9473,
+  "recall": 0.8232,
+  "minutes": 11.2,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8841,
+  "mAP50-95": 0.6199,
+  "precision": 0.9087,
+  "recall": 0.8788,
+  "minutes": 11.0,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8387,
+  "mAP50-95": 0.5464,
+  "precision": 0.9244,
+  "recall": 0.7762,
+  "minutes": 11.1,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9147,
+  "mAP50-95": 0.6223,
+  "precision": 0.9464,
+  "recall": 0.865,
+  "minutes": 10.3,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9934,
+  "recall": 0.9969,
+  "minutes": 80.7,
+  "worker": 1
+ },
+ "yolo11-mbconv-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9938,
+  "precision": 0.9925,
+  "recall": 0.9983,
+  "minutes": 52.4,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9987,
+  "recall": 1.0,
+  "minutes": 81.6,
+  "worker": 0
+ },
+ "yolo11-mbconv-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9927,
+  "recall": 0.995,
+  "minutes": 61.7,
+  "worker": 1
+ },
+ "yolo11-mbconv-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9947,
+  "mAP50-95": 0.9947,
+  "precision": 0.9923,
+  "recall": 0.9933,
+  "minutes": 58.6,
+  "worker": 1
+ },
+ "yolo26-mbconv-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8274,
+  "mAP50-95": 0.5682,
+  "precision": 0.8712,
+  "recall": 0.736,
+  "minutes": 15.4,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8467,
+  "mAP50-95": 0.5444,
+  "precision": 0.9219,
+  "recall": 0.7232,
+  "minutes": 11.5,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8394,
+  "mAP50-95": 0.5575,
+  "precision": 0.9146,
+  "recall": 0.7331,
+  "minutes": 11.2,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7977,
+  "mAP50-95": 0.4994,
+  "precision": 0.8333,
+  "recall": 0.7335,
+  "minutes": 10.4,
+  "worker": 1
+ },
+ "yolo26-mbconv-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8437,
+  "mAP50-95": 0.5636,
+  "precision": 0.8949,
+  "recall": 0.7443,
+  "minutes": 11.3,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9937,
+  "mAP50-95": 0.9925,
+  "precision": 0.9903,
+  "recall": 0.975,
+  "minutes": 63.0,
+  "worker": 1
+ },
+ "yolo26-mbconv-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9947,
+  "precision": 0.9894,
+  "recall": 0.9923,
+  "minutes": 62.4,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9946,
+  "precision": 0.9836,
+  "recall": 0.9755,
+  "minutes": 62.5,
+  "worker": 1
+ },
+ "yolo26-mbconv-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9945,
+  "precision": 0.9866,
+  "recall": 0.9946,
+  "minutes": 62.4,
+  "worker": 0
+ },
+ "yolo26-mbconv-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9943,
+  "mAP50-95": 0.9924,
+  "precision": 0.9914,
+  "recall": 0.9813,
+  "minutes": 59.2,
+  "worker": 1
+ },
+ "yolo26-star-coordatt-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.835,
+  "mAP50-95": 0.5623,
+  "precision": 0.8792,
+  "recall": 0.7775,
+  "minutes": 10.6,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8432,
+  "mAP50-95": 0.5255,
+  "precision": 0.8786,
+  "recall": 0.7313,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8355,
+  "mAP50-95": 0.5613,
+  "precision": 0.8883,
+  "recall": 0.7586,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8066,
+  "mAP50-95": 0.4934,
+  "precision": 0.8115,
+  "recall": 0.7229,
+  "minutes": 10.6,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.816,
+  "mAP50-95": 0.5485,
+  "precision": 0.7855,
+  "recall": 0.7466,
+  "minutes": 10.5,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9931,
+  "precision": 0.9655,
+  "recall": 0.9862,
+  "minutes": 62.5,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.99,
+  "precision": 0.9882,
+  "recall": 0.975,
+  "minutes": 54.2,
+  "worker": 1
+ },
+ "yolo26-star-coordatt-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9945,
+  "mAP50-95": 0.9932,
+  "precision": 0.9835,
+  "recall": 0.9733,
+  "minutes": 62.4,
+  "worker": 1
+ },
+ "yolo26-star-coordatt-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9927,
+  "mAP50-95": 0.9896,
+  "precision": 0.9933,
+  "recall": 0.9857,
+  "minutes": 52.9,
+  "worker": 0
+ },
+ "yolo26-star-coordatt-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9946,
+  "mAP50-95": 0.9941,
+  "precision": 0.9793,
+  "recall": 0.9919,
+  "minutes": 61.8,
+  "worker": 0
+ },
+ "yolov8-mbconv-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8786,
+  "mAP50-95": 0.6159,
+  "precision": 0.9493,
+  "recall": 0.8099,
+  "minutes": 9.5,
+  "worker": 1
+ },
+ "yolov8-mbconv-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.854,
+  "mAP50-95": 0.5813,
+  "precision": 0.9197,
+  "recall": 0.8136,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolov8-mbconv-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8738,
+  "mAP50-95": 0.5863,
+  "precision": 0.943,
+  "recall": 0.8299,
+  "minutes": 9.9,
+  "worker": 1
+ },
+ "yolov8-mbconv-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8213,
+  "mAP50-95": 0.5341,
+  "precision": 0.9124,
+  "recall": 0.7648,
+  "minutes": 9.9,
+  "worker": 1
+ },
+ "yolov8-mbconv-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9072,
+  "mAP50-95": 0.6116,
+  "precision": 0.9414,
+  "recall": 0.8612,
+  "minutes": 9.8,
+  "worker": 1
+ },
+ "yolov8-mbconv-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9968,
+  "recall": 0.9997,
+  "minutes": 36.5,
+  "worker": 0
+ },
+ "yolov8-mbconv-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9935,
+  "recall": 0.9996,
+  "minutes": 42.2,
+  "worker": 0
+ },
+ "yolov8-mbconv-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.9917,
+  "recall": 1.0,
+  "minutes": 34.8,
+  "worker": 0
+ },
+ "yolov8-mbconv-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9941,
+  "mAP50-95": 0.9874,
+  "precision": 0.9939,
+  "recall": 0.9933,
+  "minutes": 24.5,
+  "worker": 0
+ },
+ "yolov8-mbconv-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9938,
+  "mAP50-95": 0.9741,
+  "precision": 0.9716,
+  "recall": 0.9914,
+  "minutes": 30.1,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.869,
+  "mAP50-95": 0.5923,
+  "precision": 0.9768,
+  "recall": 0.7791,
+  "minutes": 5.9,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8455,
+  "mAP50-95": 0.5493,
+  "precision": 0.9638,
+  "recall": 0.775,
+  "minutes": 5.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8283,
+  "mAP50-95": 0.5653,
+  "precision": 0.9064,
+  "recall": 0.8079,
+  "minutes": 5.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.7853,
+  "mAP50-95": 0.5078,
+  "precision": 0.9175,
+  "recall": 0.7441,
+  "minutes": 5.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.881,
+  "mAP50-95": 0.5899,
+  "precision": 0.9507,
+  "recall": 0.8054,
+  "minutes": 5.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9968,
+  "recall": 1.0,
+  "minutes": 34.2,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9956,
+  "recall": 0.9923,
+  "minutes": 34.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9861,
+  "recall": 0.9951,
+  "minutes": 34.4,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9944,
+  "mAP50-95": 0.9944,
+  "precision": 0.9865,
+  "recall": 0.9869,
+  "minutes": 34.5,
+  "worker": 0
+ },
+ "yolov8-sgsaA2-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.9949,
+  "mAP50-95": 0.9949,
+  "precision": 0.99,
+  "recall": 0.9935,
+  "minutes": 34.9,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.8767,
+  "mAP50-95": 0.6039,
+  "precision": 0.9347,
+  "recall": 0.8229,
+  "minutes": 6.3,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8426,
+  "mAP50-95": 0.5586,
+  "precision": 0.9046,
+  "recall": 0.8132,
+  "minutes": 5.9,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8573,
+  "mAP50-95": 0.5708,
+  "precision": 0.9187,
+  "recall": 0.8076,
+  "minutes": 5.7,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8025,
+  "mAP50-95": 0.5263,
+  "precision": 0.9019,
+  "recall": 0.7385,
+  "minutes": 6.0,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.8777,
+  "mAP50-95": 0.5786,
+  "precision": 0.9256,
+  "recall": 0.8249,
+  "minutes": 5.7,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|judi3k|f0": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9955,
+  "recall": 0.9938,
+  "minutes": 33.5,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|judi3k|f1": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9994,
+  "recall": 0.9998,
+  "minutes": 31.3,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|judi3k|f2": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9918,
+  "recall": 0.9975,
+  "minutes": 35.0,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|judi3k|f3": {
+  "status": "ok",
+  "mAP50": 0.9948,
+  "mAP50-95": 0.9948,
+  "precision": 0.9947,
+  "recall": 0.9948,
+  "minutes": 36.1,
+  "worker": 0
+ },
+ "yolov8-star-coordatt-eca|judi3k|f4": {
+  "status": "ok",
+  "mAP50": 0.995,
+  "mAP50-95": 0.995,
+  "precision": 0.9917,
+  "recall": 0.9954,
+  "minutes": 34.8,
+  "worker": 0
+ },
+ "yolov8-swin-eca|v2-1|f0": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|v2-1|f1": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|v2-1|f2": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|v2-1|f3": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|v2-1|f4": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|judi3k|f0": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|judi3k|f1": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|judi3k|f2": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|judi3k|f3": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolov8-swin-eca|judi3k|f4": {
+  "status": "error",
+  "error": "RuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1",
+  "trace": "e=verbose)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 142, in __init__\n    self._new(model, task=task, verbose=verbose)\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/engine/model.py\", line 250, in _new\n    self.model = (model or self._smart_load(\"model\"))(cfg_dict, verbose=verbose and RANK == -1)  # build model\n                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 535, in __init__\n    m.stride = torch.tensor([s / x.shape[-2] for x in _forward(torch.zeros(1, ch, s, s))])  # forward\n                                                      ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 528, in _forward\n    output = self.forward(x)\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 195, in forward\n    return self.predict(x, *args, **kwargs)\n           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 212, in predict\n    return self._predict_once(x, profile, visualize, embed)\n           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/ultralytics/ultralytics/nn/tasks.py\", line 234, in _predict_once\n    x = m(x)  # run\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1778, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^\n  File \"/home/ftib/anaconda3/lib/python3.13/site-packages/torch/nn/modules/module.py\", line 1789, in _call_impl\n    return forward_call(*args, **kwargs)\n  File \"/home/ftib/ultralytics/ultralytics/nn/modules/conv.py\", line 670, in forward\n    return x * self.sigmoid(y)\n           ~~^~~~~~~~~~~~~~~~~\nRuntimeError: The size of tensor a (32) must match the size of tensor b (31) at non-singleton dimension 1\n",
+  "worker": 0,
+  "attempts": 2
+ },
+ "yolo11-resnext-se|v2-1|f0": {
+  "status": "ok",
+  "mAP50": 0.882,
+  "mAP50-95": 0.6177,
+  "precision": 0.9666,
+  "recall": 0.8243,
+  "minutes": 9.1,
+  "worker": 0
+ },
+ "yolo11-resnext-se|v2-1|f1": {
+  "status": "ok",
+  "mAP50": 0.8606,
+  "mAP50-95": 0.5716,
+  "precision": 0.9516,
+  "recall": 0.8142,
+  "minutes": 8.8,
+  "worker": 1
+ },
+ "yolo11-resnext-se|v2-1|f2": {
+  "status": "ok",
+  "mAP50": 0.8594,
+  "mAP50-95": 0.5901,
+  "precision": 0.9664,
+  "recall": 0.7855,
+  "minutes": 9.7,
+  "worker": 1
+ },
+ "yolo11-resnext-se|v2-1|f3": {
+  "status": "ok",
+  "mAP50": 0.8346,
+  "mAP50-95": 0.5412,
+  "precision": 0.9501,
+  "recall": 0.7871,
+  "minutes": 10.0,
+  "worker": 0
+ },
+ "yolo11-resnext-se|v2-1|f4": {
+  "status": "ok",
+  "mAP50": 0.9123,
+  "mAP50-95": 0.6039,
+  "precision": 0.9122,
+  "recall": 0.8762,
+  "minutes": 14.1,
+  "worker": 1
+ },
+ "yolo11-resnext-se|judi3k|f0": {
+  "status": "running",
+  "worker": 0,
+  "t": 1785294460.377414,
+  "cfg": "/home/ftib/ultralytics/ultralytics/cfg/models/11/yolo11-resnext-se.yaml",
+  "attempts": 0
+ },
+ "yolo11-resnext-se|judi3k|f1": {
+  "status": "running",
+  "worker": 1,
+  "t": 1785295278.638974,
+  "cfg": "/home/ftib/ultralytics/ultralytics/cfg/models/11/yolo11-resnext-se.yaml",
+  "attempts": 0
+ }
+}

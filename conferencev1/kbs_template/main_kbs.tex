@@ -1,0 +1,1138 @@
+\documentclass[preprint,review,12pt]{elsarticle}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage{float}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=3em
+
+\DeclareUnicodeCharacter{2009}{\,}
+\DeclareUnicodeCharacter{00F6}{\"o}
+\DeclareUnicodeCharacter{015F}{\c{s}}
+\DeclareUnicodeCharacter{00C7}{\c{C}}
+\DeclareUnicodeCharacter{011F}{\u{g}}
+\DeclareUnicodeCharacter{00E7}{\c{c}}
+
+\journal{Knowledge-Based Systems}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{When does spatial attention transfer help a tiny leukemia
+classifier? A controlled, multi-lens distillation study}
+
+\author[its,telkom]{Tanzilal Mustaqim}
+\author[its]{Chastine Fatichah\corref{cor1}}
+\ead{chastine@its.ac.id}
+\author[its]{Nanik Suciati}
+\author[tok]{Takashi Obi}
+\author[tok,kw]{Joong-Sun Lee}
+\cortext[cor1]{Corresponding author}
+
+\affiliation[its]{organization={Department of Informatics, Institut Teknologi Sepuluh Nopember},
+            city={Surabaya}, postcode={60111}, country={Indonesia}}
+\affiliation[telkom]{organization={Informatics Study Program, Telkom University, Surabaya Campus},
+            city={Surabaya}, postcode={60231}, country={Indonesia}}
+\affiliation[tok]{organization={Institute of Science Tokyo},
+            city={Tokyo}, postcode={152-8550}, country={Japan}}
+\affiliation[kw]{organization={Software Engineering Department, Catholic Kwandong University},
+            city={Gangneung}, postcode={25601}, country={South Korea}}
+
+\begin{abstract}
+Deep networks now screen acute lymphoblastic leukemia (ALL) from
+blood-smear images at close to expert accuracy, but a clinical tool must
+also be small enough to run beside a microscope, transparent enough to
+trust, and stable enough to deploy. Knowledge distillation compresses a
+large teacher into a compact student, yet whether transferring
+intermediate spatial attention on top of output logits buys anything in
+practice stays unclear: prior work reports aggregate accuracy gains
+without isolating the conditions that produce them. We do not propose a
+new architecture. We run a controlled study that pins down when and how
+spatial attention transfer helps a compact student. We distill a
+SwinV2-Tiny teacher into a 4.21-million-parameter MobileNetV3-Large
+student, 6.6$\times$ fewer parameters and 20.6$\times$ fewer FLOPs, and
+compare Attention Transfer Knowledge Distillation (AT-KD) against Vanilla
+Knowledge Distillation (VKD) under one shared teacher, student, and split
+on three datasets, with stratified five-fold cross-validation, four
+statistical tests, and Grad-CAM and t-SNE diagnostics. Three results
+follow. The compact student matches the transformer teacher, and AT-KD
+and VKD are statistically equivalent in accuracy; the four tests show
+this parity is the expected ceiling once the discriminative signal
+saturates, not a failure of attention transfer. The real value of
+attention transfer is in optimization: it acts as a training-only
+regularizer that more than halves validation loss on the spatially
+complex ALL-IDB-1, speeds convergence, and shrinks fold-to-fold variance
+at zero inference cost. This benefit is conditional on spatial
+complexity, clear on multi-cell images and negligible on single-cell
+crops, which yields a concrete rule for when attention transfer earns its
+training cost. Grad-CAM and t-SNE confirm more morphology-aligned
+activations and tighter feature clusters. We release a fully reproducible
+protocol and deployment guidance for distillation in leukemia image
+analysis.
+\end{abstract}
+
+\begin{highlights}
+\item Spatial attention transfer matches vanilla KD in accuracy on saturated ALL benchmarks.
+\item Four statistical tests confirm AT-KD--VKD accuracy parity as an expected ceiling effect.
+\item Attention transfer halves ALL-IDB-1 validation loss at zero inference cost.
+\item The benefit appears only on multi-cell images, giving a concrete deployment rule.
+\item A 4.21M-parameter student matches its SwinV2-Tiny teacher with 20.6x fewer FLOPs.
+\end{highlights}
+
+\begin{keyword}
+Knowledge distillation \sep attention transfer \sep lightweight deep learning \sep
+leukemia classification \sep model interpretability \sep model calibration
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+
+Acute lymphoblastic leukemia (ALL) is among the most common childhood
+cancers, and survival depends on early detection and accurate subtyping.
+Diagnosis starts at the microscope, where a specialist scans bone-marrow
+or peripheral blood-smear images for blast cells and reads their
+morphology. This manual review is slow, needs trained experts, and varies
+between observers, and in many regions a shortage of specialists delays
+it \cite{ref1,ref2,ref3}. Automated screening can give a fast first read
+and flag suspicious cases for a human expert.
+
+Deep learning has pushed leukemia image analysis close to expert
+performance, with convolutional and transformer networks leading recent
+benchmarks
+\cite{ref3,ref4,ref5,ref18,ref19,ref20,ref21,ref22,ref23,ref24,ref25,ref26}.
+Accuracy alone does not make a model deployable. The strongest networks
+carry tens of millions of parameters and need a graphics processing unit
+with ample memory, so they cannot run in real time on the low-power
+hardware beside a microscope; a model that wins on paper can be unusable
+at the point of care \cite{ref6,ref7,ref27,ref28,ref29,ref30,ref31}.
+Knowledge distillation (KD) is the usual way to close this gap: a large
+frozen teacher trains a small student to match its softened outputs, and
+only the compact student ships \cite{ref8}. Vanilla KD (VKD) transfers
+knowledge at the logit level alone and never constrains the intermediate
+spatial cues that morphological diagnosis rests on, so a student can copy
+the teacher's prediction while attending to the wrong region
+\cite{ref9,ref10,ref11,ref32}. Attention Transfer Knowledge Distillation
+(AT-KD) adds a loss that aligns the teacher and student spatial attention
+maps \cite{ref12}, and attention-based distillation has been tried across
+medical imaging
+\cite{ref13,ref14,ref15,ref37,ref38,ref39,ref40,ref41,ref42,ref43}.
+
+This activity leaves the central question open: does spatial attention
+transfer actually help a lightweight leukemia classifier, and under what
+conditions? Prior studies report aggregate accuracy gains but rarely
+isolate when attention transfer helps; they say little about
+optimization stability, convergence, calibration, or interpretability,
+and they often rest on a single optimistic train-test split
+\cite{ref16,ref17,ref33,ref34,ref35,ref36}. The basic deployment
+question, whether attention transfer is worth its extra training cost and
+when, has no clear answer.
+
+We answer it with a controlled comparison rather than a new architecture.
+We distill a SwinV2-Tiny transformer teacher into a lightweight
+MobileNetV3-Large student and pit AT-KD against VKD under an identical
+protocol on three public datasets of differing spatial character
+(ALL-IDB-1, ALL-IDB-2, and a three-class Subtype ALL set), with
+stratified five-fold cross-validation, four statistical tests, and
+Grad-CAM and t-SNE diagnostics. The headline finding is that attention
+transfer does not raise accuracy over vanilla distillation, and that this
+parity is the expected outcome at this scale; the payoff of attention
+transfer lies instead in optimization and interpretability, and it tracks
+the spatial complexity of the input.
+
+This study makes four contributions.
+\begin{itemize}
+\item \textbf{A deployment decision rule.} Attention transfer earns its
+extra training cost \emph{only} when the imagery carries multi-cell
+spatial context: the gain is clear on high-resolution ALL-IDB-1 and
+three-class Subtype ALL and vanishes on single-cell ALL-IDB-2. This
+replaces a vague ``attention helps'' with a testable rule that prior work
+does not provide.
+\item \textbf{Attention transfer as a zero-cost optimization
+regularizer.} We identify and mechanistically explain spatial attention
+transfer as a training-only regularizer that more than halves validation
+loss on ALL-IDB-1, speeds convergence, and cuts fold-to-fold variance at
+no inference cost, and we show why this gain does not surface as accuracy
+on saturated data.
+\item \textbf{A controlled, multi-lens protocol.} Under one shared
+teacher, student, and split we combine stratified five-fold
+cross-validation, four statistical tests (Friedman, paired $t$-test,
+McNemar, and effect sizes), and Grad-CAM and t-SNE diagnostics,
+establishing AT-KD--VKD accuracy parity as a tested, expected result
+rather than an unexamined claim.
+\item \textbf{A deployable, interpretable student.} The distilled
+4.21-million-parameter MobileNetV3-Large matches its SwinV2-Tiny teacher
+at 6.6$\times$ fewer parameters and 20.6$\times$ fewer FLOPs, with more
+morphology-aligned activations and tighter feature clusters.
+\end{itemize}
+
+\section{Related work}
+Detecting ALL from microscopic blood images turns on subtle
+morphological differences between subtypes, and getting the subtype right
+drives treatment selection: a misclassification can lead to inappropriate
+therapy and serious complications, especially in pediatric patients
+\cite{ref1,ref6,ref16,ref17}. Computational approaches fall into three
+groups, reviewed below: conventional feature engineering with classical
+machine learning, transfer learning with pretrained deep networks, and
+knowledge distillation for model compression. The recurring gap is that
+prior work optimizes aggregate accuracy while leaving the conditions of
+benefit, the interpretability, and the evaluation rigor of
+attention-based distillation largely untested.
+
+\subsection{Conventional and CNN-based approaches for ALL diagnosis}
+
+Early computational methods relied on hand-crafted features such as the
+nuclear-cytoplasmic ratio, area, compactness, roundness, and texture,
+typically extracted by k-means clustering or watershed segmentation and
+then classified with support vector machines, k-nearest neighbors, Naive
+Bayes, or Random Forest \cite{ref18,ref19}. These pipelines reached
+moderate accuracy but depended on expert-designed features and heavy
+preprocessing, and they stayed sensitive to inter-observer variability,
+dataset differences, and staining variation \cite{ref20,ref21}.
+
+Basic convolutional neural networks (CNNs) such as AlexNet and VGGNet
+reduced the dependence on manual feature extraction and improved
+performance on benchmarks such as ALL-IDB \cite{ref4}. Their
+effectiveness remained limited by the scarcity of labeled data, however,
+leaving them prone to overfitting and sensitive to image resizing, which
+can distort the fine cellular detail that leukemia diagnosis depends on
+\cite{ref18,ref22}.
+
+\subsection{Transfer learning for ALL subtype classification}
+
+Transfer learning has since improved ALL classification and subtype
+differentiation. Architectures such as VGG16, VGG19, ResNet50,
+InceptionV3, DenseNet-121, and MobileNetV2 \cite{ref4,ref21,ref22} adapt
+feature hierarchies learned on large-scale datasets to leukemia images
+through fine-tuning \cite{ref23,ref24}, and recent work pairs lightweight
+backbones with attention mechanisms or metaheuristic optimization to
+raise accuracy on ALL benchmarks \cite{ref25,ref26}.
+
+These models remain computationally demanding, often requiring high-end
+GPUs and longer inference time, which limits their use in real-time and
+point-of-care settings \cite{ref6}. Effective fine-tuning also depends on
+large annotated datasets that are hard to obtain in medical imaging
+because of privacy regulation, annotation cost, inter-observer
+variability, and the scarcity of samples for rare subtypes
+\cite{ref27,ref28,ref29,ref30}, and the limited interpretability of deep
+models can erode clinician trust and slow clinical adoption \cite{ref31}.
+
+\subsection{Knowledge distillation for model compression}
+
+Knowledge distillation (KD) offers a practical route to model
+compression \cite{ref8,ref32}: a compact student is trained to imitate
+the temperature-scaled probability distribution of a larger teacher,
+usually through Kullback--Leibler divergence \cite{ref8}. It has been
+applied to histopathological and general medical image classification
+\cite{ref33,ref34}, and in leukemia to compress teacher CNNs into compact
+students \cite{ref35}, although response-based distillation transfers only
+output-level knowledge and discards spatial reasoning.
+
+Because vanilla KD operates at the logit level, it ignores intermediate
+feature representations, spatial attention maps, and relational structure
+\cite{ref9}. This matters for ALL subtyping, where the spatial
+relationships among nuclei, cytoplasm, chromatin patterns, and blast-cell
+clusters are the key discriminative cues in blood-smear images and are
+poorly preserved by response-based distillation \cite{ref34}. A student
+can then reproduce the teacher's prediction without acquiring the spatial
+reasoning behind it, which weakens generalization on spatially complex
+images.
+
+\subsection{Attention mechanisms in medical imaging}
+
+Spatial attention helps distinguish subtle morphological patterns among
+ALL subtypes, including variation in the nuclear-cytoplasmic ratio,
+chromatin texture, and blast-cell clustering \cite{ref2,ref36}.
+Attention-based CNNs and regionally focused models improve ALL
+discrimination by emphasizing nuclei and blast regions
+\cite{ref37,ref38,ref39}, and across several medical-imaging tasks models
+with stronger spatial awareness outperform their non-attention
+counterparts \cite{ref40,ref41}.
+
+Attention Transfer Knowledge Distillation (AT-KD) extends KD by aligning
+teacher and student attention maps from intermediate layers \cite{ref12},
+transferring spatial feature hierarchies alongside output-level knowledge
+\cite{ref34}. It has been used for whole-slide image analysis, multi-task
+tumor grading, skin lesion analysis, and retinal disease grading
+\cite{ref13,ref14,ref15,ref42}, but its behavior in ALL classification
+remains poorly characterized, particularly with respect to spatial
+complexity, convergence, and interpretability.
+
+\subsection{Research gap}
+
+Across this literature, attention transfer is treated as a general
+accuracy booster, and its specific role in lightweight ALL classification
+has not been examined in detail. Three gaps stand out.
+
+First, few studies connect the benefit of attention transfer to the
+spatial characteristics of the input. Since ALL diagnosis relies on
+morphological cues spread across nuclear structure, cytoplasm, chromatin
+texture, and blast-cell distribution, attention transfer should help more
+on high-resolution multi-cell images than on small single-cell crops, yet
+this condition has not been isolated.
+
+Second, deployment-related behavior is underexplored: most studies report
+accuracy but say little about validation loss, convergence, optimization
+stability, or interpretability, even though a deployable model must be
+accurate, efficient, stable, and explainable at once.
+
+Third, the frequent reliance on a single train-test split makes results
+sensitive to how the data are partitioned and can mask whether a reported
+gain is a consistent effect or fold-specific noise.
+
+We address these gaps by characterizing AT-KD for deployment-oriented ALL
+classification across datasets of differing spatial complexity, examining
+convergence, validation loss, and visual interpretability rather than
+accuracy alone. Stratified five-fold cross-validation with a multi-lens
+statistical evaluation separates consistent behavior from cross-fold
+variation. Unlike segmentation-supervised pipelines that need pixel-level
+masks \cite{ref43}, our framework derives spatial supervision directly
+from teacher activations, transferring attention without segmentation
+annotation and staying practical where expert labeling is costly.
+
+\section{Method}
+Figures~\ref{fig:1}--\ref{fig:3} give an overview of the two distillation
+schemes we compare and of the three benchmark datasets, ahead of the
+formal description below.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{Figures/fig1.png}
+\caption{Vanilla Knowledge Distillation (VKD) architecture.}
+\label{fig:1}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{Figures/fig2.png}
+\caption{Proposed Attention Transfer Knowledge Distillation (AT-KD) architecture.}
+\label{fig:2}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.7\linewidth]{Figures/fig3.png}
+\caption{Representative samples from the three benchmark datasets.}
+\label{fig:3}
+\end{figure}
+
+\subsection{Vanilla and attention-transfer knowledge distillation}
+
+In vanilla knowledge distillation, a frozen high-capacity teacher
+produces softened class probabilities that, together with the
+ground-truth labels, supervise a compact student through a
+temperature-scaled Kullback--Leibler divergence. The soft-target
+probability for class $i$ follows \eqref{eq:1}, where $z_i$ is the logit
+and $T$ the temperature; the total objective combines cross-entropy on
+hard labels with the distillation term in \eqref{eq:2}, and the gradient
+of the soft-target loss scales by $1/T^{2}$ as in \eqref{eq:3}.
+
+\begin{equation}\label{eq:1}
+q_{i} = \frac{\exp(z_{i}/T)}{\sum_{j}^{}{\exp(}z_{j}/T)}
+\end{equation}
+\begin{equation}\label{eq:2}
+L_{\text{total}} = (1 - \alpha) \cdot L_{\text{CE}} + \alpha \cdot L_{\text{KL}}
+\end{equation}
+\begin{equation}\label{eq:3}
+\frac{\partial C}{\partial z_{i}} = \frac{1}{T^{2}}(q_{i} - p_{i})
+\end{equation}
+
+Attention Transfer Knowledge Distillation augments this objective by
+aligning the spatial attention maps of teacher and student. From a
+feature tensor we form a spatial attention map by summing the squared
+channel responses and normalizing, as in \eqref{eq:4} and \eqref{eq:10};
+the activation-based and gradient-based attention-transfer losses appear
+in \eqref{eq:5}--\eqref{eq:7}. The complete AT-KD objective adds the
+morphology-aware attention-transfer term to the logit distillation and
+cross-entropy terms, with the weights in \eqref{eq:8} and \eqref{eq:9}.
+The attention-transfer terms act only during training, so the deployed
+student is identical in size and inference cost to a vanilla-distilled
+student.
+
+\begin{equation}\label{eq:4}
+F_{\text{sum}}^{p}(A) = \sum_{i = 1}^{C} \mid A_{i} \mid^{p},p > 1
+\end{equation}
+\begin{equation}\label{eq:5}
+\begin{aligned}
+L_{\text{AT}}^{\text{act}} &= L_{\text{CE}}(W_{S}, x) \\
+&\quad + \frac{\beta}{2}\sum_{j \in I}\left\| \frac{Q_{S}^{j}}{\left\| Q_{S}^{j} \right\|_{2}} - \frac{Q_{T}^{j}}{\left\| Q_{T}^{j} \right\|_{2}} \right\|_{2}^{2}
+\end{aligned}
+\end{equation}
+\begin{equation}\label{eq:6}
+\begin{aligned}
+L_{\text{AT}}^{\text{grad}} &= L_{\text{CE}}(W_{S}, x) + \frac{\beta}{2}\left\| J_{S} - J_{T} \right\|_{2}^{2}, \\
+J_{S} &= \frac{\partial L_{\text{CE}}(W_{S}, x)}{\partial x}, \quad J_{T} = \frac{\partial L_{\text{CE}}(W_{T}, x)}{\partial x}
+\end{aligned}
+\end{equation}
+\begin{equation}\label{eq:7}
+\mathcal{L}_{\text{sym}} = \mathcal{L}_{\text{CE}}(W,x) + \frac{\beta}{2}\left\| J - \text{flip}(J) \right\|_{2}^{2}
+\end{equation}
+\begin{equation}\label{eq:8}
+\begin{aligned}
+\mathcal{L}_{\text{total}} &= \alpha_{\text{CE}}\mathcal{L}_{\text{CE}} + \beta_{\text{KL}}T^{2}\mathcal{L}_{\text{KL}}, \\
+&\quad \alpha_{\text{CE}} = \beta_{\text{KL}} = 0.5
+\end{aligned}
+\end{equation}
+\begin{equation}\label{eq:9}
+\begin{aligned}
+\mathcal{L}_{\text{total}} &= \alpha_{\text{CE}}\mathcal{L}_{\text{CE}} + \beta_{\text{KL}}T^{2}\mathcal{L}_{\text{KL}} + \gamma\mathcal{L}_{\text{AT}}, \\
+&\quad \alpha_{\text{CE}} = 1.0,\ \beta_{\text{KL}} = 0.5,\ \gamma = 50.0
+\end{aligned}
+\end{equation}
+\begin{equation}\label{eq:10}
+\begin{aligned}
+\mathcal{A}(F) &= \frac{\mathbf{v}}{\left\| \mathbf{v} \right\|_{2}}, \\
+\mathbf{v} &= \text{vec}\!\left( \frac{1}{C}\sum_{c=1}^{C}\left| F_{c} \right|^{2} \right)
+\end{aligned}
+\end{equation}
+
+Algorithm~\ref{alg:training} summarizes the full VKD and AT-KD procedure.
+We first train the teacher, then freeze it and distill the student under
+either the vanilla or the attention-transfer objective, selecting the
+best checkpoint of each fold by macro-F1.
+
+\begin{figure}[tbp]
+\centering
+\rule{\columnwidth}{0.9pt}\\[1pt]
+{\footnotesize\textbf{Algorithm 1}\quad VKD and AT-KD Training Procedure}\\[2pt]
+\rule{\columnwidth}{0.4pt}\\[1pt]
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}r@{\ \ }p{0.86\columnwidth}@{}}
+1  & \textbf{Input:} Training set $D_{\text{train}}$, validation set $D_{\text{val}}$, teacher configuration $C_{t}$, student configuration $C_{s}$, KD method $M \in \{\text{Vanilla},\ \text{Attention Transfer}\}$ \\
+2  & \textbf{Output:} Best student model $S_{\text{final}}$ \\
+3  & \textbf{Initialize} teacher model $T$ using $C_{t}$ \\
+4  & \textbf{for} $\text{epoch} = 1$ to $E_{t}$ \textbf{do} \\
+5  & \hspace{1.5em}\textbf{Train} $T$ using cross-entropy loss on $D_{\text{train}}$ \\
+6  & \hspace{1.5em}\textbf{Validate} $T$ on $D_{\text{val}}$ \\
+7  & \textbf{end for} \\
+8  & \textbf{Freeze} $T$ and set $T$ to evaluation mode \\
+9  & \textbf{Initialize} student model $S$ using $C_{s}$ \\
+10 & \textbf{Set} $\text{best\_score} \leftarrow 0$ \\
+11 & \textbf{for} $\text{epoch} = 1$ to $E_{s}$ \textbf{do} \\
+12 & \hspace{1.5em}\textbf{for} each mini-batch $(x, y)$ in $D_{\text{train}}$ \textbf{do} \\
+13 & \hspace{3em}\textbf{Compute} student logits $z_{S} = S(x)$ \\
+14 & \hspace{3em}\textbf{Compute} teacher logits $z_{T} = T(x)$ without gradient \\
+15 & \hspace{3em}\textbf{Compute} $\mathcal{L}_{\text{CE}}$ from $z_{S}$ and $y$ \\
+16 & \hspace{3em}\textbf{Compute} $\mathcal{L}_{\text{KL}}$ between $\text{softmax}(z_{T}/T)$ and $\text{softmax}(z_{S}/T)$ \\
+17 & \hspace{3em}\textbf{if} $M = \text{Vanilla}$ \textbf{then} \\
+18 & \hspace{4.5em}$\mathcal{L}_{\text{total}} \leftarrow \alpha_{\text{CE}}\mathcal{L}_{\text{CE}} + \beta_{\text{KL}}T^{2}\mathcal{L}_{\text{KL}}$ \\
+19 & \hspace{3em}\textbf{else if} $M = \text{Attention Transfer}$ \textbf{then} \\
+20 & \hspace{4.5em}\textbf{Extract} teacher and student feature maps from selected hooks \\
+21 & \hspace{4.5em}\textbf{Compute} L2-normalized spatial attention maps \\
+22 & \hspace{4.5em}\textbf{Interpolate} attention maps if spatial resolutions differ \\
+23 & \hspace{4.5em}\textbf{Compute} $\mathcal{L}_{\text{AT}}$ between teacher and student attention maps \\
+24 & \hspace{4.5em}$\mathcal{L}_{\text{total}} \leftarrow \alpha_{\text{CE}}\mathcal{L}_{\text{CE}} + \beta_{\text{KL}}T^{2}\mathcal{L}_{\text{KL}} + \gamma\mathcal{L}_{\text{AT}}$ \\
+25 & \hspace{3em}\textbf{end if} \\
+26 & \hspace{3em}\textbf{Update} $S$ using AdamW with $\mathcal{L}_{\text{total}}$ \\
+27 & \hspace{1.5em}\textbf{end for} \\
+28 & \hspace{1.5em}\textbf{Evaluate} $S$ on $D_{\text{val}}$ using macro-F1 \\
+29 & \hspace{1.5em}\textbf{if} macro-F1 improves \textbf{then} \\
+30 & \hspace{3em}$S_{\text{final}} \leftarrow S$ \\
+31 & \hspace{3em}$\text{best\_score} \leftarrow \text{macro-F1}$ \\
+32 & \hspace{1.5em}\textbf{end if} \\
+33 & \hspace{1.5em}\textbf{Apply} scheduler and early stopping \\
+34 & \textbf{end for} \\
+35 & \textbf{return} $S_{\text{final}}$ \\
+\end{tabular}\\[1pt]
+\rule{\columnwidth}{0.9pt}
+\caption{VKD and AT-KD training procedure.}
+\label{alg:training}
+\end{figure}
+
+\subsection{Teacher and student models and training configuration}
+
+The teacher is a SwinV2-Tiny transformer and the student a
+MobileNetV3-Large network; Figs.~\ref{fig:1} and~\ref{fig:2} illustrate
+both. Table~\ref{tab:teacher_params} lists the teacher training settings,
+and Table~\ref{tab:train_params} lists the comparative VKD and AT-KD
+settings, including the loss weights and temperature. We optimize with
+AdamW under a cosine-annealing schedule with early stopping and select
+the best checkpoint per fold by macro-F1.
+
+\begin{table}[tbp]
+\centering
+\caption{Teacher training parameters.}
+\label{tab:teacher_params}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{ll}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\
+\midrule
+Model & SwinV2-Tiny \\
+Pretrained Weights & ImageNet \\
+Input Size & 256$\times$256 \\
+Epochs & 50 \\
+Optimizer & AdamW \\
+Learning Rate & 1$\times$10\textsuperscript{-}\textsuperscript{4} \\
+Weight Decay & 1$\times$10\textsuperscript{-}$^{2}$ \\
+Scheduler & CosineAnnealingLR (Tmax = 50) \\
+Loss Function & Cross-Entropy Loss \\
+Early Stopping Patience & 50 epochs \\
+Batch Size & 32 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{VKD and AT-KD training parameters.}
+\label{tab:train_params}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l c c c L{0.36\textwidth}}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{VKD} & \textbf{AT-KD} & \textbf{Description} \\
+\midrule
+CE loss weight &  & 0.5 & 1.0 & Weight for hard-label cross-entropy supervision \\
+KL loss weight &  & 0.5 & 0.5 & Weight for soft-target distillation via KL-divergence \\
+AT loss scale & $\gamma$ & -- & 50.0 & Scaling coefficient for LAT to balance optimization dynamics \\
+Temperature & T & 4.0 & 4.0 & Temperature parameter for soft-target generation \\
+KL temperature scaling & T$^{2}$ & Applied & Applied & Scaling factor used to compensate for temperature-induced gradient scaling \\
+Loss components &  &  &  & Main objective components used during student training \\
+Feature hooks & -- & None & Teacher: layers.2/3; Student: blocks.4/5 & Intermediate layers used for attention map extraction and transfer \\
+Optimizer & -- & AdamW & AdamW & Optimizer used for student model training \\
+Learning rate & $\eta$ & 1 $\times$ 10\textsuperscript{-}\textsuperscript{4} & 1 $\times$ 10\textsuperscript{-}\textsuperscript{4} & Initial learning rate used during optimization \\
+Weight decay & $\lambda$wd & 1 $\times$ 10\textsuperscript{-}$^{2}$ & 1 $\times$ 10\textsuperscript{-}$^{2}$ & Regularization coefficient used by AdamW \\
+Scheduler & -- & CosineAnnealingLR & CosineAnnealingLR & Learning rate scheduler with Tmax = 100 \\
+Early stopping & -- & 50 epochs & 50 epochs & Patience value used to prevent overfitting \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Experiments}
+\subsection{Datasets}
+
+We use three public ALL datasets with deliberately different spatial
+character. ALL-IDB-1 holds high-resolution peripheral blood-smear images
+with multiple cells and broad context; ALL-IDB-2 holds small single-cell
+crops; and the Subtype ALL set poses a harder three-class problem (L1,
+L2, L3) \cite{ref44,ref45,ref46,ref48}. Fig.~\ref{fig:3} shows
+representative samples, and Fig.~\ref{fig:eda} summarizes composition:
+class counts (108, 260, and 300 images), class balance, and image-size
+range. The two binary sets differ mainly in spatial layout, multi-cell
+versus single-cell, whereas the Subtype set is both three-class and
+mildly imbalanced (L2 is the minority at 63 of 300 images). Spanning
+single-cell and multi-cell composition is what lets us isolate the
+dependence of attention transfer on spatial complexity.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.95\linewidth]{Figures/fig_eda.png}
+\caption{Exploratory data analysis of the three benchmarks: per-class image counts, class-imbalance ratio, and image-size range. ALL-IDB-1 and ALL-IDB-2 are binary; the Subtype set is three-class with L2 as the minority.}
+\label{fig:eda}
+\end{figure}
+
+\subsection{Preprocessing and augmentation}
+
+We resize all images to a common input resolution and normalize them, and
+apply standard label-preserving augmentations (flips, rotations, and
+photometric jitter) during training to curb overfitting on the small
+datasets. VKD and AT-KD share identical preprocessing, splits, teacher,
+and student, so any measured difference traces to the distillation
+objective alone.
+
+\subsection{Evaluation metrics and protocol}
+
+We measure classification performance with macro-averaged accuracy,
+precision, recall, F1-score, and specificity, defined in
+\eqref{eq:11}--\eqref{eq:15}; validation loss is the cross-entropy in
+\eqref{eq:16}. We summarize discriminative performance with the area
+under the ROC curve and average precision (\eqref{eq:17} and
+\eqref{eq:18}), and assess interpretability with Grad-CAM (\eqref{eq:19})
+and t-SNE. All results come from stratified five-fold cross-validation
+with identical folds for every method.
+
+\begin{equation}\label{eq:11}
+Accuracy = \frac{TP + TN}{N}
+\end{equation}
+\begin{equation}\label{eq:12}
+\text{Precision}  =  \frac{1}{C}\sum_{i = 1}^{C}\frac{\text{TP}_{i}}{\text{TP}_{i}  +  \text{FP}_{i}}
+\end{equation}
+\begin{equation}\label{eq:13}
+\text{Recall}  =  \frac{1}{C}\sum_{i = 1}^{C}\frac{\text{TP}_{i}}{\text{TP}_{i}  +  \text{FN}_{i}}
+\end{equation}
+\begin{equation}\label{eq:14}
+F_{1}  =  \frac{1}{C}\sum_{i = 1}^{C}\frac{2  \cdot  \text{Precision}_{i}  \cdot  \text{Recall}_{i}}{\text{Precision}_{i}  +  \text{Recall}_{i}}
+\end{equation}
+\begin{equation}\label{eq:15}
+\text{Specificity} = \frac{1}{C}\sum_{i=1}^{C}\frac{\text{TN}_{i}}{\text{TN}_{i} + \text{FP}_{i}}
+\end{equation}
+\begin{equation}\label{eq:16}
+\mathcal{L}_{\text{val}} = - \frac{1}{N}\sum_{i = 1}^{N}{\sum_{j = 1}^{C}y_{\text{ij}}}\log({\widehat{y}}_{\text{ij}})
+\end{equation}
+\begin{equation}\label{eq:17}
+AUC = \int_{0}^{1}{TPR(FPR)\text{ }d(FPR)}
+\end{equation}
+\begin{equation}\label{eq:18}
+\begin{aligned}
+\text{AP} &= \sum_{k=1}^{n}\left( \text{Recall}_{k+1} - \text{Recall}_{k} \right) \cdot \text{Precision}_{k+1}
+\end{aligned}
+\end{equation}
+
+\subsection{Statistical analysis}
+
+To avoid over-reading fold-level differences, we apply four complementary
+tests. The Friedman test assesses overall differences among methods; the
+paired $t$-test (\eqref{eq:21}) evaluates fold-level differences between
+AT-KD and VKD; McNemar's test (\eqref{eq:20}) compares paired prediction
+errors; and Cohen's $d$ and Cliff's $\delta$ (\eqref{eq:22} and
+\eqref{eq:23}) quantify effect size. Together they separate genuine
+effects from cross-fold variance.
+
+\begin{equation}\label{eq:19}
+\begin{aligned}
+\text{Heatmap} &= \text{ReLU}\!\left( \sum_{k}\alpha_{k} \cdot A^{k} \right), \\
+\alpha_{k} &= \frac{1}{Z}\sum_{i,j}\frac{\partial y^{c}}{\partial A_{ij}^{k}}
+\end{aligned}
+\end{equation}
+\begin{equation}\label{eq:20}
+\chi^{2} = \frac{(\,|b-c|-1)^{2}}{b + c},H_{0}: \text{Error rates are identical}
+\end{equation}
+\begin{equation}\label{eq:21}
+t = \frac{\bar{d}}{s_{d}/\sqrt{n}}
+\end{equation}
+\begin{equation}\label{eq:22}
+d = \frac{\mu_{1} - \mu_{2}}{\sigma_{\text{pooled}}}
+\end{equation}
+\begin{equation}\label{eq:23}
+\delta = \frac{P(X > Y) - P(X < Y)}{P(X > Y) + P(X < Y)}
+\end{equation}
+
+\subsection{The compact student matches the teacher, and AT-KD matches VKD}
+
+Across the three datasets, the distilled MobileNetV3-Large student
+reaches accuracy competitive with the SwinV2-Tiny teacher while using
+only 4.21 million parameters, 6.6 times fewer parameters and 20.6 times
+fewer FLOPs than the teacher (Table~\ref{tab:complexity}).
+Table~\ref{tab:perf} reports per-dataset performance of VKD and AT-KD
+under stratified five-fold cross-validation. On ALL-IDB-1, AT-KD reaches
+96.36\% accuracy against 94.42\% for VKD; on ALL-IDB-2 the two stay
+within one point (95.38\% for VKD, 94.62\% for AT-KD); and on the harder
+three-class Subtype ALL task both reach 98.00\%. Per-class results follow
+the same pattern (Table~\ref{tab:perf_class}), and the aggregated
+confusion matrices show that the residual errors of the two methods fall
+on the same class pairs (Fig.~\ref{fig:4}). The differences between AT-KD
+and VKD are therefore small and favor neither method consistently across
+datasets.
+
+\begin{table}[tbp]
+\centering
+\caption{Teacher and student model complexity.}
+\label{tab:complexity}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c c c c}
+\toprule
+\textbf{Model} & \textbf{Role} & \textbf{Parameters (M)} & \textbf{Model Size (MB)} & \textbf{GFLOPs} & \textbf{GMACs} \\
+\midrule
+SwinV2-Tiny (window 8$\times$8) & Teacher & 27.58 & 107.06 & 11.92 & 5.96 \\
+MobileNetV3-Large & Student & 4.21 & 16.14 & 0.58 & 0.29 \\
+Compression Ratio &  & 6.6$\times$ & 6.6$\times$ & 20.6$\times$ & 20.6$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Classification performance of VKD and AT-KD (mean $\pm$ std, 5-fold CV).}
+\label{tab:perf}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c c c c c}
+\toprule
+\textbf{Dataset} & \textbf{Method} & \textbf{Accuracy (\%)} & \textbf{Precision (\%)} & \textbf{Recall (\%)} & \textbf{F1-score (\%)} & \textbf{Val Loss} \\
+\midrule
+ALL-IDB-1 & VKD & 94.42 $\pm$ 5.99 & 94.68 $\pm$ 5.67 & 94.52 $\pm$ 6.13 & 94.35 $\pm$ 6.08 & 0.381 $\pm$ 0.415 \\
+ & AT-KD & 96.36 $\pm$ 4.98 & 96.50 $\pm$ 4.80 & 96.50 $\pm$ 4.80 & 96.35 $\pm$ 5.00 & 0.163 $\pm$ 0.153 \\
+ALL-IDB-2 & VKD & 95.38 $\pm$ 2.19 & 95.47 $\pm$ 2.23 & 95.38 $\pm$ 2.19 & 95.38 $\pm$ 2.19 & 0.252 $\pm$ 0.098 \\
+ & AT-KD & 94.62 $\pm$ 4.98 & 94.74 $\pm$ 4.93 & 94.62 $\pm$ 4.98 & 94.61 $\pm$ 4.98 & 0.224 $\pm$ 0.139 \\
+Subtype ALL & VKD & 98.00 $\pm$ 1.39 & 97.55 $\pm$ 1.93 & 97.90 $\pm$ 1.50 & 97.65 $\pm$ 1.63 & 0.115 $\pm$ 0.079 \\
+ & AT-KD & 98.00 $\pm$ 1.83 & 97.76 $\pm$ 2.34 & 97.69 $\pm$ 1.90 & 97.67 $\pm$ 2.06 & 0.082 $\pm$ 0.037 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Per-class classification performance (mean $\pm$ std, 5-fold CV).}
+\label{tab:perf_class}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l l c c c c}
+\toprule
+\textbf{Dataset} & \textbf{Class} & \textbf{Method} & \textbf{Precision (\%)} & \textbf{Recall (\%)} & \textbf{F1-score (\%)} & \textbf{Support} \\
+\midrule
+ALL-IDB-1 & Cancer & VKD & 92.44 $\pm$ 6.27 & 96.00 $\pm$ 8.94 & 93.97 $\pm$ 6.24 & 9--10 \\
+ &  & AT-KD & 94.67 $\pm$ 6.29 & 98.00 $\pm$ 4.47 & 96.18 $\pm$ 4.58 & 9--10 \\
+ & Non-cancer & VKD & 96.92 $\pm$ 5.84 & 93.03 $\pm$ 7.63 & 94.73 $\pm$ 6.04 & 11--12 \\
+ &  & AT-KD & 96.33 $\pm$ 4.04 & 95.00 $\pm$ 6.67 & 96.53 $\pm$ 5.41 & 11--12 \\
+ALL-IDB-2 & Blast & VKD & 94.78 $\pm$ 2.88 & 96.15 $\pm$ 2.59 & 95.43 $\pm$ 1.94 & 26 \\
+ &  & AT-KD & 94.92 $\pm$ 6.12 & 95.38 $\pm$ 3.37 & 94.70 $\pm$ 4.34 & 26 \\
+ & Non-blast & VKD & 96.15 $\pm$ 2.90 & 94.62 $\pm$ 3.37 & 95.34 $\pm$ 2.45 & 26 \\
+ &  & AT-KD & 94.56 $\pm$ 3.74 & 93.85 $\pm$ 6.63 & 94.52 $\pm$ 5.60 & 26 \\
+Subtype ALL & L1 & VKD & 98.46 $\pm$ 1.98 & 96.92 $\pm$ 3.05 & 97.65 $\pm$ 1.59 & 25--26 \\
+ &  & AT-KD & 98.43 $\pm$ 2.01 & 97.69 $\pm$ 3.37 & 97.85 $\pm$ 1.97 & 25--26 \\
+ & L2 & VKD & 94.18 $\pm$ 5.32 & 96.77 $\pm$ 3.85 & 95.27 $\pm$ 3.05 & 12--13 \\
+ &  & AT-KD & 95.60 $\pm$ 5.60 & 94.92 $\pm$ 3.85 & 95.38 $\pm$ 4.19 & 12--13 \\
+ & L3 & VKD & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 21--22 \\
+ &  & AT-KD & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 100.00 $\pm$ 0.00 & 21--22 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.8\linewidth]{Figures/fig4.png}
+\caption{Aggregated confusion matrices for VKD and AT-KD on each dataset.}
+\label{fig:4}
+\end{figure}
+
+\subsection{Attention transfer lowers validation loss and accelerates convergence}
+
+The clearest and most consistent effect of attention transfer is on
+optimization, not accuracy. AT-KD reaches a markedly lower validation
+loss than VKD on the spatially complex datasets: on ALL-IDB-1 it falls
+from 0.381 to 0.163, and on Subtype ALL from 0.115 to 0.082
+(Table~\ref{tab:perf}). The learning curves confirm that AT-KD reaches a
+lower, more stable validation loss with smaller fold-to-fold variance
+(Fig.~\ref{fig:5}), and the training-time analysis shows it does so in
+comparable or fewer epochs and at no inference cost, since the
+attention-transfer terms run only during training
+(Table~\ref{tab:traintime}). Discriminative performance, summarized by
+the ROC and precision--recall curves, is high for both methods and
+slightly better for AT-KD on the high-resolution datasets
+(Figs.~\ref{fig:6} and~\ref{fig:7}).
+
+\begin{table}[tbp]
+\centering
+\caption{Training time of VKD and AT-KD (5-fold CV).}
+\label{tab:traintime}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Dataset} & \textbf{Method} & \textbf{Mean Total (s)} & \textbf{Mean Epochs} & \textbf{Time/Epoch (s)} \\
+\midrule
+ALL-IDB-1 & VKD & 267.28 & 78.2 & 3.43 \\
+ & AT-KD & 234.14 & 67.6 & 3.47 \\
+ALL-IDB-2 & VKD & 142.94 & 72.0 & 1.98 \\
+ & AT-KD & 133.21 & 66.0 & 2.02 \\
+Subtype ALL & VKD & 176.75 & 67.6 & 2.62 \\
+ & AT-KD & 180.98 & 67.6 & 2.68 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.85\linewidth]{Figures/fig5.png}
+\caption{Training and validation learning curves for VKD and AT-KD.}
+\label{fig:5}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.7\linewidth]{Figures/fig6.png}
+\caption{ROC curves of VKD and AT-KD on the three datasets.}
+\label{fig:6}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.7\linewidth]{Figures/fig7.png}
+\caption{Precision--Recall curves of VKD and AT-KD on the three datasets.}
+\label{fig:7}
+\end{figure}
+
+\subsection{Statistical analysis confirms accuracy equivalence}
+
+We tested the accuracy difference between AT-KD and VKD with four
+complementary tests. The Friedman test detects an overall difference
+among methods on the two binary datasets but not on Subtype ALL
+(Table~\ref{tab:friedman}). The direct paired comparisons between AT-KD
+and VKD, however, are not significant for any metric on any dataset:
+paired $t$-test accuracy $p$-values are 0.569, 0.648, and 1.000, and
+every McNemar test is likewise non-significant (Table~\ref{tab:ttest},
+Table~\ref{tab:mcnemar}, Table~\ref{tab:signif}). Effect sizes are
+correspondingly small to negligible (Cohen's $d$ and Cliff's $\delta$;
+Table~\ref{tab:effect}) and sit within or near the negligible band on
+every dataset (Fig.~\ref{fig:9}). The accuracy of AT-KD and VKD is
+therefore statistically equivalent, and we read this parity as evidence
+that both already recover the discriminative signal available at this
+model scale.
+
+\begin{table}[tbp]
+\centering
+\caption{Friedman test on the three datasets.}
+\label{tab:friedman}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Dataset} & \textbf{Metric} & $\chi^{2}$ & \textbf{p-value} & \textbf{Significant (}$\alpha$\textbf{=0.05)?} \\
+\midrule
+ALL-IDB-1 & Accuracy & 11.857 & 0.0368 & Yes \\
+ & F1-score & 11.857 & 0.0368 & Yes \\
+ALL-IDB-2 & Accuracy & 16.468 & 0.0056 & Yes \\
+ & F1-score & 16.468 & 0.0056 & Yes \\
+Subtype-ALL & Accuracy & 3.222 & 0.6658 & No \\
+ & F1-score & 5.208 & 0.3910 & No \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Paired t-test between VKD and AT-KD.}
+\label{tab:ttest}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l l c c c c c c}
+\toprule
+\textbf{Dataset} & \textbf{Metric} & \textbf{Mean Diff} & \textbf{Std Diff} & \textbf{t-stat} & \textbf{p-value} & \textbf{Sig?} & \textbf{CI 95\%} \\
+\midrule
+ALL-IDB-1 & Accuracy & -0.0195 & 0.0703 & -0.620 & 0.5691 & No & [-0.107, 0.068] \\
+ & Precision & -0.0182 & 0.0682 & -0.595 & 0.5837 & No & [-0.103, 0.067] \\
+ & Recall & -0.0198 & 0.0704 & -0.630 & 0.5627 & No & [-0.107, 0.068] \\
+ & F1-score & -0.0200 & 0.0710 & -0.630 & 0.5631 & No & [-0.108, 0.068] \\
+ALL-IDB-2 & Accuracy & +0.0077 & 0.0349 & +0.492 & 0.6483 & No & [-0.036, 0.051] \\
+ & Precision & +0.0072 & 0.0335 & +0.483 & 0.6543 & No & [-0.034, 0.049] \\
+ & Recall & +0.0077 & 0.0349 & +0.492 & 0.6483 & No & [-0.036, 0.051] \\
+ & F1-score & +0.0077 & 0.0350 & +0.494 & 0.6473 & No & [-0.036, 0.051] \\
+Subtype-ALL & Accuracy & 0.0000 & 0.0236 & 0.000 & 1.0000 & No & [-0.029, 0.029] \\
+ & Precision & -0.0021 & 0.0267 & -0.176 & 0.8685 & No & [-0.035, 0.031] \\
+ & Recall & +0.0020 & 0.0284 & +0.160 & 0.8806 & No & [-0.033, 0.037] \\
+ & F1-score & -0.0003 & 0.0273 & -0.022 & 0.9833 & No & [-0.034, 0.034] \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{McNemar's test between VKD and AT-KD.}
+\label{tab:mcnemar}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l c c c c c c c L{0.16\textwidth}}
+\toprule
+\textbf{Dataset} & \textbf{Samples} & \textbf{Both corr.} & \textbf{Both wrong} & \textbf{VKD only ($b$)} & \textbf{AT-KD only ($c$)} & \textbf{p-value} & \textbf{Sig?} & \textbf{Interpretation} \\
+\midrule
+ALL-IDB-1 & 108 & 98 & 0 & 4 & 6 & 0.7539 & No & Similar prediction pattern \\
+ALL-IDB-2 & 260 & 237 & 3 & 11 & 9 & 0.8238 & No & Similar prediction pattern \\
+Subtype-ALL & 300 & 290 & 2 & 4 & 4 & 1.0000 & No & Nearly identical observed prediction pattern \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Effect sizes between VKD and AT-KD.}
+\label{tab:effect}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l c c c c c c c c}
+\toprule
+\textbf{Dataset} & \textbf{Metric} & \textbf{Cohen's $d$} & \textbf{Interp.} & \textbf{Cliff's $\delta$} & \textbf{Interp.} & \textbf{Wins} & \textbf{Ties} & \textbf{Losses} \\
+\midrule
+ALL-IDB-1 & Accuracy & -0.354 & Small & -0.28 & Small & 1 & 1 & 3 \\
+ & F1-score & -0.359 & Small & -0.28 & Small & 1 & 1 & 3 \\
+ALL-IDB-2 & Accuracy & +0.200 & Negligible & 0.00 & Negligible & 3 & 0 & 2 \\
+ & F1-score & +0.201 & Small & +0.04 & Negligible & 3 & 0 & 2 \\
+Subtype-ALL & Accuracy & 0.000 & Negligible & -0.08 & Negligible & 2 & 0 & 3 \\
+ & F1-score & -0.015 & Negligible & -0.08 & Negligible & 2 & 0 & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Summary of cross-method significance.}
+\label{tab:signif}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{L{0.26\textwidth} L{0.22\textwidth} L{0.22\textwidth} L{0.20\textwidth}}
+\toprule
+\textbf{Aspect} & \textbf{ALL-IDB-1} & \textbf{ALL-IDB-2} & \textbf{Subtype-ALL} \\
+\midrule
+Friedman (global) & Significant* (p = 0.037) & Significant* (p = 0.006) & Not significant \\
+Paired t-Test: Accuracy & p = 0.569 (No) & p = 0.648 (No) & p = 1.000 (No) \\
+Paired t-Test: Precision & p = 0.584 (No) & p = 0.654 (No) & p = 0.869 (No) \\
+Paired t-Test: Recall & p = 0.563 (No) & p = 0.648 (No) & p = 0.881 (No) \\
+Paired t-Test: F1-score & p = 0.563 (No) & p = 0.647 (No) & p = 0.983 (No) \\
+McNemar & p = 0.754 (No) & p = 0.824 (No) & p = 1.000 (No) \\
+Cohen's d (Accuracy) & -0.354 (small) & +0.200 (negligible) & 0.000 (negligible) \\
+Cohen's d (F1-score) & -0.359 (small) & +0.201 (small) & -0.015 (negligible) \\
+Cliff's $\delta$ (Accuracy) & -0.28 (small) & 0.00 (negligible) & -0.08 (negligible) \\
+Cliff's $\delta$ (F1-score) & -0.28 (small) & +0.04 (negligible) & -0.08 (negligible) \\
+Direction of Advantage & AT-KD slightly superior & VKD slightly superior & Comparable \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.6\linewidth]{Figures/fig9.png}
+\caption{Effect sizes (Cohen's $d$ and Cliff's $\delta$) for the AT-KD versus VKD difference.}
+\label{fig:9}
+\end{figure}
+
+\subsection{The benefit of attention transfer depends on image spatial complexity}
+
+The advantage of attention transfer is not uniform across datasets. Its
+gains in validation loss and focused activation are clear on ALL-IDB-1
+and Subtype ALL, which hold high-resolution images with multiple cells
+and broader context, and negligible on ALL-IDB-2, which holds small
+single-cell crops. Because we resize all inputs to a common resolution
+before training, this pattern reflects the spatial complexity and cell
+composition of the source images rather than the network input resolution
+itself: when an image holds little structure beyond a single centred
+cell, there is little spatial attention for the teacher to transfer.
+
+\subsection{Attention transfer improves interpretability}
+
+Beyond the quantitative metrics, attention transfer changes where and how
+the student looks. Grad-CAM maps show that the AT-KD student concentrates
+on morphologically relevant regions, the nuclei, cytoplasm, and
+blast-cell clusters, whereas the VKD student produces more diffuse
+activation (Fig.~\ref{fig:10}). The t-SNE projections of the
+penultimate-layer features show tighter intra-class clusters and clearer
+inter-class separation for AT-KD (Fig.~\ref{fig:11}). The complexity
+comparison in Fig.~\ref{fig:8} sets these gains against the large
+reduction in model size. Together with the lower validation loss, these
+visualizations indicate that attention transfer yields a student whose
+internal reasoning aligns better with diagnostic morphology, which
+matters for clinical trust even when accuracy is unchanged.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.55\linewidth]{Figures/fig8.png}
+\caption{Model complexity of the SwinV2-Tiny teacher and the MobileNetV3-Large student.}
+\label{fig:8}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.7\linewidth]{Figures/fig10.png}
+\caption{Grad-CAM attention maps for VKD and AT-KD on representative samples.}
+\label{fig:10}
+\end{figure}
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.6\linewidth]{Figures/fig11.png}
+\caption{t-SNE projections of the student's penultimate-layer features.}
+\label{fig:11}
+\end{figure}
+
+\subsection{Comparison with reported methods}
+
+Table~\ref{tab:sota} sets the distilled student against previously
+reported methods on the same datasets, and Table~\ref{tab:method_comp}
+summarizes the methodological choices of representative studies. The
+compact student stays competitive with much larger reported pipelines
+while remaining far smaller, and, unlike most prior work, our evaluation
+reports both the positive and the limited effects of attention transfer
+under a uniform cross-validation and statistical protocol rather than a
+single optimistic split.
+
+\begin{table}[tbp]
+\centering
+\caption{Comparison with state-of-the-art baselines.}
+\label{tab:sota}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{L{0.22\textwidth} L{0.18\textwidth} c c c c c}
+\toprule
+\textbf{Method} & \textbf{Dataset} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Sensitivity} & \textbf{Specificity} & \textbf{F1-score} \\
+\midrule
+Attention Transfer KD (Ours) & Subtype ALL (5-Fold CV) & 98.00\% & 97.76\% & 97.69\% & 99.00\% & 97.67\% \\
+VKD (Ours) & Subtype ALL (5-Fold CV) & 98.00\% & 97.55\% & 97.90\% & 99.05\% & 97.65\% \\
+Attention Transfer KD (Ours) & ALL-IDB-1 (5-Fold CV) & 96.36\% & 96.50\% & 96.50\% & 95.00\% & 96.35\% \\
+VKD (Ours) & ALL-IDB-2 (5-Fold CV) & 95.38\% & 95.47\% & 95.38\% & 94.62\% & 95.38\% \\
+Attention Transfer KD (Ours) & ALL-IDB-2 (5-Fold CV) & 94.62\% & 94.74\% & 94.62\% & 94.62\% & 94.61\% \\
+VKD (Ours) & ALL-IDB-1 (5-Fold CV) & 94.42\% & 94.68\% & 94.52\% & 93.03\% & 94.35\% \\
+Grey-scaling Normalization + SVM \cite{ref52} & ALL-IDB-2 & 92.80\% & - & - & - & - \\
+LeuFeatx + XGB (5-fold CV) \cite{ref47} & ALL-IDB-2 & 92.67\% & 91.62\% & 94.96\% & 89.87\% & 93.20\% \\
+K-NN (7 selected features) \cite{ref53} & ALL-IDB-2 (70\% training, 30\% testing) & 92.41\% & 93.00\% & 92.86\% & 91.89\% & - \\
+VGG16-OSLNet \cite{ref54} & ALL-IDB-2 (70\% training, 30\% testing) & 92.31\% & 91.88\% & 92.82\% & 91.79\% & 92.35\% \\
+ResNet50-OSLNet \cite{ref54} & ALL-IDB-2 (10-Fold CV) & 92.31\% & 93.01\% & 91.54\% & 93.08\% & 92.27\% \\
+LeuFeatx + SVM (5-fold CV) \cite{ref47} & ALL-IDB-2 & 92.30\% & 90.63\% & 96.67\% & 86.36\% & 93.55\% \\
+ResNet50 (Pre-trained) \cite{ref55} & ALL-IDB-2 (80\% Training, 20\% Testing) & 92.30\% & 92.55\% & 92.25\% & 91.80\% & - \\
+Xception (Transfer Learning - Centralized) \cite{ref56} & PBS Dataset (Taleqani Hospital, Iran) - (70\% train, 20\% test, 10\% val) & 91.80\% & 92.40\% & 91.10\% & - & 91.75\% \\
+DenseNet121 (Transfer Learning - Centralized) \cite{ref56} & PBS Dataset (Taleqani Hospital, Iran) - (70\% train, 20\% test, 10\% val) & 91.23\% & 91.80\% & 90.90\% & - & 91.35\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[tbp]
+\centering
+\caption{Methodological comparison of representative state-of-the-art studies.}
+\label{tab:method_comp}
+\footnotesize
+\renewcommand{\arraystretch}{1.2}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{L{0.28\textwidth} L{0.22\textwidth} L{0.40\textwidth}}
+\toprule
+\textbf{Method} & \textbf{Dataset(s) Used} & \textbf{Contribution} \\
+\midrule
+Fine-tuned VGG16 feature extractor + SVM / RF classifier \cite{ref47} & AML Morph., PBC Barcelona, ALL-IDB-2 & Cross-dataset feature extractor with interpretable filter visualisation for cell-level reasoning. \\
+Enhanced edge detection for touching-cell segmentation + subtype classifier \cite{ref48} & Subtype ALL (L1, L2, L3) & Addresses overlapping-cell segmentation, a failure mode often unaddressed in conventional pipelines. \\
+Hybrid MobileNetV2 + ResNet18 with probability-based weight fusion \cite{ref51} & ALL-IDB-1, ALL-IDB-2 & Probability-based weight factor for fusing heterogeneous CNN backbones in ALL classification. \\
+Classical CAD pipeline: morphological + texture features to SVM / ANN \cite{ref52} & ALL-IDB & Foundational soft-computing CAD reference for automated ALL diagnosis. \\
+Handcrafted features + ACO feature selection + NB / SVM / K-NN \cite{ref53} & ALL-IDB-2 (260 imgs) & Establishes optimal feature selection as a competitive alternative to deep models on small datasets. \\
+ResNet18 + Orthogonal SoftMax Layer (OSL) classifier \cite{ref54} & ALL-IDB-1/2, C-NMC 2019, ASH & Orthogonal-weight classifier mitigates overfitting on small medical datasets, applicable to both ALL and AML. \\
+Active-contour + 3-CNN feature fusion + PCA + RF / XGBoost \cite{ref55} & C-NMC 2019, ALL-IDB-2 & Serial multi-CNN feature fusion with dimensionality reduction for compact representation learning. \\
+Federated Learning + differential privacy across InceptionV3 / DenseNet121 / Xception \cite{ref56} & PBS Taleqani Tehran (3,242 imgs) & multi-class federated-learning framework for ALL subtypes that preserves patient privacy under non-IID conditions. \\
+Attention Transfer Knowledge Distillation (AT-KD): SwinV2-Tiny teacher to MobileNetV3-Large student transferring softened logits AND L2-normalized spatial attention maps from selected stages, Proposed Model & Subtype ALL, ALL-IDB-1, ALL-IDB-2 (stratified 5-fold CV) & Unifies accuracy, model compression, optimisation stability, and intrinsic spatial interpretability within a single distillation framework, transferring teacher attention without pixel-level annotation and incurring no inference-time overhead. To the best of our knowledge, the only approach in the surveyed literature that jointly addresses all four objectives. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+
+The central result is that, for lightweight ALL classification, accuracy
+cannot settle the choice between attention-transfer and vanilla
+distillation. Across three datasets, four statistical tests, and both
+binary and three-class settings, AT-KD and VKD are statistically
+indistinguishable, with effect sizes that never leave the
+small-to-negligible range. We read this parity not as a failure of
+attention transfer but as a property of the regime: at the scale of a
+4.21-million-parameter student trained on these benchmarks, the
+discriminative signal already saturates, so any well-posed distillation
+objective recovers it. An evaluation that stops at accuracy cannot
+separate the two methods, and a study that reports only accuracy gains
+risks crediting attention transfer with an effect the data do not
+support.
+
+Where the two methods diverge is in optimization. AT-KD reaches a lower
+validation loss and converges in comparable or fewer epochs, most clearly
+on the spatially complex datasets, where the ALL-IDB-1 validation loss
+falls by more than half relative to vanilla distillation. A plausible
+mechanism is that aligning the student's intermediate spatial attention
+with the teacher's adds a geometry-aware constraint that logit matching
+alone cannot supply; this constraint narrows the solutions the student
+can adopt and steers it toward representations organized around
+diagnostic structure, smoothing the loss surface and reducing
+fold-to-fold variance. Because this auxiliary signal acts only during
+training, the deployed student is identical to a vanilla-distilled one, so
+the optimization benefit comes at zero inference cost. The same mechanism
+explains why the benefit does not surface as accuracy: on saturated data,
+a smoother path to the same optimum changes how the model is reached, not
+where it ends up.
+
+The dependence of this benefit on the input is the most actionable
+finding. Gains in validation loss and focused activation are pronounced on
+ALL-IDB-1 and the three-class Subtype ALL set, both of which hold
+high-resolution fields with multiple cells and surrounding context, and
+they essentially vanish on ALL-IDB-2, whose images are tightly cropped
+single cells. Because we resize every input to a common resolution before
+training, this pattern reflects the spatial complexity and cell
+composition of the source image rather than its pixel count: when an
+image holds little structure beyond one centred cell, there is almost no
+spatial attention map for the teacher to transfer, and the auxiliary loss
+degenerates toward a constant. This yields a concrete decision rule
+rather than a vague recommendation: attention transfer is worth its
+training cost when the imagery carries multi-cell spatial context and can
+be omitted when it does not.
+
+The interpretability evidence sharpens this picture rather than
+decorating it. The Grad-CAM maps show that AT-KD concentrates the
+student's response on nuclei, cytoplasm, and blast-cell clusters, whereas
+vanilla distillation produces more diffuse activation, and the t-SNE
+projections show tighter intra-class clusters and cleaner inter-class
+margins for AT-KD. For a deployment-oriented model these properties
+matter independently of accuracy, because a clinician's trust depends on
+whether a model attends to the features a hematologist would use, not
+only on whether its label is correct. We stay deliberately cautious here:
+visual alignment with morphology is necessary but not sufficient evidence
+of clinically valid reasoning, and the present results establish that
+attention transfer changes where the model looks, not yet that the change
+improves diagnostic safety.
+
+Several limitations bound these conclusions. The three datasets are
+widely used public benchmarks of modest size, and their high absolute
+accuracies leave little headroom in which an accuracy difference could
+emerge even if one existed; a fair test of whether attention transfer can
+convert its optimization advantage into accuracy needs larger and harder
+data, such as the C-NMC challenge corpus, and external cohorts that vary
+staining, scanner, and site, including privacy-preserving and federated
+deployments \cite{ref50}. The analysis also fixes a single
+teacher--student pair and trains the student from scratch without
+large-scale pretraining, so teacher variance and the interaction between
+attention transfer and pretrained initialization stay unquantified.
+Calibration, although favorable for the distilled student, was measured
+rather than directly optimized, and predictive uncertainty, central to
+safe screening, was not estimated. The statistical protocol controls
+fold-level variance well but cannot rule out small effects that only a
+larger sample would reveal.
+
+These limitations define a programme rather than a caveat. The most
+informative next step is to test the optimization advantage on data with
+genuine headroom, where a lower validation loss and faster convergence
+could plausibly translate into measurable accuracy or calibration gains.
+Pairing attention transfer with calibration-aware training and
+uncertainty estimation, and with saliency-guided augmentation that
+supplies additional spatial supervision \cite{ref49}, is a natural way to
+push the conditional benefit we observe toward a consistent one. More
+broadly, our results argue for evaluating distillation on a multi-axis
+basis spanning optimization, calibration, interpretability, and
+efficiency rather than on accuracy alone, because that is where the
+methodological differences between distillation schemes actually reside.
+
+\section{Conclusion}
+We presented a controlled, multi-lens study of attention transfer for
+lightweight ALL classification, and three findings stand. A
+4.21-million-parameter student matches its transformer teacher at 6.6
+times fewer parameters and 20.6 times fewer FLOPs. AT-KD and VKD are
+statistically equivalent in accuracy, which four complementary tests show
+is the expected outcome on saturated benchmarks rather than a shortcoming
+of attention transfer. And the genuine value of attention transfer is an
+optimization one, lower validation loss, faster convergence, and tighter,
+more morphology-aligned representations, conditional on multi-cell
+spatial complexity and obtained at zero inference cost. Together these
+yield a concrete rule for when attention transfer earns its training cost
+and a reproducible protocol for evaluating distillation across
+optimization, interpretability, and efficiency rather than accuracy
+alone. Future work should extend the study to larger external corpora
+such as the C-NMC challenge data, fold teacher variance and pretraining
+into the protocol, and pair attention transfer with calibration-aware
+training and uncertainty estimation \cite{ref49} to test whether its
+optimization advantage can become a measurable accuracy or calibration
+gain.
+
+\section*{Data availability}
+The three datasets analysed in this study are publicly available:
+ALL-IDB-1 and ALL-IDB-2 from the ALL-IDB database, and the Subtype ALL
+dataset from its original release. The code and per-fold analysis
+artifacts that support the findings are available from the corresponding
+author on reasonable request.
+
+\section*{Acknowledgements}
+This work was supported by the Indonesian Endowment Fund for Education
+(LPDP) on behalf of the Indonesian Ministry of Higher Education, Science
+and Technology, under the EQUITY Program (Contract No.
+4299/B3/DT.03.08/2025 and No. 3029/PKS/ITS/2025). The authors used a
+large language model (Claude, Anthropic) solely to assist with language
+editing; all scientific content is the authors' own.
+
+\section*{CRediT authorship contribution statement}
+\textbf{Tanzilal Mustaqim:} Conceptualization, Methodology, Software,
+Investigation, Writing -- original draft. \textbf{Chastine Fatichah:}
+Supervision, Writing -- review \& editing. \textbf{Nanik Suciati:}
+Supervision, Writing -- review \& editing. \textbf{Takashi Obi:}
+Methodology, Formal analysis. \textbf{Joong-Sun Lee:} Methodology, Formal
+analysis. All authors reviewed and approved the manuscript.
+
+\section*{Declaration of competing interest}
+The authors declare no competing interests.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

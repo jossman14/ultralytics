@@ -1,0 +1,52 @@
+# Training Configuration
+# Konfigurasi umum untuk training
+
+# Model Settings
+model:
+  scale: "s"                    # n, s, m, l, x
+  config: "v8/yolov8.yaml"      # Path ke file konfigurasi model
+
+# Training Settings
+training:
+  epochs: 100
+  batch_size: 16
+  img_size: 480
+  device: "0"                   # "0" untuk single GPU, "0,1,2,3" untuk multi-GPU
+  workers: 8
+  patience: 30                  # Early stopping patience
+  
+# Optimizer
+optimizer:
+  type: "adamW"                # SGD, Adam, AdamW
+  lr0: 0.01                    # Initial learning rate
+  lrf: 0.01                    # Final learning rate fraction
+  momentum: 0.937              # SGD momentum / Adam beta1
+  weight_decay: 0.0005         # Optimizer weight decay
+  
+# Augmentation
+augmentation:
+  hsv_h: 0.015                 # HSV-Hue augmentation
+  hsv_s: 0.7                   # HSV-Saturation augmentation
+  hsv_v: 0.4                   # HSV-Value augmentation
+  degrees: 0.0                 # Rotation degrees
+  translate: 0.1               # Translation fraction
+  scale: 0.5                   # Scale fraction
+  shear: 0.0                   # Shear degrees
+  perspective: 0.0             # Perspective fraction
+  flipud: 0.0                  # Flip up-down probability
+  fliplr: 0.5                  # Flip left-right probability
+  mosaic: 1.0                  # Mosaic augmentation probability
+  mixup: 0.0                   # MixUp augmentation probability
+  copy_paste: 0.0              # Copy-paste augmentation probability
+  close_mosaic: 10             # Disable mosaic in last N epochs
+
+# Other Settings
+settings:
+  cos_lr: true                 # Cosine learning rate schedule
+  amp: true                    # Automatic Mixed Precision
+  cache: false               # Cache images in RAM
+  
+# Paths
+dataset:
+  yaml_path: "data.yaml"       # Path ke file dataset YAML
+  output_dir: "runs/detect"    # Output directory untuk hasil training

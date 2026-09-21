@@ -1,0 +1,17 @@
+\begin{table}[t]
+\caption{Change of each variant versus the baseline on Judol Detection v2. Positive accuracy and negative complexity are preferable.}
+\label{tab:relative}
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Model} & \textbf{$\Delta$mAP50-95} & \textbf{$\Delta$Params} & \textbf{$\Delta$GFLOPs} \\
+\midrule
+SE (ours)     & $+0.0039$ & $+0.36\%$  & $+0.11\%$  \\
+Res2Net-SPD   & $-0.0002$ & $+40.90\%$ & $+23.93\%$ \\
+Shuffle-SE    & $-0.0107$ & $-14.51\%$ & $-15.35\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}

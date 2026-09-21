@@ -1,0 +1,224 @@
+{
+  "base_dir": "results",
+  "num_folds": 5,
+  "experiments": {
+    "yolov8-ghost-swin": {
+      "root": "results/experiment_yolov8-ghost-swin",
+      "aggregated_results": "results/experiment_yolov8-ghost-swin/aggregated_results",
+      "model_artifacts": "results/experiment_yolov8-ghost-swin/model_artifacts",
+      "folds": {
+        "1": {
+          "root": "results/experiment_yolov8-ghost-swin/fold_1",
+          "checkpoints": "results/experiment_yolov8-ghost-swin/fold_1/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin/fold_1/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin/fold_1/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin/fold_1/predictions"
+        },
+        "2": {
+          "root": "results/experiment_yolov8-ghost-swin/fold_2",
+          "checkpoints": "results/experiment_yolov8-ghost-swin/fold_2/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin/fold_2/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin/fold_2/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin/fold_2/predictions"
+        },
+        "3": {
+          "root": "results/experiment_yolov8-ghost-swin/fold_3",
+          "checkpoints": "results/experiment_yolov8-ghost-swin/fold_3/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin/fold_3/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin/fold_3/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin/fold_3/predictions"
+        },
+        "4": {
+          "root": "results/experiment_yolov8-ghost-swin/fold_4",
+          "checkpoints": "results/experiment_yolov8-ghost-swin/fold_4/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin/fold_4/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin/fold_4/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin/fold_4/predictions"
+        },
+        "5": {
+          "root": "results/experiment_yolov8-ghost-swin/fold_5",
+          "checkpoints": "results/experiment_yolov8-ghost-swin/fold_5/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin/fold_5/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin/fold_5/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin/fold_5/predictions"
+        }
+      }
+    },
+    "yolov8-swin-capffn": {
+      "root": "results/experiment_yolov8-swin-capffn",
+      "aggregated_results": "results/experiment_yolov8-swin-capffn/aggregated_results",
+      "model_artifacts": "results/experiment_yolov8-swin-capffn/model_artifacts",
+      "folds": {
+        "1": {
+          "root": "results/experiment_yolov8-swin-capffn/fold_1",
+          "checkpoints": "results/experiment_yolov8-swin-capffn/fold_1/checkpoints",
+          "logs": "results/experiment_yolov8-swin-capffn/fold_1/logs",
+          "visualizations": "results/experiment_yolov8-swin-capffn/fold_1/visualizations",
+          "predictions": "results/experiment_yolov8-swin-capffn/fold_1/predictions"
+        },
+        "2": {
+          "root": "results/experiment_yolov8-swin-capffn/fold_2",
+          "checkpoints": "results/experiment_yolov8-swin-capffn/fold_2/checkpoints",
+          "logs": "results/experiment_yolov8-swin-capffn/fold_2/logs",
+          "visualizations": "results/experiment_yolov8-swin-capffn/fold_2/visualizations",
+          "predictions": "results/experiment_yolov8-swin-capffn/fold_2/predictions"
+        },
+        "3": {
+          "root": "results/experiment_yolov8-swin-capffn/fold_3",
+          "checkpoints": "results/experiment_yolov8-swin-capffn/fold_3/checkpoints",
+          "logs": "results/experiment_yolov8-swin-capffn/fold_3/logs",
+          "visualizations": "results/experiment_yolov8-swin-capffn/fold_3/visualizations",
+          "predictions": "results/experiment_yolov8-swin-capffn/fold_3/predictions"
+        },
+        "4": {
+          "root": "results/experiment_yolov8-swin-capffn/fold_4",
+          "checkpoints": "results/experiment_yolov8-swin-capffn/fold_4/checkpoints",
+          "logs": "results/experiment_yolov8-swin-capffn/fold_4/logs",
+          "visualizations": "results/experiment_yolov8-swin-capffn/fold_4/visualizations",
+          "predictions": "results/experiment_yolov8-swin-capffn/fold_4/predictions"
+        },
+        "5": {
+          "root": "results/experiment_yolov8-swin-capffn/fold_5",
+          "checkpoints": "results/experiment_yolov8-swin-capffn/fold_5/checkpoints",
+          "logs": "results/experiment_yolov8-swin-capffn/fold_5/logs",
+          "visualizations": "results/experiment_yolov8-swin-capffn/fold_5/visualizations",
+          "predictions": "results/experiment_yolov8-swin-capffn/fold_5/predictions"
+        }
+      }
+    },
+    "yolov8-swin-gam": {
+      "root": "results/experiment_yolov8-swin-gam",
+      "aggregated_results": "results/experiment_yolov8-swin-gam/aggregated_results",
+      "model_artifacts": "results/experiment_yolov8-swin-gam/model_artifacts",
+      "folds": {
+        "1": {
+          "root": "results/experiment_yolov8-swin-gam/fold_1",
+          "checkpoints": "results/experiment_yolov8-swin-gam/fold_1/checkpoints",
+          "logs": "results/experiment_yolov8-swin-gam/fold_1/logs",
+          "visualizations": "results/experiment_yolov8-swin-gam/fold_1/visualizations",
+          "predictions": "results/experiment_yolov8-swin-gam/fold_1/predictions"
+        },
+        "2": {
+          "root": "results/experiment_yolov8-swin-gam/fold_2",
+          "checkpoints": "results/experiment_yolov8-swin-gam/fold_2/checkpoints",
+          "logs": "results/experiment_yolov8-swin-gam/fold_2/logs",
+          "visualizations": "results/experiment_yolov8-swin-gam/fold_2/visualizations",
+          "predictions": "results/experiment_yolov8-swin-gam/fold_2/predictions"
+        },
+        "3": {
+          "root": "results/experiment_yolov8-swin-gam/fold_3",
+          "checkpoints": "results/experiment_yolov8-swin-gam/fold_3/checkpoints",
+          "logs": "results/experiment_yolov8-swin-gam/fold_3/logs",
+          "visualizations": "results/experiment_yolov8-swin-gam/fold_3/visualizations",
+          "predictions": "results/experiment_yolov8-swin-gam/fold_3/predictions"
+        },
+        "4": {
+          "root": "results/experiment_yolov8-swin-gam/fold_4",
+          "checkpoints": "results/experiment_yolov8-swin-gam/fold_4/checkpoints",
+          "logs": "results/experiment_yolov8-swin-gam/fold_4/logs",
+          "visualizations": "results/experiment_yolov8-swin-gam/fold_4/visualizations",
+          "predictions": "results/experiment_yolov8-swin-gam/fold_4/predictions"
+        },
+        "5": {
+          "root": "results/experiment_yolov8-swin-gam/fold_5",
+          "checkpoints": "results/experiment_yolov8-swin-gam/fold_5/checkpoints",
+          "logs": "results/experiment_yolov8-swin-gam/fold_5/logs",
+          "visualizations": "results/experiment_yolov8-swin-gam/fold_5/visualizations",
+          "predictions": "results/experiment_yolov8-swin-gam/fold_5/predictions"
+        }
+      }
+    },
+    "yolov8-swin-eca": {
+      "root": "results/experiment_yolov8-swin-eca",
+      "aggregated_results": "results/experiment_yolov8-swin-eca/aggregated_results",
+      "model_artifacts": "results/experiment_yolov8-swin-eca/model_artifacts",
+      "folds": {
+        "1": {
+          "root": "results/experiment_yolov8-swin-eca/fold_1",
+          "checkpoints": "results/experiment_yolov8-swin-eca/fold_1/checkpoints",
+          "logs": "results/experiment_yolov8-swin-eca/fold_1/logs",
+          "visualizations": "results/experiment_yolov8-swin-eca/fold_1/visualizations",
+          "predictions": "results/experiment_yolov8-swin-eca/fold_1/predictions"
+        },
+        "2": {
+          "root": "results/experiment_yolov8-swin-eca/fold_2",
+          "checkpoints": "results/experiment_yolov8-swin-eca/fold_2/checkpoints",
+          "logs": "results/experiment_yolov8-swin-eca/fold_2/logs",
+          "visualizations": "results/experiment_yolov8-swin-eca/fold_2/visualizations",
+          "predictions": "results/experiment_yolov8-swin-eca/fold_2/predictions"
+        },
+        "3": {
+          "root": "results/experiment_yolov8-swin-eca/fold_3",
+          "checkpoints": "results/experiment_yolov8-swin-eca/fold_3/checkpoints",
+          "logs": "results/experiment_yolov8-swin-eca/fold_3/logs",
+          "visualizations": "results/experiment_yolov8-swin-eca/fold_3/visualizations",
+          "predictions": "results/experiment_yolov8-swin-eca/fold_3/predictions"
+        },
+        "4": {
+          "root": "results/experiment_yolov8-swin-eca/fold_4",
+          "checkpoints": "results/experiment_yolov8-swin-eca/fold_4/checkpoints",
+          "logs": "results/experiment_yolov8-swin-eca/fold_4/logs",
+          "visualizations": "results/experiment_yolov8-swin-eca/fold_4/visualizations",
+          "predictions": "results/experiment_yolov8-swin-eca/fold_4/predictions"
+        },
+        "5": {
+          "root": "results/experiment_yolov8-swin-eca/fold_5",
+          "checkpoints": "results/experiment_yolov8-swin-eca/fold_5/checkpoints",
+          "logs": "results/experiment_yolov8-swin-eca/fold_5/logs",
+          "visualizations": "results/experiment_yolov8-swin-eca/fold_5/visualizations",
+          "predictions": "results/experiment_yolov8-swin-eca/fold_5/predictions"
+        }
+      }
+    },
+    "yolov8-ghost-swin-capffn": {
+      "root": "results/experiment_yolov8-ghost-swin-capffn",
+      "aggregated_results": "results/experiment_yolov8-ghost-swin-capffn/aggregated_results",
+      "model_artifacts": "results/experiment_yolov8-ghost-swin-capffn/model_artifacts",
+      "folds": {
+        "1": {
+          "root": "results/experiment_yolov8-ghost-swin-capffn/fold_1",
+          "checkpoints": "results/experiment_yolov8-ghost-swin-capffn/fold_1/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin-capffn/fold_1/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin-capffn/fold_1/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin-capffn/fold_1/predictions"
+        },
+        "2": {
+          "root": "results/experiment_yolov8-ghost-swin-capffn/fold_2",
+          "checkpoints": "results/experiment_yolov8-ghost-swin-capffn/fold_2/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin-capffn/fold_2/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin-capffn/fold_2/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin-capffn/fold_2/predictions"
+        },
+        "3": {
+          "root": "results/experiment_yolov8-ghost-swin-capffn/fold_3",
+          "checkpoints": "results/experiment_yolov8-ghost-swin-capffn/fold_3/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin-capffn/fold_3/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin-capffn/fold_3/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin-capffn/fold_3/predictions"
+        },
+        "4": {
+          "root": "results/experiment_yolov8-ghost-swin-capffn/fold_4",
+          "checkpoints": "results/experiment_yolov8-ghost-swin-capffn/fold_4/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin-capffn/fold_4/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin-capffn/fold_4/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin-capffn/fold_4/predictions"
+        },
+        "5": {
+          "root": "results/experiment_yolov8-ghost-swin-capffn/fold_5",
+          "checkpoints": "results/experiment_yolov8-ghost-swin-capffn/fold_5/checkpoints",
+          "logs": "results/experiment_yolov8-ghost-swin-capffn/fold_5/logs",
+          "visualizations": "results/experiment_yolov8-ghost-swin-capffn/fold_5/visualizations",
+          "predictions": "results/experiment_yolov8-ghost-swin-capffn/fold_5/predictions"
+        }
+      }
+    }
+  },
+  "comparative_analysis": {
+    "root": "results/comparative_analysis",
+    "tables": "results/comparative_analysis/tables",
+    "latex_tables": "results/comparative_analysis/tables/latex_tables",
+    "visualizations": "results/comparative_analysis/visualizations",
+    "statistical_analysis": "results/comparative_analysis/statistical_analysis",
+    "reports": "results/comparative_analysis/reports"
+  }
+}

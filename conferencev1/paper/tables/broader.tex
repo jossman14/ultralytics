@@ -1,0 +1,19 @@
+\begin{table}[t]
+\caption{Proposed SE model ($\star$) against other nano-scale variants on Judol Detection v2, with cost. None of these simpler or heavier alternatives beats it.}
+\label{tab:broader}
+\centering\footnotesize\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Model} & \textbf{mAP50-95} & \textbf{Params (M)} & \textbf{GFLOPs} \\
+\midrule
+yolov8-se-baseline $\star$ & 0.5896 & 3.17 & 8.9 \\
+yolov8-mbconv-coordatt-simam & 0.5887 & 3.10 & 8.1 \\
+yolov8-swin-ema & 0.5872 & 3.01 & 20.8 \\
+yolo12-spd-shuffle & 0.5865 & 4.62 & -- \\
+yolov8-mbconv-eca & 0.5858 & 3.09 & 8.1 \\
+yolov8n-base (base) & 0.5857 & 3.16 & 8.9 \\
+yolov8-res2net-spd-ssga & 0.5855 & 4.45 & 11.0 \\
+yolov8-ghostv2-spd-gam & 0.5841 & 5.66 & 11.8 \\
+\bottomrule
+\end{tabular}
+\end{table}

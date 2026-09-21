@@ -1,0 +1,296 @@
+[
+ {
+  "n": "1",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Text-Based Detection of Online Gambling Advertisements on Social Media Using AutoML and CNN (Muzakir et al., ICISIT 2025)",
+  "doi": "10.1109/ICISIT66233.2025.11402999"
+ },
+ {
+  "n": "2",
+  "file": "`02_muzakir_ijsse_multimodal.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "A Deep Learning and AutoML-Based Multimodal Text Extraction Framework for Detecting Online Gambling Advertisements in Indonesian Social Media (Muzakir et al., IJSSE 15(9), 2025)",
+  "doi": ""
+ },
+ {
+  "n": "3",
+  "file": "\u2014",
+  "status": "\ud83d\udeab EXCLUDED",
+  "title": "Deteksi Iklan Judi Online pada gambar dengan Algoritma Faster R-CNN (Dekis Aldamawan, UIN Sunan Gunung Djati Bandung thesis, 2023)",
+  "doi": ""
+ },
+ {
+  "n": "4",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Multimodal Detection of Covert Online Gambling Advertisements Using Faster R-CNN and Tr-OCR (bit-Tech, Vol.8 No.1 2025)",
+  "doi": "10.32877/bt.v8i1.2769"
+ },
+ {
+  "n": "5",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Illegal Online Gambling Site Detection using Multiple Resource-Oriented Machine Learning (Journal of Gambling Studies, 2024)",
+  "doi": "10.1007/s10899-024-10337-z"
+ },
+ {
+  "n": "6",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "A Lightweight Graph-based Method to Detect Pornographic and Gambling Websites with Imperfect Datasets (Ma, Zheng, Li, Yin \u2014 IEEE TrustCom 2022)",
+  "doi": "10.1109/TrustCom56396.2022.00048"
+ },
+ {
+  "n": "7",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Deep Learning And Machine Learning For Indonesian Online Gambling Website Promotion Detection (Procedia Computer Science, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "8",
+  "file": "`08_wang_xue_seke_cotraining.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Identifying Gambling Websites with Co-training (Wang, Xue et al., SEKE 2022)",
+  "doi": ""
+ },
+ {
+  "n": "9",
+  "file": "\u2014",
+  "status": "\ud83d\udeab EXCLUDED",
+  "title": "Image Classification System for Online Gambling Detection (ITB thesis, advisor Rinaldi Munir, 2021)",
+  "doi": ""
+ },
+ {
+  "n": "10",
+  "file": "`10_just_dork_crawl_gambling_defacement.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Just Dork and Crawl: Measuring Illegal Online Gambling Defacement in Indonesian Websites (arXiv:2508.19368, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "11",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "YOLO based Logo detection (Eldho, Francis, Hari \u2014 ICACC 2019)",
+  "doi": "10.1109/ICACC48162.2019.8986207"
+ },
+ {
+  "n": "12",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Logo Detection Using You Only Look Once (YOLO) Method (Rezkiani, Nurtanio, Syafaruddin \u2014 ICE3IS 2022)",
+  "doi": "10.1109/ICE3IS56585.2022.10010121"
+ },
+ {
+  "n": "13",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Logo Detection of Integrated Circuit Based on CycleGAN Method and Improved YOLO-v4-tiny Model (Zhao, Wang, Luo, Zhang \u2014 ICEPT 2024)",
+  "doi": "10.1109/ICEPT63120.2024.10668761"
+ },
+ {
+  "n": "14",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Car Logo Recognition using YOLOv8 and Microsoft Azure Custom Vision (Anuwa et al. \u2014 ICDABI 2023)",
+  "doi": "10.1109/ICDABI60145.2023.10629291"
+ },
+ {
+  "n": "15",
+  "file": "`15_zhou_vl_yolo_vehicle_logo.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Detecting Motion Blurred Vehicle Logo in IoV Using Filter-DeblurGAN and VL-YOLO (Zhou et al. \u2014 IEEE Trans. Vehicular Technology 2020)",
+  "doi": ""
+ },
+ {
+  "n": "16",
+  "file": "`16_deep_learning_logo_detection_survey.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Deep Learning for Logo Detection: A Survey (arXiv:2210.04399)",
+  "doi": ""
+ },
+ {
+  "n": "17",
+  "file": "`17_discover_appsci_logo_packaging.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Brand visibility in packaging: a deep learning approach for logo detection, saliency-map prediction, and logo placement analysis (Discover Applied Sciences, 2025)",
+  "doi": "10.1007/s42452-025-07043-9."
+ },
+ {
+  "n": "18",
+  "file": "`18_ma_layn_yolov8.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "LAYN: Lightweight Multi-Scale Attention YOLOv8 Network for Small Object Detection (Ma et al. \u2014 IEEE Access 2024)",
+  "doi": ""
+ },
+ {
+  "n": "19",
+  "file": "`19_sensors_swin_yolov5.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Swin-Transformer-Based YOLOv5 for Small-Object Detection in Remote Sensing Images (Sensors 23(7):3634, 2023)",
+  "doi": ""
+ },
+ {
+  "n": "20",
+  "file": "`20_yolo_tla_lightweight_small_object.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "YOLO-TLA: An Efficient and Lightweight Small Object Detection Model based on YOLOv5 (arXiv:2402.14309, 2024)",
+  "doi": ""
+ },
+ {
+  "n": "21",
+  "file": "`21_ghost_yolov8_cmc.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Ghost-YOLO v8: An Attention-Guided Enhanced Small Target Detection Algorithm for Floating Litter on Water Surfaces (CMC Vol.80 No.3, 2024)",
+  "doi": ""
+ },
+ {
+  "n": "22",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "An Optimized GhostNet-YOLOv8 Architecture for Real-Time Object Detection in Edge AIoT Surveillance Applications (Namana, Kumar \u2014 ICIIP 2025)",
+  "doi": "10.1109/ICIIP68302.2025.11346418"
+ },
+ {
+  "n": "23",
+  "file": "`23_lkd_yolov8_infrared.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "LKD-YOLOv8: A Lightweight Knowledge Distillation-Based Method for Infrared Object Detection (Sensors 25(13):4054, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "24",
+  "file": "`24_setyanto_kd_edge.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Knowledge Distillation in Object Detection for Resource-Constrained Edge Computing (Setyanto, Sasongko, Fikri, Ariatmanto \u2014 IEEE Access 2025)",
+  "doi": ""
+ },
+ {
+  "n": "25",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Star-YOLO: A lightweight and efficient model for weed detection in cotton fields using advanced YOLOv8 improvements (Computers and Electronics in Agriculture, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "26",
+  "file": "`26_cardoso_safer_gambling_review.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Deep technologies and safer gambling: A systematic review (Cardoso, Barroso, Piccoli, Peixoto, Morgado, Marques, Rocha, Griffiths, Queir\u00f3s, Dores \u2014 Acta Psychologica 262, 2026)",
+  "doi": "10.1016/j.actpsy.2025.106140"
+ },
+ {
+  "n": "27",
+  "file": "`27_su_scalable_logo_selfcolearning.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Scalable logo detection by self co-learning (Su, Gong, Zhu \u2014 Pattern Recognition 97, 2020)",
+  "doi": "10.1016/j.patcog.2019.107003"
+ },
+ {
+  "n": "28",
+  "file": "`28_marionneau_duty_of_care_gambling.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Duty of care, data science, and gambling harm: A scoping review of risk assessment models (Marionneau, Ristolainen, Roukka \u2014 Computers in Human Behavior Reports 18, 2025)",
+  "doi": "10.1016/j.chbr.2025.100644"
+ },
+ {
+  "n": "29",
+  "file": "`29_yu_pkd_yolov8_kd_pruning.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "PKD-YOLOv8: A Collaborative Pruning and Knowledge Distillation Framework for Lightweight Rapeseed Pest Detection (Yu, Luo, Peng, Zheng, Ju, Zhuo \u2014 Sensors 25(16):5004, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "30",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Enhancing Wafer Notch Detection for Ion Implantation: Optimized YOLOv8 Approach with Global Attention Mechanism (Hwang, Sim et al. \u2014 Applied Sciences 15(16):9122, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "31",
+  "file": "`31_sun_lms_yolo_starnet_marine.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "LMS-YOLO: A StarNet-Enhanced Lightweight Framework for Robust Marine Object Detection in Complex Water Surface Environments (Sun, Liu, Zhang, Shao, Zhang \u2014 Acadlore, Aug. of Artificial Intelligence in Machine Learning 2025, 4(4))",
+  "doi": ""
+ },
+ {
+  "n": "32",
+  "file": "`32_ji_scl_yolov8_starnet.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Lightweight SCL-YOLOv8: A High-Performance Model for Transmission Line Foreign Object Detection (Ji, Chen, Bai, Gong \u2014 Sensors 25(16):5147, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "33",
+  "file": "`33_yu_yolo_small_object_review_cmc.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "A Comprehensive Literature Review on YOLO-Based Small Object Detection: Methods, Challenges, and Future Trends (Yu, Liu, Lin \u2014 Computers, Materials & Continua 87(1), 2026)",
+  "doi": ""
+ },
+ {
+  "n": "34",
+  "file": "`34_murch_gambling_harms_temporal_stability.pdf`",
+  "status": "\u2705 SUCCESS (preprint)",
+  "title": "30-Month Revalidation to Determine the Temporal Stability of Machine Learning Models for Detecting Online Gambling-Related Harms (Murch, Kairouz, French \u2014 published as \"Establishing the temporal stability...\" in Computers in Human Behavior Reports 14, 2024)",
+  "doi": "10.1016/j.chbr.2024.100427"
+ },
+ {
+  "n": "35",
+  "file": "`35_hwang_ai_threat_detection_illicit_web_cmes.pdf`",
+  "status": "\u2705 SUCCESS",
+  "title": "Survey of AI-Based Threat Detection for Illicit Web Ecosystems: Models, Modalities, and Emerging Trends (Hwang, Min, et al. \u2014 Computer Modeling in Engineering & Sciences 146(3), 2026)",
+  "doi": ""
+ },
+ {
+  "n": "36",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Online Gambling Promotion Detection in Indonesian YouTube Comments Using Semi-Supervised IndoBERT Classification (Procedia Computer Science, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "37",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Enhancing small object detection: Development on car logo identification using the YOLO-NAS method for speed and accuracy improvements (Procedia Computer Science, 2025)",
+  "doi": ""
+ },
+ {
+  "n": "38",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "A cross-modal attention for detecting hidden online gambling promotion in multilingual multimodal watermarked advertising images (Ajhari, Aji, Mantau, Jatmiko, Pratama \u2014 Journal of King Saud University: Computer and Information Sciences, 2026)",
+  "doi": "10.1007/s44443-026-00725-3"
+ },
+ {
+  "n": "39",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Vehicle logo detection based on deep convolutional networks (Computers & Electrical Engineering, 2021)",
+  "doi": "10.1016/j.compeleceng.2021.107004"
+ },
+ {
+  "n": "40",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Multi-perspective cross-class domain adaptation for open logo detection (Computer Vision and Image Understanding, 2020)",
+  "doi": "10.1016/j.cviu.2020.103156"
+ },
+ {
+  "n": "41",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "An adaptive representation algorithm for Multi-scale logo detection (Displays, 2021)",
+  "doi": "10.1016/j.displa.2021.102090"
+ },
+ {
+  "n": "42",
+  "file": "\u2014",
+  "status": "\u274c FAILED",
+  "title": "Knowledge distillation with spatial semantic enhancement for remote sensing object detection (ISPRS Journal of Photogrammetry and Remote Sensing, 2026)",
+  "doi": "10.1016/j.isprsjprs.2026.01.017"
+ }
+]

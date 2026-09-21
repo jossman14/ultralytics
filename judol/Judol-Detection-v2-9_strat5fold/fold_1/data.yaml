@@ -1,0 +1,10 @@
+path: /home/ftib/ultralytics/judol/Judol-Detection-v2-9_strat5fold/fold_1
+train: train/images
+val: valid/images
+nc: 5
+names:
+- BK8
+- Gate-of-olympus
+- Princess
+- Starlight-Princess
+- Zeus

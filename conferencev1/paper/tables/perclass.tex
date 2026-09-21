@@ -1,0 +1,15 @@
+\begin{table*}[t]
+\caption{Per-class mAP50 on Judol Detection v2 (fold 0). BK8 is the hardest class for every model.}
+\label{tab:perclass}
+\centering\footnotesize\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Model} & \textbf{BK8} & \textbf{Gate} & \textbf{Princess} & \textbf{Starlight} & \textbf{Zeus} \\
+\midrule
+YOLOv8n (baseline) & 0.612 & 0.941 & 0.969 & 0.995 & 0.934 \\
+YOLOv8-SE (proposed) & 0.564 & 0.939 & 0.942 & 0.986 & 0.949 \\
+YOLOv8-Res2Net-SPD-SSGA & 0.589 & 0.967 & 0.949 & 0.992 & 0.945 \\
+YOLOv8-Shuffle-SE & 0.604 & 0.931 & 0.933 & 0.992 & 0.928 \\
+\bottomrule
+\end{tabular}
+\end{table*}

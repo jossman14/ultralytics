@@ -1,0 +1,71 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLOv8s-Ghost-KD: Ghost backbone optimized for Knowledge Distillation
+# Student model: Same architecture as yolov8-ghost (~5.96M params)
+# Teacher model: yolov8-capffn (mAP50-95: 0.7346)
+# Use with knowledge distillation training script
+# Target: ~6M params with teacher-level performance
+
+# Parameters
+nc: 80 # number of classes
+scales: # model compound scaling constants
+  # [depth, width, max_channels]
+  n: [0.33, 0.25, 1024]
+  s: [0.33, 0.50, 1024]
+  m: [0.67, 0.75, 768]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.25, 512]
+
+# Ghost backbone (student network)
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]] # 0-P1/2
+  - [-1, 1, GhostConv, [128, 3, 2]] # 1-P2/4
+  - [-1, 3, C3Ghost, [128, True]]
+  - [-1, 1, GhostConv, [256, 3, 2]] # 3-P3/8
+  - [-1, 6, C3Ghost, [256, True]]
+  - [-1, 1, GhostConv, [512, 3, 2]] # 5-P4/16
+  - [-1, 6, C3Ghost, [512, True]]
+  - [-1, 1, GhostConv, [1024, 3, 2]] # 7-P5/32
+  - [-1, 3, C3Ghost, [1024, True]]
+  - [-1, 1, SPPF, [1024, 5]] # 9
+
+# YOLOv8 head with Ghost convolutions
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 6], 1, Concat, [1]] # cat backbone P4
+  - [-1, 3, C3Ghost, [512]] # 12
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[-1, 4], 1, Concat, [1]] # cat backbone P3
+  - [-1, 3, C3Ghost, [256]] # 15 (P3/8-small)
+
+  - [-1, 1, GhostConv, [256, 3, 2]]
+  - [[-1, 12], 1, Concat, [1]] # cat head P4
+  - [-1, 3, C3Ghost, [512]] # 18 (P4/16-medium)
+
+  - [-1, 1, GhostConv, [512, 3, 2]]
+  - [[-1, 9], 1, Concat, [1]] # cat head P5
+  - [-1, 3, C3Ghost, [1024]] # 21 (P5/32-large)
+
+  - [[15, 18, 21], 1, Detect, [nc]] # Detect(P3, P4, P5)
+
+# ============================================================================
+# KNOWLEDGE DISTILLATION TRAINING NOTES:
+# ============================================================================
+# To train this model with knowledge distillation:
+#
+# 1. Teacher model: yolov8-capffn (best weights from previous training)
+# 2. Student model: this config (yolov8-ghost-kd)
+#
+# Training command with KD (requires custom training script):
+#   python train_kd.py \
+#     --teacher runs/detect/yolov8-capffn_best.pt \
+#     --student ultralytics/cfg/models/v8/yolov8-ghost-kd.yaml \
+#     --kd-alpha 0.5 \
+#     --kd-temperature 4.0 \
+#     --epochs 300
+#
+# KD Loss = alpha * CE_loss + (1-alpha) * KD_loss
+# Where KD_loss uses soft labels from teacher with temperature scaling
+# ============================================================================

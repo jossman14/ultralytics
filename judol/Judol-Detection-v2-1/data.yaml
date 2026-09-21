@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['BK8', 'Gate-of-olympus', 'Princess', 'Starlight-Princess', 'Zeus']
+
+roboflow:
+  workspace: tanzilals-workspace
+  project: judol-detection-v2-7urql
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/tanzilals-workspace/judol-detection-v2-7urql/dataset/1

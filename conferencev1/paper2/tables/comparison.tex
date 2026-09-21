@@ -1,0 +1,22 @@
+\begin{table*}[t]
+\centering
+\caption{Detection accuracy, complexity, and speed on both datasets (five-fold means). Standard detectors, design-space variants, and the proposed model. Best per column in bold. FPS measured on an NVIDIA RTX A4000 at $640\times640$.}
+\label{tab:comparison}
+\begin{tabular}{@{}lrrrcccc@{}}
+\toprule
+& & & & \multicolumn{3}{c}{\textbf{Judol Detection v2 (hard)}} & \textbf{IG Reels} \\
+\cmidrule(lr){5-7}\cmidrule(lr){8-8}
+\textbf{Model} & \textbf{Par.(M)} & \textbf{GFLOPs} & \textbf{FPS} & \textbf{mAP50} & \textbf{mAP50-95} & \textbf{Recall} & \textbf{mAP50-95} \\
+\midrule
+YOLOv8n & 3.16 & 8.9 & 139 & 0.8736 & 0.5857 & 0.816 & 0.9945 \\
+YOLO11n & 2.62 & 6.6 & 96 & 0.8687 & 0.5789 & 0.820 & 0.9874 \\
+YOLO12n & 2.60 & 6.7 & -- & 0.8478 & 0.5678 & 0.804 & 0.9945 \\
+YOLO26n & 2.57 & 6.1 & -- & 0.8124 & 0.5381 & 0.700 & 0.9935 \\
+YOLOv8-SE & 3.17 & 8.9 & 127 & 0.8751 & 0.5896 & 0.818 & 0.9948 \\
+SPD-GhostV2-SGSA & 4.47 & 11.1 & -- & 0.8715 & 0.5904 & 0.819 & \textbf{0.9949} \\
+Shuffle-SE & 2.70 & 7.5 & -- & 0.8675 & 0.5750 & 0.819 & 0.9929 \\
+Res2Net-SPD-SSGA & 4.45 & 11.0 & 76 & 0.8716 & 0.5855 & 0.824 & 0.9948 \\
+\textbf{Proposed} & 3.86 & 10.3 & 115 & \textbf{0.8836} & \textbf{0.5937} & \textbf{0.833} & 0.9948 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -1,0 +1,1291 @@
+{
+ "design": {
+  "n_runs_ok": 786,
+  "n_models_both": 78,
+  "n_models_v21": 79,
+  "beat_baseline": 13,
+  "beat_baseline_pct": 16.5,
+  "baseline_v21": 0.5857,
+  "spearman_v21_judi3k": 0.485,
+  "v21_spread": [
+   0.4096,
+   0.6
+  ],
+  "collapse_judi3k": [
+   [
+    "yolo26-sota-fusion-a",
+    0.5251
+   ],
+   [
+    "yolo26-mbconv-simam-ledh",
+    0.6462
+   ],
+   [
+    "yolov8-res2net-ema-ledh",
+    0.6572
+   ]
+  ]
+ },
+ "scatter": [
+  {
+   "name": "yolo11-convnext-ema",
+   "v21": 0.5793,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-convnext-shuffle-mix",
+   "v21": 0.5779,
+   "judi3k": 0.9925,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-ghostv2",
+   "v21": 0.574,
+   "judi3k": 0.9925,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-ghostv2-nonlocal",
+   "v21": 0.5805,
+   "judi3k": 0.9933,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-mbconv-eca",
+   "v21": 0.598,
+   "judi3k": 0.9946,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-resnext-ghost-mix",
+   "v21": 0.5711,
+   "judi3k": 0.9944,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-shuffle",
+   "v21": 0.5802,
+   "judi3k": 0.9924,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-shuffle-ema",
+   "v21": 0.5765,
+   "judi3k": 0.9942,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-spd-shuffle-coordatt",
+   "v21": 0.5977,
+   "judi3k": 0.9949,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11-star-ghost-simam",
+   "v21": 0.5758,
+   "judi3k": 0.9947,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo11n-base",
+   "v21": 0.5789,
+   "judi3k": 0.9874,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-ema",
+   "v21": 0.5758,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-ghost",
+   "v21": 0.5617,
+   "judi3k": 0.9928,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-ghost-gam",
+   "v21": 0.5594,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-ghostv2-coordatt",
+   "v21": 0.5661,
+   "judi3k": 0.9939,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-ghostv2-simam",
+   "v21": 0.5771,
+   "judi3k": 0.9913,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-mbconv-eca-simam",
+   "v21": 0.5794,
+   "judi3k": 0.9946,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-res2-ema",
+   "v21": 0.5714,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-resnext-ema",
+   "v21": 0.5705,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-shuffle",
+   "v21": 0.5679,
+   "judi3k": 0.9946,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-shuffle-se",
+   "v21": 0.5725,
+   "judi3k": 0.9945,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12-spd-shuffle",
+   "v21": 0.5865,
+   "judi3k": 0.9948,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo12n-base",
+   "v21": 0.5678,
+   "judi3k": 0.9945,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-convnext-ema-c2psa",
+   "v21": 0.5292,
+   "judi3k": 0.993,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-ghost-nonlocal-gam",
+   "v21": 0.5346,
+   "judi3k": 0.9919,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-ghostv2-c2psa",
+   "v21": 0.5107,
+   "judi3k": 0.9935,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-ghostv2-coordatt",
+   "v21": 0.5001,
+   "judi3k": 0.9918,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-ghostv2-csp",
+   "v21": 0.5172,
+   "judi3k": 0.9935,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-ghostv2-ema",
+   "v21": 0.4998,
+   "judi3k": 0.9937,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-mbconv-eca",
+   "v21": 0.5466,
+   "judi3k": 0.9937,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-mbconv-simam-ledh",
+   "v21": 0.5071,
+   "judi3k": 0.6462,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-res2net-ema",
+   "v21": 0.5311,
+   "judi3k": 0.9931,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-resnext-ema",
+   "v21": 0.5208,
+   "judi3k": 0.9844,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-sgsa-coordatt",
+   "v21": 0.5204,
+   "judi3k": 0.9932,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-shuffle-ghost-mix",
+   "v21": 0.5363,
+   "judi3k": 0.9926,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-shuffle-se",
+   "v21": 0.54,
+   "judi3k": 0.9816,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-shuffle-spd-eca",
+   "v21": 0.566,
+   "judi3k": 0.9925,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-sota-fusion-a",
+   "v21": 0.4096,
+   "judi3k": 0.5251,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-spd-ghostv2-coordatt-ema",
+   "v21": 0.5537,
+   "judi3k": 0.9946,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-star-coordatt-eca",
+   "v21": 0.5382,
+   "judi3k": 0.992,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-star-ghostv2-swin",
+   "v21": 0.5243,
+   "judi3k": 0.9688,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26-star-simam",
+   "v21": 0.5465,
+   "judi3k": 0.993,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolo26n-base",
+   "v21": 0.5381,
+   "judi3k": 0.9935,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-convnext-ghostv2-mix",
+   "v21": 0.5806,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-capffn",
+   "v21": 0.5492,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-eca",
+   "v21": 0.5551,
+   "judi3k": 0.9946,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-gam",
+   "v21": 0.5569,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-kd",
+   "v21": 0.5543,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-nonlocal-gam",
+   "v21": 0.5742,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-swin",
+   "v21": 0.5651,
+   "judi3k": 0.9913,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghost-swin-capffn",
+   "v21": 0.5575,
+   "judi3k": 0.9033,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghostv2-coordatt",
+   "v21": 0.5565,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghostv2-csp-ema",
+   "v21": 0.5665,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-ghostv2-spd-gam",
+   "v21": 0.5841,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-mbconv-coordatt-simam",
+   "v21": 0.5887,
+   "judi3k": 0.9937,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-mbconv-eca",
+   "v21": 0.5858,
+   "judi3k": 0.9893,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-res2net-ema-ledh",
+   "v21": 0.4201,
+   "judi3k": 0.6572,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-res2net-spd-ssga",
+   "v21": 0.5855,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-resnext-ema",
+   "v21": 0.5788,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-resnext-sgsa",
+   "v21": 0.5709,
+   "judi3k": 0.9947,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-resnext-shuffle-mix",
+   "v21": 0.5676,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-se-baseline",
+   "v21": 0.5896,
+   "judi3k": 0.9948,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-sgsa",
+   "v21": 0.5616,
+   "judi3k": 0.995,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-sgsaA2-eca",
+   "v21": 0.5609,
+   "judi3k": 0.9949,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-sgsaB1-ghost",
+   "v21": 0.558,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-shuffle-ghost-ledh",
+   "v21": 0.4862,
+   "judi3k": 0.9676,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-shuffle-se",
+   "v21": 0.575,
+   "judi3k": 0.9929,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-spd-ghostv2-sgsa",
+   "v21": 0.5904,
+   "judi3k": 0.9949,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-spd-shuffle-simam",
+   "v21": 0.5937,
+   "judi3k": 0.9948,
+   "beats": true,
+   "proposed": true,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-star-coordatt-eca",
+   "v21": 0.5676,
+   "judi3k": 0.995,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-star-simam",
+   "v21": 0.5769,
+   "judi3k": 0.9948,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-starghost",
+   "v21": 0.5657,
+   "judi3k": 0.9947,
+   "beats": false,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8-swin-ema",
+   "v21": 0.5872,
+   "judi3k": 0.9935,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8n-base",
+   "v21": 0.5857,
+   "judi3k": 0.9945,
+   "beats": false,
+   "proposed": false,
+   "baseline": true
+  },
+  {
+   "name": "yolov8s-ghost-capffn",
+   "v21": 0.5883,
+   "judi3k": 0.995,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8s-ghost-eca",
+   "v21": 0.5947,
+   "judi3k": 0.9949,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8s-ghost-gam",
+   "v21": 0.6,
+   "judi3k": 0.9949,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  },
+  {
+   "name": "yolov8s-ghost-kd",
+   "v21": 0.5941,
+   "judi3k": 0.9948,
+   "beats": true,
+   "proposed": false,
+   "baseline": false
+  }
+ ],
+ "comparison": [
+  {
+   "name": "yolov8n-base",
+   "params_M": 3.157,
+   "gflops": 8.86,
+   "v21_map50": {
+    "mean": 0.8736,
+    "std": 0.0185,
+    "vals": [
+     0.8894,
+     0.8638,
+     0.8657,
+     0.849,
+     0.9001
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5857,
+    "std": 0.0248,
+    "vals": [
+     0.6052,
+     0.5827,
+     0.5787,
+     0.5449,
+     0.6169
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9945,
+    "std": 0.0006,
+    "vals": [
+     0.9934,
+     0.995,
+     0.995,
+     0.9945,
+     0.9947
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9424,
+    "std": 0.0168,
+    "vals": [
+     0.9113,
+     0.9423,
+     0.9456,
+     0.9524,
+     0.9606
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8157,
+    "std": 0.0299,
+    "vals": [
+     0.8544,
+     0.8032,
+     0.8169,
+     0.7671,
+     0.8368
+    ]
+   }
+  },
+  {
+   "name": "yolo11n-base",
+   "params_M": 2.624,
+   "gflops": 6.61,
+   "v21_map50": {
+    "mean": 0.8687,
+    "std": 0.0215,
+    "vals": [
+     0.8802,
+     0.8628,
+     0.8775,
+     0.8302,
+     0.8928
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5789,
+    "std": 0.0188,
+    "vals": [
+     0.6017,
+     0.5668,
+     0.5821,
+     0.5497,
+     0.5941
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9874,
+    "std": 0.0107,
+    "vals": [
+     0.9945,
+     0.9932,
+     0.9948,
+     0.9666,
+     0.988
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9216,
+    "std": 0.0407,
+    "vals": [
+     0.9331,
+     0.9256,
+     0.9371,
+     0.8451,
+     0.9669
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8195,
+    "std": 0.0144,
+    "vals": [
+     0.8112,
+     0.8391,
+     0.7974,
+     0.8205,
+     0.8293
+    ]
+   }
+  },
+  {
+   "name": "yolo12n-base",
+   "params_M": 2.602,
+   "gflops": 6.65,
+   "v21_map50": {
+    "mean": 0.8478,
+    "std": 0.0237,
+    "vals": [
+     0.8598,
+     0.8361,
+     0.8436,
+     0.8145,
+     0.8851
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5678,
+    "std": 0.027,
+    "vals": [
+     0.6024,
+     0.5486,
+     0.5601,
+     0.5324,
+     0.5956
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9945,
+    "std": 0.0008,
+    "vals": [
+     0.9946,
+     0.995,
+     0.995,
+     0.993,
+     0.9948
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9057,
+    "std": 0.0273,
+    "vals": [
+     0.9091,
+     0.8687,
+     0.9163,
+     0.8858,
+     0.9486
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8038,
+    "std": 0.022,
+    "vals": [
+     0.8048,
+     0.8148,
+     0.7899,
+     0.7723,
+     0.8371
+    ]
+   }
+  },
+  {
+   "name": "yolo26n-base",
+   "params_M": 2.572,
+   "gflops": 6.12,
+   "v21_map50": {
+    "mean": 0.8124,
+    "std": 0.0298,
+    "vals": [
+     0.8178,
+     0.8365,
+     0.8141,
+     0.756,
+     0.8377
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5381,
+    "std": 0.0307,
+    "vals": [
+     0.5599,
+     0.5387,
+     0.5511,
+     0.4789,
+     0.562
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9935,
+    "std": 0.0011,
+    "vals": [
+     0.9926,
+     0.9946,
+     0.9917,
+     0.9945,
+     0.994
+    ]
+   },
+   "v21_P": {
+    "mean": 0.8558,
+    "std": 0.0264,
+    "vals": [
+     0.8619,
+     0.8867,
+     0.8123,
+     0.8419,
+     0.8761
+    ]
+   },
+   "v21_R": {
+    "mean": 0.6999,
+    "std": 0.0414,
+    "vals": [
+     0.7208,
+     0.7424,
+     0.7117,
+     0.6214,
+     0.7032
+    ]
+   }
+  },
+  {
+   "name": "yolov8-se-baseline",
+   "params_M": 3.168,
+   "gflops": 8.87,
+   "v21_map50": {
+    "mean": 0.8751,
+    "std": 0.0246,
+    "vals": [
+     0.8765,
+     0.8616,
+     0.8673,
+     0.849,
+     0.921
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5896,
+    "std": 0.0295,
+    "vals": [
+     0.6016,
+     0.5719,
+     0.6004,
+     0.5438,
+     0.6305
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9948,
+    "std": 0.0003,
+    "vals": [
+     0.995,
+     0.995,
+     0.995,
+     0.9943,
+     0.9949
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9318,
+    "std": 0.0147,
+    "vals": [
+     0.9524,
+     0.9143,
+     0.9459,
+     0.9243,
+     0.922
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8178,
+    "std": 0.0396,
+    "vals": [
+     0.7903,
+     0.8252,
+     0.8258,
+     0.7651,
+     0.8825
+    ]
+   }
+  },
+  {
+   "name": "yolov8-spd-ghostv2-sgsa",
+   "params_M": 4.474,
+   "gflops": 11.11,
+   "v21_map50": {
+    "mean": 0.8715,
+    "std": 0.0233,
+    "vals": [
+     0.8838,
+     0.8624,
+     0.8689,
+     0.836,
+     0.9064
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5904,
+    "std": 0.0209,
+    "vals": [
+     0.6166,
+     0.5842,
+     0.5893,
+     0.5557,
+     0.6064
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9949,
+    "std": 0.0002,
+    "vals": [
+     0.995,
+     0.995,
+     0.995,
+     0.9946,
+     0.9948
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9407,
+    "std": 0.0051,
+    "vals": [
+     0.94,
+     0.9313,
+     0.9453,
+     0.9417,
+     0.9451
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8186,
+    "std": 0.0265,
+    "vals": [
+     0.8207,
+     0.8339,
+     0.8128,
+     0.773,
+     0.8526
+    ]
+   }
+  },
+  {
+   "name": "yolov8-shuffle-se",
+   "params_M": 2.699,
+   "gflops": 7.5,
+   "v21_map50": {
+    "mean": 0.8675,
+    "std": 0.0204,
+    "vals": [
+     0.8765,
+     0.8699,
+     0.862,
+     0.8332,
+     0.8957
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.575,
+    "std": 0.0271,
+    "vals": [
+     0.6101,
+     0.5721,
+     0.5848,
+     0.527,
+     0.5809
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9929,
+    "std": 0.004,
+    "vals": [
+     0.9949,
+     0.995,
+     0.995,
+     0.9849,
+     0.9949
+    ]
+   },
+   "v21_P": {
+    "mean": 0.8945,
+    "std": 0.0331,
+    "vals": [
+     0.9502,
+     0.853,
+     0.8876,
+     0.908,
+     0.8737
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8186,
+    "std": 0.0276,
+    "vals": [
+     0.8104,
+     0.8299,
+     0.8214,
+     0.7732,
+     0.858
+    ]
+   }
+  },
+  {
+   "name": "yolov8-res2net-spd-ssga",
+   "params_M": 4.448,
+   "gflops": 10.98,
+   "v21_map50": {
+    "mean": 0.8716,
+    "std": 0.0269,
+    "vals": [
+     0.8886,
+     0.8613,
+     0.8642,
+     0.8321,
+     0.9118
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5855,
+    "std": 0.0281,
+    "vals": [
+     0.626,
+     0.5714,
+     0.5813,
+     0.5441,
+     0.6046
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9948,
+    "std": 0.0002,
+    "vals": [
+     0.9947,
+     0.995,
+     0.995,
+     0.9946,
+     0.9948
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9335,
+    "std": 0.0299,
+    "vals": [
+     0.9705,
+     0.9589,
+     0.9287,
+     0.8849,
+     0.9244
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8235,
+    "std": 0.0298,
+    "vals": [
+     0.8005,
+     0.8229,
+     0.8488,
+     0.7823,
+     0.8631
+    ]
+   }
+  },
+  {
+   "name": "yolov8-spd-shuffle-simam",
+   "params_M": 3.863,
+   "gflops": 10.32,
+   "v21_map50": {
+    "mean": 0.8836,
+    "std": 0.0225,
+    "vals": [
+     0.8946,
+     0.8909,
+     0.8777,
+     0.844,
+     0.911
+    ]
+   },
+   "v21_map5095": {
+    "mean": 0.5937,
+    "std": 0.024,
+    "vals": [
+     0.6217,
+     0.5827,
+     0.5851,
+     0.5589,
+     0.62
+    ]
+   },
+   "ju_map5095": {
+    "mean": 0.9948,
+    "std": 0.0002,
+    "vals": [
+     0.9948,
+     0.995,
+     0.995,
+     0.9945,
+     0.9946
+    ]
+   },
+   "v21_P": {
+    "mean": 0.9279,
+    "std": 0.0273,
+    "vals": [
+     0.9739,
+     0.8953,
+     0.937,
+     0.9061,
+     0.9272
+    ]
+   },
+   "v21_R": {
+    "mean": 0.8332,
+    "std": 0.0268,
+    "vals": [
+     0.8016,
+     0.8632,
+     0.8459,
+     0.8005,
+     0.8548
+    ]
+   }
+  }
+ ],
+ "proposed": {
+  "v2-1": {
+   "mAP50": {
+    "mean": 0.8836,
+    "std": 0.0225,
+    "vals": [
+     0.8946,
+     0.8909,
+     0.8777,
+     0.844,
+     0.911
+    ]
+   },
+   "mAP50-95": {
+    "mean": 0.5937,
+    "std": 0.024,
+    "vals": [
+     0.6217,
+     0.5827,
+     0.5851,
+     0.5589,
+     0.62
+    ]
+   },
+   "precision": {
+    "mean": 0.9279,
+    "std": 0.0273,
+    "vals": [
+     0.9739,
+     0.8953,
+     0.937,
+     0.9061,
+     0.9272
+    ]
+   },
+   "recall": {
+    "mean": 0.8332,
+    "std": 0.0268,
+    "vals": [
+     0.8016,
+     0.8632,
+     0.8459,
+     0.8005,
+     0.8548
+    ]
+   }
+  },
+  "judi3k": {
+   "mAP50": {
+    "mean": 0.9948,
+    "std": 0.0002,
+    "vals": [
+     0.9949,
+     0.995,
+     0.995,
+     0.9945,
+     0.9946
+    ]
+   },
+   "mAP50-95": {
+    "mean": 0.9948,
+    "std": 0.0002,
+    "vals": [
+     0.9948,
+     0.995,
+     0.995,
+     0.9945,
+     0.9946
+    ]
+   },
+   "precision": {
+    "mean": 0.9904,
+    "std": 0.0045,
+    "vals": [
+     0.9929,
+     0.9919,
+     0.9961,
+     0.988,
+     0.9829
+    ]
+   },
+   "recall": {
+    "mean": 0.9956,
+    "std": 0.0027,
+    "vals": [
+     0.9964,
+     0.9982,
+     0.9983,
+     0.9933,
+     0.9917
+    ]
+   }
+  }
+ }
+}

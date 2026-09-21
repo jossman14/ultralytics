@@ -1,0 +1,17 @@
+# Dataset Configuration Template
+# Ubah path sesuai lokasi dataset Anda
+
+path: /path/to/dataset_baru  # Root direktori dataset
+train: train/images           # Path relatif ke train images
+val: valid/images             # Path relatif ke validation images
+test: test/images             # Optional: test images (bisa dihapus jika tidak ada)
+
+# Class names - Sesuaikan dengan dataset Anda
+names:
+  0: class_0
+  1: class_1
+  2: class_2
+  # Tambahkan class sesuai kebutuhan
+
+# Optional: Download URL (jika dataset tersedia online)
+# download: https://example.com/dataset.zip

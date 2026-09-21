@@ -1,0 +1,7 @@
+train: train/images
+val: valid/images
+test: ''
+nc: 2
+names:
+- gambling
+- nongambling

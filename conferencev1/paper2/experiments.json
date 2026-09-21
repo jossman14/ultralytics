@@ -1,0 +1,77 @@
+{
+ "latency": {
+  "yolov8n-base": {
+   "cpu": {
+    "ms": 72.12,
+    "fps": 13.9
+   },
+   "cuda": {
+    "ms": 7.18,
+    "fps": 139.3
+   }
+  },
+  "yolo11n-base": {
+   "cpu": {
+    "ms": 79.05,
+    "fps": 12.7
+   },
+   "cuda": {
+    "ms": 10.43,
+    "fps": 95.9
+   }
+  },
+  "yolov8-se-baseline": {
+   "cpu": {
+    "ms": 76.12,
+    "fps": 13.1
+   },
+   "cuda": {
+    "ms": 7.87,
+    "fps": 127.0
+   }
+  },
+  "yolov8-res2net-spd-ssga": {
+   "cpu": {
+    "ms": 102.35,
+    "fps": 9.8
+   },
+   "cuda": {
+    "ms": 13.07,
+    "fps": 76.5
+   }
+  },
+  "yolov8-spd-shuffle-simam": {
+   "cpu": {
+    "ms": 84.5,
+    "fps": 11.8
+   },
+   "cuda": {
+    "ms": 8.66,
+    "fps": 115.4
+   }
+  }
+ },
+ "stats": {
+  "wilcoxon_proposed_vs_baseline_v21": {
+   "proposed_mean": 0.5937,
+   "baseline_mean": 0.5857,
+   "statistic": 0.0,
+   "pvalue": 0.0679,
+   "n_folds": 5
+  },
+  "friedman_v21": {
+   "models": [
+    "yolov8n-base",
+    "yolo11n-base",
+    "yolo12n-base",
+    "yolov8-se-baseline",
+    "yolov8-res2net-spd-ssga",
+    "yolov8-spd-shuffle-simam"
+   ],
+   "statistic": 10.9195,
+   "pvalue": 0.053,
+   "k": 6,
+   "n": 5
+  }
+ }
+}

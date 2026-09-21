@@ -1,0 +1,7 @@
+path: /home/ftib/ultralytics/judol/dataset_judi_online_yolo_strat5fold/fold_2
+train: train/images
+val: valid/images
+nc: 2
+names:
+- gambling
+- nongambling

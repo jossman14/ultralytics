@@ -1,0 +1,12 @@
+[
+ {"key":"small_object_survey","doi":"10.1109/TPAMI.2023.3290594"},
+ {"key":"attention_survey","doi":"10.1007/s41095-022-0271-y"},
+ {"key":"diou","doi":"10.1609/aaai.v34i07.6999"},
+ {"key":"leakage_crisis","doi":"10.1016/j.patter.2023.100804"},
+ {"key":"gradcam_journal","doi":"10.1007/s11263-019-01228-7"},
+ {"key":"yolov8_review","doi":"10.1016/j.mlwa.2024.100536"},
+ {"key":"logo_survey_mta","doi":"10.1007/s11042-023-15325-w"},
+ {"key":"xai_review_ieee","doi":"10.1109/ACCESS.2018.2870052"},
+ {"key":"deepfake_moderation","doi":"10.1145/3703625"},
+ {"key":"cam_eval_metrics","doi":"10.1109/WACV51458.2022.00046"}
+]

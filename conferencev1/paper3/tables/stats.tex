@@ -1,0 +1,15 @@
+\begin{table}[t]
+\caption{Statistical tests on per-fold mAP50-95 (hard dataset). The Friedman test confirms the differences across the four generations are significant.}
+\label{tab:stats}
+\centering\footnotesize\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Test} & \textbf{Statistic} & \textbf{$p$-value} \\
+\midrule
+Friedman (4 models) & 11.16 & \textbf{0.011} \\
+Wilcoxon YOLOv8n vs YOLO11n & -- & 0.438 \\
+Wilcoxon YOLOv8n vs YOLO12n & -- & 0.062 \\
+Wilcoxon YOLOv8n vs YOLO26n & -- & 0.062 \\
+\bottomrule
+\end{tabular}
+\end{table}

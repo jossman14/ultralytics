@@ -1,0 +1,63 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+
+# YOLOv8-Swin-timm: YOLOv8 with Swin Transformer backbone from timm library
+# Uses pre-trained weights from ImageNet for better feature extraction
+# 
+# Key Features:
+#   - SwinBackbone: Flexible timm model wrapper with pre-trained weights
+#   - Multi-scale features (P3, P4, P5) for FPN neck
+#   - Easily switch between different backbones
+#
+# Requirements:
+#   pip install timm
+#
+# Available model_name options (use with quotes):
+#   - "tiny" / "swin_tiny_patch4_window7_224"
+#   - "small" / "swin_small_patch4_window7_224"
+#   - "base" / "swin_base_patch4_window7_224"
+#   - "v2_tiny" / "swin_v2_tiny_window8_256"
+#   - "convnext_tiny", "efficientnet_b0", etc.
+#
+# References:
+#   - Swin Transformer: https://arxiv.org/abs/2103.14030
+#   - timm library: https://github.com/huggingface/pytorch-image-models
+
+# Parameters
+nc: 80 # number of classes
+
+# YOLOv8-Swin-timm backbone using timm SwinBackbone
+# SwinBackbone outputs list of feature maps, then we process with Index
+backbone:
+  # [from, repeats, module, args]
+  # SwinBackbone args: [c1, model_name, pretrained]
+  # We pass a LIST of output channels as the first argument (which tasks.py treats as c2)
+  # to allow correct channel tracking in the parser.
+  # For swin_tiny: [192, 384, 768] (P3, P4, P5)
+  - [-1, 1, SwinBackbone, [[192, 384, 768], "tiny", True]]  # 0 - outputs [P3, P4, P5]
+
+# YOLOv8-Swin-timm head (FPN with IndexChannels to extract features from list)
+head:
+  # Extract individual feature maps from backbone output list
+  # Use IndexChannels to explicitly tell parser the output channels: [c2, index]
+  - [0, 1, IndexChannels, [768, 2]]   # 1 - P5 features (idx=2)
+  - [-1, 1, SPPF, [1024, 5]]          # 2 - SPPF on P5
+  
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [0, 1, IndexChannels, [384, 1]]   # 4 - P4 features (idx=1)
+  - [[-2, -1], 1, Concat, [1]]        # 5 - cat with P4
+  - [-1, 3, C2f, [512]]               # 6
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [0, 1, IndexChannels, [192, 0]]   # 8 - P3 features (idx=0)
+  - [[-2, -1], 1, Concat, [1]]        # 9 - cat with P3
+  - [-1, 3, C2f, [256]]               # 10 (P3/8-small)
+
+  - [-1, 1, Conv, [256, 3, 2]]
+  - [[-1, 6], 1, Concat, [1]]         # 12 - cat head P4
+  - [-1, 3, C2f, [512]]               # 13 (P4/16-medium)
+
+  - [-1, 1, Conv, [512, 3, 2]]
+  - [[-1, 2], 1, Concat, [1]]         # 15 - cat head P5
+  - [-1, 3, C2f, [1024]]              # 16 (P5/32-large)
+
+  - [[10, 13, 16], 1, Detect, [nc]]   # Detect(P3, P4, P5)

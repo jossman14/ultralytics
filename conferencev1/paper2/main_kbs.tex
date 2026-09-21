@@ -1,0 +1,500 @@
+\documentclass[preprint,review,12pt]{elsarticle}
+\usepackage{amssymb,amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{makecell}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{microtype}
+\usepackage{placeins}
+\usepackage{float}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=3em
+
+\journal{Knowledge-Based Systems}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Efficient deep detection of online gambling promotion on social
+media: a large design-space study and a real-time detector}
+
+\author[telkom]{Tanzilal Mustaqim\corref{cor1}}
+\ead{tanzilal@telkomuniversity.ac.id}
+\author[telkom]{Pima Hani Safitri}
+\author[telkom]{Yasinta Romadhona}
+\cortext[cor1]{Corresponding author}
+
+\affiliation[telkom]{organization={Informatics Study Program, Telkom University,
+Surabaya Campus, and Center of Excellence for Motion Technology for Safety
+Health and Wellness, Research Institute of Sustainable Society, Telkom University},
+            city={Surabaya}, postcode={60231}, country={Indonesia}}
+
+\begin{abstract}
+Online gambling promotion spreads rapidly across social media through brand
+logos and short videos, often reaching young audiences and, in many countries,
+breaking the law. Manual review cannot keep up, so automated visual detection is
+needed; a deployable detector must be both accurate on small logos and fast
+enough for high-throughput moderation. We study this problem on two
+complementary Indonesian datasets: a five-class gambling-logo detection set
+(443 images) and a two-class Instagram-reel screening set (3000 whole frames).
+We first run a large controlled design-space search of 786 five-fold training
+runs over 78 YOLOv8-family variants that recombine downsampling, backbone, and
+attention blocks. The search yields two findings that matter for practice. Most
+added complexity hurts: only 16.5\% of the variants beat the plain baseline on
+the hard dataset, and heavy multi-scale fusion can collapse catastrophically on
+the easy one. Architecture ranking also transfers poorly between the two
+datasets (Spearman $\rho=0.49$), so single-benchmark model selection is unsafe.
+Guided by the search, we identify an efficient winning recipe --- space-to-depth
+downsampling, ShuffleNet blocks, and parameter-free SimAM attention --- and
+propose a detector that reaches the best accuracy on the hard dataset
+(mAP50 $0.884$, recall $0.833$) among all standard and modified nano detectors,
+including the newer YOLO11n, YOLO12n, and YOLO26n, while running at $115$ FPS on
+a mid-range GPU. Improvements over the baseline are consistent across folds but
+not statistically significant at five folds, which we report openly. Grad-CAM
+and confusion-matrix analyses show the detector attends to brand marks and
+confirm that the residual error concentrates on one small, text-like logo class.
+We release the datasets split protocol, the full search results, latency
+measurements, and reproducible code.
+\end{abstract}
+
+\begin{keyword}
+online gambling detection \sep object detection \sep YOLO \sep model efficiency
+\sep content moderation \sep design-space analysis
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+Online gambling promotion has grown into a large content-moderation problem.
+Operators advertise betting brands with logos and short videos on social
+platforms. This content often targets young and vulnerable audiences. In many
+jurisdictions, including Indonesia, the activity is illegal. Platforms and
+regulators must find and remove such content at scale. Human review does not
+scale to the daily volume of uploads. Automated visual detection is therefore an
+attractive first line of defence.
+
+The task is harder than it first appears. A gambling logo may be a small overlay
+on a busy video frame. It sits among sports scenes, faces, and other graphics. A
+useful detector must localise these small marks reliably. It must also run fast
+enough for high-throughput screening. Accuracy alone is not enough. A model that
+is accurate but slow cannot be deployed on a moderation pipeline that processes
+millions of frames.
+
+A common response is to add architectural complexity to a detector. Practitioners
+graft attention modules, multi-scale blocks, and heavier backbones onto a base
+model. On large benchmarks these additions often help. On the small,
+domain-specific datasets that characterise real moderation tasks, the benefit is
+far less certain. Extra capacity can overfit and can slow inference for no gain.
+Which modifications actually help, and under what conditions, is rarely studied
+systematically for this domain.
+
+This paper takes a systematic, deployment-oriented view of gambling-promotion
+detection. We assemble two complementary Indonesian datasets. The first is a
+fine-grained gambling-logo detection set. The second is a whole-frame reel
+screening set. We then run a large controlled search over the architectural
+design space. The search covers 78 YOLOv8-family variants and 786 five-fold
+training runs. From it we draw practical rules about when complexity helps.
+Guided by these rules, we build an efficient detector and validate it on both
+datasets with accuracy, speed, statistical tests, and interpretability.
+
+Our contributions are as follows.
+\begin{itemize}
+\item We study online gambling-promotion detection on two complementary public
+datasets that together cover fine-grained logo detection and whole-frame
+screening.
+\item We run a large, controlled architectural design-space search (786 runs,
+78 variants, five-fold cross-validation) and report two practitioner-facing
+findings: most complexity hurts on small data, and architecture ranking does not
+transfer between datasets.
+\item Guided by the search, we propose an efficient real-time detector built from
+space-to-depth downsampling, ShuffleNet blocks, and parameter-free SimAM
+attention. It reaches the best accuracy on the hard dataset among all standard
+and modified nano detectors we tested, at $115$ FPS.
+\item We report accuracy jointly with parameters, FLOPs, and measured latency,
+add statistical tests, and use Grad-CAM to explain model behaviour. We release a
+fully reproducible protocol.
+\end{itemize}
+
+\section{Related work}
+
+\subsection{Single-stage object detection}
+Two-stage detectors such as Faster R-CNN generate region proposals and then
+classify them~\cite{ren2015faster}. They are accurate but slow. Single-stage
+detectors predict boxes directly and are faster. YOLO framed detection as one
+regression problem~\cite{redmon2016you}. SSD added multi-scale feature
+maps~\cite{liu2016ssd}, and RetinaNet introduced focal loss for foreground
+imbalance~\cite{lin2017focal}. Successive YOLO revisions refined the backbone,
+neck, and training recipe~\cite{redmon2018yolov3, bochkovskiy2020yolov4}. The
+Ultralytics YOLOv8 family~\cite{jocher2023yolov8} is a widely used, deployable
+baseline, and forms the basis of this work. EfficientDet made the
+accuracy--efficiency trade-off explicit through compound
+scaling~\cite{tan2020efficientdet}; we adopt that trade-off view at the level of
+individual building blocks.
+
+\subsection{Attention and multi-scale modules}
+Channel attention reweights feature maps by learned importance.
+Squeeze-and-Excitation uses global pooling and a small
+gate~\cite{hu2018squeeze}. CBAM adds spatial attention~\cite{woo2018cbam}, and
+coordinate attention encodes position into channel
+weights~\cite{hou2021coordinate}. ECA-Net reduces the cost of channel attention
+with a local convolution~\cite{wang2020eca}. SimAM is a parameter-free attention
+module derived from an energy function, adding no
+parameters~\cite{yang2021simam}; this property makes it attractive for efficient
+detectors. On the multi-scale axis, Res2Net builds hierarchical residual
+connections inside a block~\cite{gao2021res2net}, and residual learning
+underpins deeper designs~\cite{he2016deep}. Space-to-depth convolution replaces
+strided downsampling and preserves information for small
+objects~\cite{sunkara2022no}. Transformer backbones such as
+ViT~\cite{dosovitskiy2021image} and Swin~\cite{liu2021swin} offer global
+context at higher cost. These modules help on large benchmarks, but their value
+on small task-specific datasets is not guaranteed.
+
+\subsection{Efficient architectures}
+Efficient backbones reduce parameters and computation. MobileNetV2 uses inverted
+residuals~\cite{sandler2018mobilenetv2}. ShuffleNetV2 uses grouped convolutions
+and channel shuffle for cheap feature mixing~\cite{ma2018shufflenet}. GhostNet
+generates features with cheap linear operations~\cite{han2020ghostnet}. These
+designs trade some accuracy for deployability. Model complexity interacts
+strongly with dataset size: on small task-specific data, a larger model is not
+reliably better. This motivates evaluating each block against its cost rather
+than in isolation.
+
+\subsection{Visual detection of illicit and gambling content}
+Detecting gambling promotion is a visual content-moderation task related to logo
+and brand detection in the wild. The target marks are small, varied, and appear
+over dynamic backgrounds. Public datasets for this specific task are scarce. We
+use two recent community datasets to fill this
+gap~\cite{dataset_v21_roboflow, dataset_judi3k_kaggle}. The first isolates
+gambling brand logos as objects; the second labels whole reel frames as gambling
+or not. Together they cover both fine-grained detection and coarse frame-level
+screening, a dual view uncommon in prior logo-detection work.
+
+\subsection{Research gap}
+Prior work typically proposes a single modified detector and reports an aggregate
+accuracy gain on one dataset. It rarely isolates which building blocks help, how
+robust the ranking is across datasets, or whether the added complexity survives a
+real latency budget. For gambling-promotion detection specifically, there is no
+systematic study of the architectural design space and no deployment-oriented
+detector validated on both logo-level and frame-level data. We address this gap
+with a large controlled search, honest statistics, and an efficient detector
+benchmarked on accuracy and measured speed.
+
+\section{Method}
+We first describe the design-space search that motivates our detector. We then
+describe the proposed model and its building blocks.
+
+\subsection{Design-space search}
+We treat the detector as a base YOLOv8n topology into which we insert candidate
+blocks along three axes: downsampling (standard strided convolution versus
+space-to-depth), backbone unit (standard C2f versus Ghost or ShuffleNet
+variants), and attention (none, SE, ECA, CBAM, coordinate attention, SimAM, or
+GAM). Recombining these axes, together with a few transformer and multi-scale
+options, yields a family of 78 variants that all share the same neck and
+detection head. Every variant is trained under one fixed protocol and one fixed
+set of cross-validation folds, so that any difference is attributable to the
+architecture. The full search comprises 786 successful training runs.
+
+The search serves two purposes. It maps which blocks help under data scarcity,
+and it provides the evidence for the winning recipe used by our detector. We
+report the search results in Section~\ref{sec:search}.
+
+\subsection{Proposed detector}
+Guided by the search, the proposed detector combines three efficient blocks on
+top of the YOLOv8n topology, shown in Fig.~\ref{fig:arch}.
+
+\emph{Space-to-depth downsampling.} Standard strided convolution discards
+spatial detail that small logos depend on. We replace it with a space-to-depth
+(SPD) operator~\cite{sunkara2022no}. SPD rearranges a spatial block into the
+channel dimension before a non-strided convolution, so no pixel information is
+lost during downsampling. For an input of size $H\times W\times C$ and a scale
+$s$, SPD produces $\frac{H}{s}\times\frac{W}{s}\times s^2C$ features, which a
+subsequent convolution mixes.
+
+\emph{ShuffleNet blocks.} We use ShuffleNet units with channel shuffle and
+grouped convolutions~\cite{ma2018shufflenet}. They mix features cheaply and keep
+the parameter count low, which supports the efficiency goal.
+
+\emph{Parameter-free SimAM attention.} We add SimAM attention~\cite{yang2021simam}.
+SimAM assigns each neuron an importance from an energy function without adding
+any parameters. For a feature $x$ in a channel with mean $\mu$ and variance
+$\sigma^2$ over the spatial positions, the neuron energy is
+\begin{equation}
+e_t = \frac{4(\sigma^2+\lambda)}{(t-\mu)^2 + 2\sigma^2 + 2\lambda},
+\end{equation}
+and the refined feature is $\tilde{x} = x \cdot \mathrm{sigmoid}(1/e)$. Because
+it adds no parameters and negligible computation, SimAM improves attention at
+essentially no cost.
+
+Together these blocks embody the design-space finding: cheap detail-preserving
+downsampling and parameter-free attention, rather than heavy capacity, give the
+best accuracy per unit of cost on this task.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{figures/architecture.pdf}
+\caption{Proposed detector. Space-to-depth downsampling and ShuffleNet blocks
+form an efficient backbone; parameter-free SimAM attention refines features
+before the standard YOLOv8 neck and detection head.}
+\label{fig:arch}
+\end{figure*}
+
+\section{Experiments}
+
+\subsection{Datasets}
+We use two complementary Indonesian datasets, with examples in
+Fig.~\ref{fig:samples}. The first, \textbf{Judol Detection
+v2}~\cite{dataset_v21_roboflow}, is a fine-grained gambling-logo detection set of
+443 images across five brand classes (BK8, Gate-of-olympus, Princess,
+Starlight-Princess, Zeus), released under CC BY 4.0. Each object is a compact
+logo inside a larger scene, so this is the discriminative, hard test bed. The
+second, the \textbf{Online Gambling Logo in Instagram Reels Video}
+dataset~\cite{dataset_judi3k_kaggle} (hereafter Instagram Reels), contains 3000
+whole video frames labelled gambling or nongambling. Because it labels whole
+frames rather than cropped objects, it is a frame-level screening task on which
+strong models saturate; we use it as a performance-preservation check.
+
+\begin{figure*}[t]
+\centering
+\begin{minipage}[b]{0.49\linewidth}\centering
+\includegraphics[width=0.95\linewidth]{figures/samples_v21.png}\\[2pt]
+{\footnotesize (a) Judol Detection v2: brand logos in larger scenes.}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.49\linewidth}\centering
+\includegraphics[width=0.95\linewidth]{figures/samples_judi3k.png}\\[2pt]
+{\footnotesize (b) Instagram Reels: whole frames, gambling (top), nongambling (bottom).}
+\end{minipage}
+\caption{Dataset examples. The two datasets cover logo-level detection and
+whole-frame screening.}
+\label{fig:samples}
+\end{figure*}
+
+\subsection{Preprocessing and augmentation}
+All images are letterboxed to $640\times640$ and normalised. Training
+augmentation uses mosaic, random translation of $0.1$, scaling of $0.5$, and
+horizontal flip of $0.5$; mosaic is disabled for the final ten epochs to
+stabilise convergence. The same augmentation is used for every model.
+
+\subsection{Evaluation metrics and protocol}
+We evaluate every model with stratified five-fold cross-validation on each
+dataset. Folds are stratified by the dominant class of each image and held fixed
+across all models, so each model sees identical splits. Cross-validation gives a
+more reliable estimate than a single split on small
+data~\cite{kohavi1995study}. Accuracy is measured by mean average precision at
+IoU $0.5$ (mAP50) and averaged over IoU $0.5$--$0.95$ (mAP50-95); we also report
+precision and recall. Model cost is reported as parameter count and GFLOPs for a
+single $640\times640$ forward pass, and as measured inference latency. Latency
+and frames-per-second are measured on a single NVIDIA RTX A4000 GPU and on CPU,
+averaged over 60 forward passes after ten warm-up passes. Training uses SGD with
+initial learning rate $0.01$, momentum $0.937$, weight decay $0.0005$, batch size
+$16$, 100 epochs with early stopping at patience $30$, and seed $0$; the software
+stack is PyTorch 2.12 with CUDA 13.
+
+\subsection{Statistical analysis}
+Because the discriminative dataset is small and uses five folds, we test whether
+the observed differences are reliable rather than assume them. We compare the
+proposed model against the baseline with the Wilcoxon signed-rank test on
+per-fold mAP50-95, and compare the group of leading models with the Friedman
+test~\cite{demsar2006statistical}. We report the resulting $p$-values in full and
+draw conclusions accordingly, making no significance claim that the data do not
+support.
+
+\section{Results}
+
+\subsection{The architectural design space}
+\label{sec:search}
+Fig.~\ref{fig:designspace} plots every variant by its accuracy on the two
+datasets. Three patterns stand out. First, most added complexity hurts on the
+hard dataset: only 13 of 79 variants (16.5\%) beat the plain baseline, and the
+bulk cluster below it. Second, a few heavy fusion models collapse
+catastrophically on the easy dataset, dropping from the $0.99$ ceiling to as low
+as $0.53$ mAP50-95. Third, the newer standard families are not automatically
+better here: YOLO26n, the newest and smallest, scores worst of the standard
+detectors on the hard dataset (Table~\ref{tab:comparison}).
+
+The two datasets also rank architectures differently. The Spearman rank
+correlation between the hard and easy datasets is only $\rho=0.49$ over the 78
+models present on both. A model that leads on one dataset is only weakly likely
+to lead on the other. This is a cautionary result for practice: selecting an
+architecture on a single benchmark is unsafe, and validation on more than one
+dataset is necessary.
+
+The variants that do beat the baseline share a recipe. They combine
+detail-preserving space-to-depth downsampling, efficient Ghost or ShuffleNet
+backbone units, and a lightweight attention module. Heavy multi-scale modules
+such as Res2Net, and heavy attention, are consistently among the worst. This
+recipe motivates the proposed detector.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/designspace.pdf}
+\caption{Design-space map of 78 variants. Most models fall below the baseline on
+the hard dataset (dashed line); a few collapse on the easy dataset. The proposed
+model is the furthest right (best on the hard dataset).}
+\label{fig:designspace}
+\end{figure}
+
+\subsection{Comparison with standard and modified detectors}
+Table~\ref{tab:comparison} compares the proposed detector against four standard
+nano detectors and four representative design-space variants. On the hard
+dataset the proposed model reaches the best mAP50 ($0.8836$), the best mAP50-95
+($0.5937$), and the best recall ($0.833$). It beats every standard detector,
+including the newer YOLO11n, YOLO12n, and YOLO26n, which are smaller but degrade
+markedly on this small dataset (YOLO26n reaches only $0.5381$ mAP50-95). On the
+easy dataset all strong models saturate near $0.995$, and the proposed model
+keeps the highest recall, so it does not regress on frame-level screening.
+
+\input{tables/comparison}
+
+Fig.~\ref{fig:efficiency} places these models on the accuracy--parameter plane.
+The proposed model sits at the top of the accuracy axis. The newer nano families
+are cheaper but clearly less accurate here, and the heaviest variants add
+parameters without a matching accuracy gain. The proposed model occupies the
+useful upper region: near-best accuracy at a moderate, real-time cost.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/efficiency.pdf}
+\caption{Accuracy versus parameters on the hard dataset. The proposed model
+reaches the top of the accuracy axis at moderate cost.}
+\label{fig:efficiency}
+\end{figure}
+
+\subsection{Inference speed}
+A moderation detector must be fast. Fig.~\ref{fig:latency} reports measured GPU
+throughput. The proposed model runs at $115$ FPS, well above the $30$ FPS
+real-time threshold and close to the plain baseline at $139$ FPS. The heavy
+Res2Net variant, by contrast, drops to $76$ FPS for no accuracy benefit. The
+proposed model thus keeps real-time speed while improving accuracy, which is the
+combination a deployment needs. The per-fold accuracy of the proposed model is
+stable, as shown in Table~\ref{tab:perfold}.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/latency.pdf}
+\caption{Measured GPU inference speed (RTX A4000, $640\times640$). The proposed
+model stays well above real time; the heavy Res2Net variant does not.}
+\label{fig:latency}
+\end{figure}
+
+\input{tables/perfold}
+
+\subsection{Statistical analysis}
+Table~\ref{tab:stats} reports the tests. The proposed model beats the baseline in
+mean mAP50-95 and in four of five folds, but the Wilcoxon signed-rank test gives
+$p=0.068$, and the Friedman test across the leading models gives $p=0.053$.
+Neither reaches significance at $\alpha=0.05$. With only five folds, this is the
+expected outcome for the small absolute differences involved, and we do not claim
+a statistically proven accuracy advantage. The consistent direction of the
+improvement, its stability across folds, and the accompanying speed and
+interpretability evidence together support the practical value of the detector,
+while the honest reporting of the tests sets a realistic expectation.
+
+\input{tables/stats}
+
+\subsection{Per-class analysis}
+The residual error is concentrated. Fig.~\ref{fig:cm} shows the confusion matrix
+of the proposed model on the hard dataset. Four of the five classes are detected
+with high recall. One class, BK8, is far harder, with about half of its instances
+confused with background. The BK8 mark is a small, text-like wordmark that blends
+into busy sports and advertising scenes. Notably, BK8 is not a rare class, so its
+difficulty stems from appearance, not scarcity. This points to the clearest path
+to a better detector: higher-resolution or tiled inference aimed at small,
+text-like marks.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figures/cm_proposed.png}
+\caption{Confusion matrix of the proposed model on Judol Detection v2. BK8 is the
+hardest class, often confused with background.}
+\label{fig:cm}
+\end{figure}
+
+\subsection{Qualitative results and interpretability}
+Fig.~\ref{fig:det} shows detections on validation images. The model localises
+gambling logos across varied backgrounds with tight boxes and high confidence.
+Fig.~\ref{fig:gradcam} shows Grad-CAM heatmaps for the proposed model. The
+attention concentrates on the brand marks rather than on the surrounding scene,
+which is the behaviour a trustworthy moderation detector should show. Together
+the qualitative and quantitative views are consistent: the model relies on the
+gambling brand identity, and its failures are confined to the one hard, small
+class.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/detections_proposed.png}
+\caption{Detections of the proposed model on Judol Detection v2 validation images.}
+\label{fig:det}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/gradcam_proposed.png}
+\caption{Grad-CAM for the proposed model. Attention concentrates on the gambling
+brand marks.}
+\label{fig:gradcam}
+\end{figure}
+
+\section{Discussion}
+The results carry three messages for building deployable gambling-content
+detectors. First, complexity is not free and is usually not helpful on small
+domain data. Across 78 variants, five out of six modifications failed to beat a
+plain baseline, and some heavy fusion models failed badly. A practitioner should
+therefore treat added blocks with suspicion and measure their cost. Second,
+architecture ranking does not transfer across datasets. The weak rank
+correlation between the logo-level and frame-level datasets means a model chosen
+on one may disappoint on the other. Multi-dataset validation is not optional for
+this task. Third, the modifications that do help are the cheap ones. Space-to-depth
+downsampling and parameter-free attention improve accuracy at little cost, while
+heavy capacity does not. Our detector packages this recipe and reaches the best
+accuracy among the tested nano detectors at real-time speed.
+
+The improvement over the baseline is modest and not statistically significant at
+five folds, which bounds how strongly we can claim an accuracy advantage. The
+contribution is therefore best read as a deployment-oriented package: an
+efficient detector that is competitive on accuracy, real-time in speed,
+interpretable, and validated on two complementary datasets, together with a
+design-space map that tells practitioners which blocks are worth their cost.
+
+Several limitations remain. Both datasets are Indonesian and centre on a limited
+set of brands, so external validity to other regions and platforms is untested.
+The frame-level dataset saturates, which limits what it can reveal. The
+statistical power is bounded by five folds. Latency is measured on one GPU and
+one CPU and would differ on edge hardware. These points define the natural next
+steps.
+
+\section{Conclusion}
+We studied efficient detection of online gambling promotion on social media. A
+large controlled design-space search of 786 runs over 78 detector variants showed
+that most added complexity hurts on small domain data, that a few heavy models
+collapse, and that architecture ranking transfers poorly between a logo-level and
+a frame-level dataset. Guided by the search, we proposed an efficient detector
+built from space-to-depth downsampling, ShuffleNet blocks, and parameter-free
+SimAM attention. It reached the best accuracy on the hard dataset among all
+standard and modified nano detectors, including the newer YOLO11n, YOLO12n, and
+YOLO26n, while running at 115 FPS. We reported accuracy jointly with cost and
+measured speed, tested the differences statistically, and explained the model
+with Grad-CAM. Future work should extend the search to more datasets and
+regions, target the small text-like logo class with higher-resolution inference,
+and measure latency on edge devices for real deployment.
+
+\section*{Data availability}
+Both datasets are publicly available from their original
+sources~\cite{dataset_v21_roboflow, dataset_judi3k_kaggle}. The fold protocol,
+full design-space results, latency measurements, and reproduction code are
+released with the paper.
+
+\section*{Acknowledgements}
+Acknowledgements and funding information are omitted to preserve anonymity for
+review and will be restored in the final version.
+
+\section*{Declaration of competing interest}
+The authors declare no competing interests.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,703 @@
+\documentclass[conference,a4paper]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{url}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Evaluating Squeeze-and-Excitation YOLOv8 for\\
+Efficient Online Gambling Content Detection}
+
+\author{\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Affiliation and contact details withheld\\
+for double-blind review}}
+
+\maketitle
+
+\begin{abstract}
+Adding architectural complexity to object detectors often raises accuracy.
+Its benefit on small, domain-specific datasets is not guaranteed. This
+paper studies how three modifications to YOLOv8n trade accuracy against
+model complexity. We compare a squeeze-and-excitation (SE) channel-attention
+variant, a heavier Res2Net variant with space-to-depth downsampling, and a
+lightweight ShuffleNet variant. All models are evaluated against the
+unmodified baseline. We use five-fold cross-validation on two datasets. The
+first is a small five-class gambling-logo set (Judol Detection v2, 443 images). The second
+is a larger two-class Instagram-reel set (Instagram Reels, 3000 images). On the
+discriminative dataset, the SE variant reaches the best mean mAP50-95. It
+adds only 0.36\% more parameters. The heavier Res2Net variant adds 40.9\%
+parameters without any accuracy gain. The lightweight variant trades
+accuracy for a 14.5\% parameter reduction. The results suggest that
+near-zero-cost channel recalibration is a reliable operating point under
+limited data. We report per-fold variability and make no claim of
+statistical significance, given the small fold count.
+\end{abstract}
+
+\begin{IEEEkeywords}
+object detection, YOLOv8, channel attention, squeeze-and-excitation,
+model efficiency, small datasets, gambling-logo detection
+\end{IEEEkeywords}
+
+\section{Introduction}
+Online gambling promotion has become a large moderation problem. Operators
+spread brand logos across social media and streaming platforms. These promos
+often target young audiences. In many jurisdictions the activity is illegal.
+Manual review does not scale to the volume of uploaded content. Automated
+visual detection is therefore attractive. A detector must find small gambling
+logos inside cluttered frames. It must also run fast enough for high-throughput
+moderation. This sets up a classic accuracy versus efficiency problem.
+
+Single-stage detectors are popular for such applied vision tasks. The YOLO
+family combines competitive accuracy with real-time speed~\cite{redmon2016you,
+bochkovskiy2020yolov4, jocher2023yolov8}. Practitioners often adapt these
+detectors to a narrow domain. A common instinct is to enlarge the network to
+raise accuracy.
+
+On large benchmarks such as COCO, added capacity usually
+helps~\cite{lin2014microsoft}. On small curated datasets, extra capacity can
+be unnecessary or even harmful. It also carries a real deployment cost. The
+trade-off therefore deserves direct study.
+
+This paper examines that trade-off. We do not chase a large accuracy jump.
+Instead we ask which modification gives the best accuracy per unit of added
+complexity. We fix YOLOv8n as a common baseline~\cite{jocher2023yolov8}. We
+then study three modifications at different points on the complexity axis.
+The first is a squeeze-and-excitation block~\cite{hu2018squeeze}. It
+recalibrates feature channels at almost no cost. The second combines a
+Res2Net multi-scale block~\cite{gao2021res2net} with space-to-depth
+downsampling~\cite{sunkara2022no}. It enlarges the model substantially. The
+third is a ShuffleNet-based~\cite{ma2018shufflenet} variant with attention.
+It reduces the model below the baseline.
+
+Our contribution is empirical, not a new state of the art. We make three
+points. First, we evaluate all four models under identical five-fold
+cross-validation on two datasets of contrasting size. Second, we report
+accuracy jointly with parameter count and computation. Each modification is
+judged by cost as well as return. Third, we show that the near-zero-cost SE
+variant gives the best mean accuracy on the small dataset. Structural
+enlargement does not. This supports an efficiency-first design choice under
+limited data.
+
+\section{Related Work}
+
+\subsection{Single-Stage Object Detection}
+Two-stage detectors such as Faster R-CNN first generate region
+proposals~\cite{ren2015faster}. They then classify each proposal. This gives
+strong accuracy but slower inference. Single-stage detectors remove the
+proposal step. They predict boxes directly. YOLO framed detection as one
+regression problem~\cite{redmon2016you}. SSD added multi-scale feature
+maps~\cite{liu2016ssd}. RetinaNet introduced focal loss for class
+imbalance~\cite{lin2017focal}. Later YOLO revisions refined the backbone and
+training recipe~\cite{redmon2018yolov3, bochkovskiy2020yolov4}. The
+Ultralytics YOLOv8 implementation is our baseline~\cite{jocher2023yolov8}.
+EfficientDet made the accuracy--efficiency trade-off
+explicit~\cite{tan2020efficientdet}. We adopt that view at the block level for
+small-data detection.
+
+\subsection{Attention and Multi-Scale Modules}
+Channel attention reweights feature maps by learned importance.
+Squeeze-and-Excitation uses a global-pooling squeeze~\cite{hu2018squeeze}. It
+then learns per-channel weights with a small network. The parameter overhead
+is negligible. CBAM adds spatial attention~\cite{woo2018cbam}. Coordinate
+attention encodes position into channel weights~\cite{hou2021coordinate}.
+ECA-Net further reduces attention cost with a local one-dimensional
+convolution~\cite{wang2020eca}. Multi-scale representation is a complementary
+axis. Res2Net builds hierarchical residual connections inside a
+block~\cite{gao2021res2net}. Residual learning underpins these deeper
+designs~\cite{he2016deep}. Space-to-depth convolution replaces strided
+downsampling~\cite{sunkara2022no}. It preserves information for small objects.
+Transformer backbones such as ViT~\cite{dosovitskiy2021image} and the
+hierarchical Swin Transformer~\cite{liu2021swin} offer another route to global
+context. These modules help on large benchmarks. Their value on small data is
+less clear.
+
+\subsection{Efficient Architectures and Small Data}
+Efficient backbones cut parameters and computation. MobileNetV2 uses
+inverted residuals~\cite{sandler2018mobilenetv2}. ShuffleNetV2 uses grouped
+convolutions and channel shuffle~\cite{ma2018shufflenet}. GhostNet generates
+features cheaply with linear operations~\cite{han2020ghostnet}. All trade some
+accuracy for deployability. Model complexity interacts with dataset size.
+Normalization and large pretraining reduce
+overfitting~\cite{ioffe2015batch, deng2009imagenet}. On small task-specific
+data, a larger model is not reliably better. This motivates judging each
+change against its cost.
+
+\subsection{Detecting Online Gambling Promotion}
+Detecting gambling promotion is a visual content-moderation task. It resembles
+logo and brand detection in the wild. The target marks are small and varied.
+They appear over dynamic video backgrounds. Public datasets for this task are
+scarce. We use two recent community datasets to fill this
+gap~\cite{dataset_v21_roboflow, dataset_judi3k_kaggle}. The first isolates
+gambling brand logos as objects. The second labels whole reel frames as
+gambling or not. Together they cover both fine-grained logo detection and
+coarse frame-level screening. This dual view is uncommon in prior logo-detection
+work. It lets us test whether a modification helps on the hard case without
+hurting the easy one.
+
+\section{Materials and Methods}
+
+\subsection{Datasets}
+We use two object-detection datasets, summarized in Table~\ref{tab:datasets}.
+Figure~\ref{fig:samples} shows examples from each. The first dataset is
+denoted \textbf{Judol Detection v2}. It is sourced from Roboflow
+Universe~\cite{dataset_v21_roboflow}. It contains 443 images across five
+classes. The classes are online gambling brand logos. They are BK8,
+Gate-of-olympus, Princess, Starlight-Princess, and Zeus. Each object is a
+compact logo inside a larger scene. This makes Judol Detection v2 a fine-grained detection
+task. It is small enough to expose architectural differences. We use it as
+the discriminative test bed.
+
+The second dataset is the \textbf{Online Gambling Logo in Instagram Reels
+Video} dataset~\cite{dataset_judi3k_kaggle}. We refer to it as \textbf{Instagram
+Reels} for brevity. It is collected from Instagram reel videos. It contains 3000
+images across two classes. The classes are gambling and nongambling. A key difference matters
+here. Each Instagram Reels sample is a full video frame, not a cropped object. The
+label describes the whole image. Gambling frames carry promotional overlays
+or logos. Nongambling frames show ordinary advertising or lifestyle content.
+This is visible in Figure~\ref{fig:samples}(b). The task is closer to
+whole-frame classification with localization.
+
+The two datasets play different roles. On Judol Detection v2, models differ by measurable
+margins. On Instagram Reels, all evaluated models reach near-ceiling accuracy. We
+therefore treat Instagram Reels as a performance-preservation check. It confirms that
+no variant regresses on the easier task. Exact licensing follows each source;
+Judol Detection v2 is released under CC BY 4.0.
+
+Table~\ref{tab:classdist} lists the Judol Detection v2 class distribution. The five classes
+are moderately balanced. Zeus is most common with 229 instances. Starlight-Princess
+is least common with 150. BK8 is the second most common class. Yet BK8 is the
+hardest class to detect, as shown later. Its difficulty comes from small,
+text-like logos, not from scarcity. This distinction guides our error analysis.
+
+\input{tables/dataset_summary}
+\input{tables/class_dist}
+
+\begin{figure*}[t]
+\centering
+\begin{minipage}[b]{0.49\linewidth}
+\centering
+\includegraphics[width=0.94\linewidth]{figures/samples_v21.png}\\[2pt]
+{\footnotesize (a) Judol Detection v2: gambling brand logos in larger scenes.}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.49\linewidth}
+\centering
+\includegraphics[width=0.94\linewidth]{figures/samples_judi3k.png}\\[2pt]
+{\footnotesize (b) Instagram Reels: full reel frames, gambling (top), nongambling (bottom).}
+\end{minipage}
+\caption{Dataset examples. Judol Detection v2 targets small logos; Instagram Reels labels whole frames.}
+\label{fig:samples}
+\end{figure*}
+
+\subsection{Baseline and Variants}
+All models share the YOLOv8n backbone, neck, and detection
+head~\cite{jocher2023yolov8}. We chose four models to span the complexity axis.
+Each represents one clear design strategy. This keeps the comparison
+interpretable rather than exhaustive.
+
+\textbf{YOLOv8n (baseline)} is the unmodified nano detector. It fixes the
+reference point for accuracy and cost. Every other model is measured against
+it. Its 3.16M parameters set the scale for the study.
+
+\textbf{YOLOv8-SE (proposed operating point)} adds squeeze-and-excitation
+gates~\cite{hu2018squeeze}. It is a clean ablation of channel attention. Its
+backbone and neck are identical to stock YOLOv8. One SE block is inserted on
+each detection scale. The blocks sit on the three neck outputs P3, P4, and P5.
+Each block acts on its feature map just before the Detect head. No other layer
+is changed. Any accuracy difference is therefore attributable to the SE gates
+alone.
+
+\textbf{YOLOv8-Res2Net-SPD-SSGA} is the heavy variant. It replaces selected
+blocks with Res2Net multi-scale units~\cite{gao2021res2net}. These units widen
+the receptive-field range inside a block. It also adds space-to-depth
+downsampling~\cite{sunkara2022no}. This operator keeps fine detail that strided
+convolution discards. The combination enlarges the model to 4.45M parameters.
+It represents the strategy of adding representational capacity.
+
+\textbf{YOLOv8-Shuffle-SE} is the lightweight variant. It is built on
+ShuffleNet units with channel shuffle and grouped
+convolutions~\cite{ma2018shufflenet}. It keeps a small attention gate for
+balance. The design pushes the model below the baseline to 2.70M parameters. It
+represents the opposite strategy of trimming capacity for efficiency.
+
+\subsection{Squeeze-and-Excitation Module}
+The SE block recalibrates a feature map $U \in \mathbb{R}^{H \times W \times
+C}$. It works in two steps. The squeeze step pools spatial information into a
+channel descriptor. This gives $z \in \mathbb{R}^{C}$ by global average
+pooling:
+\begin{equation}
+z_c = \frac{1}{H \times W} \sum_{i=1}^{H} \sum_{j=1}^{W} U_c(i,j),
+\qquad c = 1,\dots,C .
+\end{equation}
+The excitation step learns per-channel weights $s \in \mathbb{R}^{C}$. It uses
+two fully connected layers with reduction ratio $r$:
+\begin{equation}
+s = \sigma\!\big(W_2\,\delta(W_1 z)\big),
+\end{equation}
+where $\delta$ is ReLU and $\sigma$ is the sigmoid. Here $W_1 \in
+\mathbb{R}^{\frac{C}{r} \times C}$ and $W_2 \in \mathbb{R}^{C \times
+\frac{C}{r}}$. The output rescales each channel of $U$:
+\begin{equation}
+\tilde{U}_c = s_c \, U_c .
+\end{equation}
+Only the two small projection matrices are added. The overhead is $2C^2/r$
+per block. This is negligible against the backbone. The measured increase is
+0.36\% (Table~\ref{tab:relative}). Figure~\ref{fig:se} shows the operation.
+
+The reduction ratio $r$ controls the size of the excitation bottleneck. A
+larger $r$ shrinks the two projection matrices further. It lowers the parameter
+cost but limits the gate capacity. We keep the standard value from the original
+design~\cite{hu2018squeeze}. This choice is deliberate. We aim to test channel
+attention as a drop-in module, not to tune it. Placing the gates on the three
+neck outputs also matters. Those tensors feed the detection head directly.
+Recalibrating them steers the final predictions with minimal disturbance to the
+shared backbone.
+
+\subsection{Evaluation Metrics}
+We report accuracy with mean average precision. Precision and recall come
+from the confusion matrix. Let $\mathrm{TP}$, $\mathrm{FP}$, and
+$\mathrm{FN}$ denote true positives, false positives, and false negatives:
+\begin{equation}
+\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}},
+\qquad
+\mathrm{Recall} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}} .
+\end{equation}
+Average precision (AP) is the area under the precision--recall curve. Mean
+average precision averages AP over all $K$ classes:
+\begin{equation}
+\mathrm{AP} = \int_0^1 p(r)\,dr,
+\qquad
+\mathrm{mAP} = \frac{1}{K}\sum_{k=1}^{K}\mathrm{AP}_k .
+\end{equation}
+We report mAP50 at IoU 0.5. We also report mAP50-95 averaged over IoU
+thresholds 0.5 to 0.95. The normalized confusion matrix entry $C_{ij}$ is the
+fraction of true class $i$ predicted as class $j$. Diagonal entries are
+correct predictions. Off-diagonal entries are confusions.
+
+\subsection{Fold Construction}
+We build five folds with stratified sampling. Cross-validation gives a more
+reliable estimate than a single split on small data~\cite{kohavi1995study}. The
+strata are the dominant class of each image. Stratification keeps class ratios
+stable across folds. It avoids folds that miss a rare class. The split uses a
+fixed seed of 0. The same folds
+are reused for every model. This removes split luck as a confounder. Each Judol Detection v2
+fold holds about 354 training and 89 validation images.
+
+\subsection{Training and Evaluation Protocol}
+Each model uses five-fold cross-validation on each dataset. Folds are fixed
+across models. Every model sees identical train and validation splits. We
+report the mean over the five folds. We also report the fold standard
+deviation on Judol Detection v2. This measures run-to-run variability. Model complexity is
+parameter count and GFLOPs for one forward pass. It is measured once per
+architecture with the Ultralytics profiler.
+
+Training settings are identical across all four models. Each model trains for
+100 epochs with early stopping at patience 30. The input size is 640 and the
+batch size is 16. The optimizer is SGD with lr0 0.01 and momentum 0.937.
+Weight decay is 0.0005 and the seed is fixed at 0. Augmentation uses mosaic,
+translation 0.1, scaling 0.5, and horizontal flip 0.5. Mosaic is disabled for
+the final ten epochs to stabilize convergence.
+
+We keep the software stack fixed for reproducibility. All runs use a single
+NVIDIA RTX A4000 GPU with PyTorch 2.12 and CUDA 13. Deterministic mode is
+enabled where supported. Validation uses the best checkpoint of each run.
+Complexity is profiled at the same 640 input size. The full workflow is shown
+in Figure~\ref{fig:workflow}.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{fig2.png}
+\caption{Evaluation workflow. Both datasets use identical fixed folds and protocol across all four variants.}
+\label{fig:workflow}
+\end{figure*}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.60\linewidth]{figures/fig2_se_module.pdf}
+\caption{Squeeze-and-excitation channel recalibration.}
+\label{fig:se}
+\end{figure}
+
+\section{Results and Discussion}
+
+\subsection{Main Comparison}
+Table~\ref{tab:main} reports accuracy and complexity for all four models. It
+covers both datasets. On the discriminative Judol Detection v2 dataset, YOLOv8-SE leads. It
+reaches the best mean mAP50 of 0.8751. It also reaches the best mean mAP50-95
+of 0.5896. The baseline follows closely at 0.8736 and 0.5857. The heavier and
+lighter variants both fall below the baseline in mAP50-95.
+
+On Instagram Reels, all models cluster tightly. They differ by at most about 0.001
+mAP. This confirms that Instagram Reels is saturated. It does not separate the
+architectures. We therefore base the architectural discussion on Judol Detection v2. We use
+Instagram Reels only to confirm no regression on the easy task.
+
+\input{tables/main_results}
+
+The complexity columns add the second half of the story. YOLOv8-SE uses
+3.168M parameters and 8.87 GFLOPs. This is nearly identical to the baseline.
+The Res2Net variant is far heavier at 4.448M parameters. The Shuffle-SE
+variant is the lightest at 2.699M parameters. Accuracy and cost must be read
+together. The next subsection makes this explicit.
+
+\subsection{Performance Preservation on Instagram Reels}
+The Instagram Reels dataset is a preservation check. All four models score above 0.99
+mAP50-95. The task is easy because whole frames carry strong cues. Still, the
+ranking is informative. Table~\ref{tab:judi3k} lists the full results. The SE
+variant reaches the top mAP50-95 of 0.9948. It also reaches the highest recall
+of 0.9954.
+
+\input{tables/judi3k_results}
+
+The baseline has the lowest precision on Instagram Reels at 0.9829. The SE variant lifts
+precision to 0.9907. This means fewer false gambling flags on clean frames.
+That property matters for a moderation pipeline. A false flag wastes reviewer
+time or blocks benign content.
+
+The lightweight Shuffle-SE has the highest precision but the lowest recall. It
+misses slightly more gambling frames. On a screening task, missed positives are
+the costly errors. The SE variant offers the better balance here too. It keeps
+recall highest without hurting precision much. No variant regresses on this
+easy task.
+
+\subsection{Accuracy Versus Complexity}
+Table~\ref{tab:relative} expresses each variant as a change from the
+baseline. Figure~\ref{fig:tradeoff} plots accuracy against complexity. Three
+distinct operating points emerge. Each represents a different design choice.
+
+\input{tables/relative_changes}
+
+The SE variant is a near-zero-cost gain. It improves mean mAP50-95 by
+$+0.0039$. It adds only 0.36\% parameters and 0.11\% GFLOPs. It is the best
+accuracy point at essentially no cost. This is the operating point we
+recommend. The Res2Net variant is cost without gain. It adds 40.9\%
+parameters and 23.9\% GFLOPs. Yet its mean mAP50-95 is 0.0002 below the
+baseline. Added capacity does not help under limited data.
+
+The Shuffle-SE variant is a deliberate trade. It cuts parameters by 14.5\%
+and GFLOPs by 15.4\%. It costs 0.0107 mAP50-95. It suits cases where compute
+is the binding constraint. In Figure~\ref{fig:tradeoff}, the SE point sits at
+the upper left. It combines high accuracy with low computation. The Res2Net
+point moves right without moving up. This visual pattern captures the paper's
+message.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/fig3_accuracy_complexity.pdf}
+\caption{Accuracy--complexity trade-off on Judol Detection v2. Upper-left is preferred.}
+\label{fig:tradeoff}
+\end{figure}
+
+\subsection{Per-Fold Stability}
+Table~\ref{tab:perfold} lists mAP50-95 for every fold. The values reveal wide
+spread across folds. The baseline ranges from 0.545 to 0.617. The SE variant
+ranges from 0.544 to 0.631. Each model shifts by about 0.07 across folds.
+
+The fold spread is larger than the gap between models. The four models differ
+by at most 0.015 in mean mAP50-95. Yet a single model varies by 0.07 across
+folds. This tells us the dataset split matters more than the architecture.
+
+We therefore read the model ranking with caution. The per-fold overlap is
+substantial. The mean still favors SE, but the margin is small. This is why we
+make no claim of statistical significance in this study.
+
+\input{tables/perfold}
+
+\subsection{Precision and Recall}
+Table~\ref{tab:pr} reports precision and recall on Judol Detection v2. The baseline has the
+highest precision at 0.942. The SE variant trades a little precision for a
+touch more recall. Its recall is 0.818 against the baseline 0.816.
+
+The lightweight Shuffle-SE has the lowest precision at 0.894. It emits more
+false positives than the others. This is consistent with its lower mAP. The
+Res2Net variant reaches the highest recall at 0.824.
+
+These differences are small and mostly within fold noise. The main message is
+balance. The SE variant keeps precision and recall close to the baseline. It
+does not sacrifice one for the other. This stable behavior suits a moderation
+setting.
+
+\input{tables/precision_recall}
+
+\subsection{Training Convergence}
+Figure~\ref{fig:conv} plots the fold-mean mAP50-95 against the epoch. All four
+curves rise sharply in the first twenty epochs. They then flatten and plateau
+after about sixty epochs. The four curves stay close throughout training.
+
+The SE variant reaches 0.5 mAP50-95 a few epochs earlier than the baseline. It
+crosses the threshold near epoch 37 against epoch 42. This suggests that
+channel recalibration slightly speeds early learning. The effect is modest but
+consistent.
+
+The lightweight Shuffle-SE curve sits below the others late in training. It
+converges to a lower plateau. This matches its lower final accuracy in
+Table~\ref{tab:main}. The convergence view confirms the accuracy ranking is
+stable, not an artifact of a single checkpoint.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figures/convergence.pdf}
+\caption{Fold-mean mAP50-95 versus epoch on Judol Detection v2 for the four variants.}
+\label{fig:conv}
+\end{figure}
+
+\subsection{Confusion Matrix Analysis}
+Figure~\ref{fig:cm} shows the normalized confusion matrix. It is computed for
+YOLOv8-SE on a Judol Detection v2 validation fold. The diagonal is generally strong. Four
+of five classes exceed 0.85 recall. Starlight-Princess is the easiest class
+at 0.96. Zeus and Gate-of-olympus also detect reliably.
+
+The matrix reveals where errors concentrate. BK8 is the hardest class. Only
+0.52 of BK8 instances are detected correctly. About 0.48 are confused with
+background. This means many BK8 logos are missed. The background column is the
+main error source across classes. This is typical for small logos in cluttered
+scenes.
+
+These errors are informative for future work. BK8 logos vary widely in size
+and placement. They often appear as small overlays. A detector may treat them
+as background. Class-specific augmentation could help here. The matrix also
+shows little confusion between logo classes. The classes are visually
+distinct. The main challenge is detection, not classification.
+
+The background confusion has a clear moderation cost. A missed BK8 logo is a
+gambling promo that slips through. Raising recall on small marks is therefore a
+priority. Higher-resolution inference could help recover these logos. Tiling
+the input is another option for small-object recall. We leave both directions
+to future work.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.90\linewidth]{figures/confusion_matrix.png}
+\caption{Normalized confusion matrix for YOLOv8-SE on a Judol Detection v2 fold.}
+\label{fig:cm}
+\end{figure}
+
+\subsection{Qualitative Detection Results}
+Figure~\ref{fig:det} shows detections from YOLOv8-SE. The images are Judol Detection v2
+validation samples. The model localizes gambling logos accurately. Confidence
+scores are generally high. Gate-of-olympus is detected at 0.94. Two
+Starlight-Princess logos are detected at 0.95.
+
+The examples cover varied backgrounds. Some logos sit on bright game art.
+Others sit on sports or advertising scenes. The model handles both cases. It
+places tight boxes around each logo. This matches the strong diagonal in the
+confusion matrix.
+
+One BK8 example is detected at only 0.69. This lower confidence agrees with
+the confusion matrix. BK8 remains the least reliable class. The qualitative
+and quantitative views are consistent. Together they build a complete picture
+of model behavior.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/detections.png}
+\caption{YOLOv8-SE detections on Judol Detection v2 validation images.}
+\label{fig:det}
+\end{figure}
+
+\subsection{Grad-CAM Interpretability}
+We use Grad-CAM to inspect where the model looks. The heatmaps are computed
+for YOLOv8-SE on Judol Detection v2 images. We aggregate gradients over the three
+SE-recalibrated detection scales P3, P4, and P5. This covers logos of
+different sizes. Warm regions drive the strongest class response.
+Figure~\ref{fig:gradcam} shows the result.
+
+The heatmaps concentrate on the gambling brand identity. The BK8 wordmark is
+clearly highlighted in two examples. The Gates-of-Olympus and Starlight
+Princess artwork also draw strong attention. The model focuses on the logo,
+not the surrounding scene. This behavior is what a reliable detector should
+show.
+
+The maps also explain the SE contribution qualitatively. SE gates reweight
+channels before detection. This sharpens the response on discriminative
+regions. The focused heatmaps are consistent with the accuracy results. They
+show that attention lands on the right visual cues. This supports the use of
+channel recalibration for this task.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/gradcam.png}
+\caption{Grad-CAM for YOLOv8-SE on Judol Detection v2, aggregated over the P3/P4/P5 scales.}
+\label{fig:gradcam}
+\end{figure}
+
+\subsection{Instagram Reels: Detection and Interpretability}
+We repeat the qualitative analysis on the Instagram Reels dataset. This dataset
+labels whole frames, not cropped logos. Figure~\ref{fig:det_judi} shows
+YOLOv8-SE predictions on gambling reels. The model flags the frames with high
+confidence. It fires on frames that carry promotional overlays and betting
+brand marks. This confirms the strong numbers in Table~\ref{tab:judi3k}.
+
+Figure~\ref{fig:cm_judi} shows the confusion matrix for the two classes. Both
+classes sit near the diagonal. Gambling reaches 1.00 and nongambling reaches
+0.99. The classes almost never swap. A small share of background regions are
+predicted as one class or the other. This is expected when a detector is
+applied to whole-frame labels. It does not affect the frame-level decision.
+
+Figure~\ref{fig:gc_judi} shows Grad-CAM on the same reels. The pattern differs
+from Judol Detection v2. On logos, the heat lands on the brand mark. On reels,
+the heat spreads over the central subject and foreground. The model reads the
+whole frame, not a single logo. This matches the dataset design. It also
+explains why the task saturates: many holistic cues signal a gambling reel.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.99\linewidth]{figures/detections_judi3k.png}
+\caption{YOLOv8-SE detections on gambling Instagram reels (whole-frame labels).}
+\label{fig:det_judi}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.72\linewidth]{figures/confusion_matrix_judi3k.png}
+\caption{Confusion matrix for YOLOv8-SE on the Instagram Reels dataset.}
+\label{fig:cm_judi}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.99\linewidth]{figures/gradcam_judi3k.png}
+\caption{Grad-CAM on Instagram reels. Attention spreads over the whole frame, not one logo.}
+\label{fig:gc_judi}
+\end{figure}
+
+\subsection{Per-Class Detection Difficulty}
+Table~\ref{tab:perclass} and Figure~\ref{fig:perclass} break accuracy down by
+class. Four of the five classes are easy. Gate-of-olympus, Princess,
+Starlight-Princess, and Zeus all exceed 0.92 mAP50. These logos have large,
+distinctive artwork.
+
+BK8 is the hardest class by a wide margin. Its mAP50 falls between 0.56 and
+0.61 for every model. This gap dominates the overall differences between
+models. The BK8 wordmark is small and text-like. It blends into busy sports
+and advertising backgrounds.
+
+No single model wins on BK8 across the board. The baseline and Shuffle-SE
+score highest on BK8 in this fold. The SE variant leads on the mean but not on
+BK8. This shows the overall ranking is driven by the easy classes. Improving
+BK8 is the clearest path to a better detector.
+
+\input{tables/perclass}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.82\linewidth]{figures/perclass.pdf}
+\caption{Per-class mAP50 on Judol Detection v2. BK8 is far harder than the other four classes.}
+\label{fig:perclass}
+\end{figure*}
+
+\subsection{Broader Architectural Landscape}
+We also place SE within a wider pool of nano variants. Table~\ref{tab:broader}
+and Figure~\ref{fig:broader} compare SE against these alternatives. The pool
+covers many attention, multi-scale, and efficient designs. All use the same
+protocol and folds.
+
+SE sits in the top tier of the explored models. Against every alternative in
+Table~\ref{tab:broader}, none does better. Several are clearly heavier yet
+score lower. They add 20 to 40 percent more parameters for no gain. SE reaches
+its accuracy at almost the baseline cost.
+
+This restates the core efficiency argument. SE is the smallest change to the
+standard YOLOv8n. It is a drop-in module with well-understood behavior. It
+matches or beats far more elaborate redesigns at a fraction of their cost. This
+makes it a strong default when engineering effort is limited.
+
+\input{tables/broader}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.86\linewidth]{figures/broader.pdf}
+\caption{Accuracy versus parameters for top nano variants. SE is near-top at low cost.}
+\label{fig:broader}
+\end{figure}
+
+\subsection{Discussion}
+The pattern across the three modifications is consistent. In a small-data
+regime, added capacity is a liability. The two capacity-changing variants
+both underperform the baseline. Enlargement and reduction both hurt mean
+accuracy. Only the SE variant improves it. SE changes almost no capacity. It
+recalibrates existing features instead. This aligns with the low-overhead
+design of channel attention~\cite{hu2018squeeze}.
+
+We stress the modest size of the SE gain. The improvement on Judol Detection v2 is small in
+absolute terms. Its value lies in cost, not magnitude. It achieves the best
+accuracy at the lowest incremental cost. This is exactly the
+accuracy--efficiency argument of the paper. The message is a design
+principle, not a leaderboard claim.
+
+The result has practical weight for moderation deployment. A gambling detector
+may run on millions of frames per day. Every extra GFLOP raises the compute
+bill at that scale. The SE variant adds only 0.11\% GFLOPs over the baseline.
+It therefore improves accuracy essentially for free. A heavier redesign would
+raise cost with no reliable accuracy return here. Efficiency-first tuning is
+the rational choice for this setting.
+
+The broader benchmark supports the same view from a wider angle. Across many
+nano variants, most complex redesigns cluster near the baseline. Only a handful
+edge ahead, and never by a large margin. This ceiling likely reflects the
+dataset, not the architectures. When data is the bottleneck, architecture
+tuning has diminishing returns. Investment in more and better labeled data may
+help more than a heavier model.
+
+\subsection{Threats to Validity}
+We group the limitations by the kind of validity they affect.
+
+\textit{Statistical conclusion validity.} The discriminative dataset holds
+only 443 images. The comparison uses five folds. The fold spread exceeds the
+gap between models (Table~\ref{tab:perfold}). We therefore report the fold
+standard deviation and make no significance claim. The ranking is indicative,
+not proven.
+
+\textit{Internal validity.} All models share one training protocol, one seed,
+and identical folds. This isolates the architecture as the only variable. A
+single seed still leaves run-to-run noise unmeasured. Multiple seeds would
+tighten the estimates. The per-class table uses one fold and should be read as
+illustrative.
+
+\textit{External validity.} The two datasets come from specific sources. One
+is a logo set; the other is Instagram reel frames. Both center on Indonesian
+online gambling promotion. Results may not transfer to other platforms or
+regions. The saturation on Instagram Reels also limits what it can tell us.
+
+\textit{Construct validity.} We measure accuracy with mAP and cost with
+parameters and GFLOPs. GFLOPs is a proxy for latency, not a direct measure.
+Real deployment speed depends on hardware and the runtime. We report GFLOPs as
+a comparable proxy within this study only.
+
+\section{Conclusion}
+We compared three architectural modifications of YOLOv8n. They are channel
+attention, multi-scale enlargement, and lightweight reduction. We judged each
+by accuracy and by the complexity it costs. We used two datasets of
+contrasting size. On the small discriminative dataset, SE gave the best mean
+accuracy. It added only 0.36\% parameters. Structural enlargement added 40.9\%
+parameters without any gain. Lightweight reduction traded accuracy for a
+14.5\% parameter saving. A broader benchmark of nano variants placed SE in the
+top tier at near-baseline cost. Per-fold, per-class, and convergence analyses
+all agreed with this ranking.
+
+The practical takeaway is simple. Prefer cheap feature recalibration over
+structural growth on small data. Report accuracy jointly with its cost. For
+gambling-content moderation, this keeps compute low at scale while holding
+accuracy. The hardest remaining case is the small, text-like BK8 logo, which
+limits every model. Future work should target that case directly. It should
+extend the fold count and dataset diversity to enable formal significance
+testing. It should study SE insertion placement and reduction ratio
+systematically. It should also measure real inference latency on target
+hardware, not GFLOPs alone.
+
+\section*{Acknowledgment}
+Acknowledgments, funding details, and the names of contributing participants
+are withheld to preserve anonymity for double-blind review. They will be
+restored in the camera-ready version.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

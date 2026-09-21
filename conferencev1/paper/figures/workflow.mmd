@@ -1,0 +1,47 @@
+flowchart TD
+    subgraph SRC["Data sources"]
+        S1["Roboflow Universe<br/>gambling brand logos"]
+        S2["Kaggle / Instagram reels<br/>full video frames"]
+    end
+    S1 --> D1["v2-1<br/>443 img, 5 classes<br/>role: discriminative test bed"]
+    S2 --> D2["judi3k<br/>3000 img, 2 classes<br/>role: performance preservation"]
+
+    D1 --> PRE
+    D2 --> PRE
+    PRE["Preprocessing<br/>letterbox to 640x640, normalize"]
+
+    PRE --> CV["Stratified 5-fold split by class<br/>seed 0, folds FIXED across all models"]
+
+    CV --> M["Four YOLOv8n variants (shared baseline)"]
+    M --> V1["Baseline<br/>3.16M / 8.86G"]
+    M --> V2["SE (proposed)<br/>3.17M / 8.87G"]
+    M --> V3["Res2Net-SPD-SSGA<br/>4.45M / 10.98G"]
+    M --> V4["Shuffle-SE<br/>2.70M / 7.50G"]
+
+    V1 --> LOOP
+    V2 --> LOOP
+    V3 --> LOOP
+    V4 --> LOOP
+
+    subgraph FOLD["Per-fold loop (k = 1..5, identical protocol)"]
+        LOOP["Train on 4 folds"] --> HP["100 epochs, batch 16, imgsz 640<br/>SGD lr0=0.01, lrf=0.01, momentum 0.937<br/>wd 5e-4, patience 30, mosaic close@10"]
+        HP --> AUG["Augment: mosaic, translate 0.1,<br/>scale 0.5, fliplr 0.5"]
+        AUG --> VAL["Validate on held-out fold"]
+        VAL --> MET["mAP50, mAP50-95, precision, recall"]
+    end
+
+    MET --> AGG["Aggregate over 5 folds<br/>mean +/- std (std on v2-1)"]
+    COMP["Complexity: params, GFLOPs<br/>(measured once per model)"] --> AGG
+
+    AGG --> OUT["Accuracy-efficiency analysis"]
+    OUT --> R1["Main + relative tables"]
+    OUT --> R2["Trade-off scatter"]
+    OUT --> R3["Confusion matrix"]
+    OUT --> R4["Detections + Grad-CAM"]
+
+    classDef data fill:#dbe7ff,stroke:#1a5fb4,color:#111;
+    classDef proc fill:#f2f4f8,stroke:#5a5a5a,color:#111;
+    classDef res fill:#e8f5e9,stroke:#2e7d32,color:#111;
+    class S1,S2,D1,D2 data;
+    class PRE,CV,M,V1,V2,V3,V4,LOOP,HP,AUG,VAL,MET,AGG,COMP,OUT proc;
+    class R1,R2,R3,R4 res;

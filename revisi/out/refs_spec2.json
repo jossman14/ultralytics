@@ -1,0 +1,22 @@
+[
+ {"key":"yolov12","doi":"10.48550/arXiv.2502.12524"},
+ {"key":"sapkota_yolo_review","title":"YOLO advances to its genesis a decadal and comprehensive review of the You Only Look Once series"},
+ {"key":"yolov10","title":"YOLOv10 Real-Time End-to-End Object Detection"},
+ {"key":"rtdetr","title":"DETRs Beat YOLOs on Real-time Object Detection"},
+ {"key":"sanity_checks","title":"Sanity Checks for Saliency Maps"},
+ {"key":"faithfulness_xai","title":"Towards better understanding of gradient-based attribution methods for deep neural networks"},
+ {"key":"xai_survey_2023","title":"Explainable artificial intelligence a comprehensive review"},
+ {"key":"dfl_gfl","title":"Generalized Focal Loss Learning Qualified and Distributed Bounding Boxes for Dense Object Detection"},
+ {"key":"ciou","title":"Distance-IoU Loss Faster and Better Learning for Bounding Box Regression"},
+ {"key":"adamw","title":"Decoupled Weight Decay Regularization"},
+ {"key":"data_leakage_cv","title":"Do ImageNet Classifiers Generalize to ImageNet"},
+ {"key":"dedup_benchmarks","title":"Are we done with ImageNet"},
+ {"key":"content_moderation_dl","title":"Deep learning for content moderation a survey"},
+ {"key":"vlm_moderation","title":"Moderating Illicit Online Image Promotion for Unsafe User Generated Content Games Using Large Vision Language Models"},
+ {"key":"logo_det_survey2","title":"Logo detection using deep learning a systematic literature review"},
+ {"key":"small_object_survey","title":"Towards large-scale small object detection survey and benchmarks"},
+ {"key":"attention_mech_det","title":"Attention mechanisms in computer vision A survey"},
+ {"key":"indo_gambling_web","title":"Detection of online gambling website promotion in Indonesian government domains"},
+ {"key":"phash_dup","title":"Perceptual hashing for image authentication a survey"},
+ {"key":"xai_object_detection","title":"Explainable AI for object detection a survey"}
+]

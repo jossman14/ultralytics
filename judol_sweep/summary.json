@@ -1,0 +1,1268 @@
+{
+ "yolov8n-base": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8736,
+   "mAP50_std": 0.0185,
+   "mAP50-95_mean": 0.5857,
+   "mAP50-95_std": 0.0248
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9945,
+   "mAP50-95_std": 0.0006
+  }
+ },
+ "yolo26n-base": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8124,
+   "mAP50_std": 0.0298,
+   "mAP50-95_mean": 0.5381,
+   "mAP50-95_std": 0.0307
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9941,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9935,
+   "mAP50-95_std": 0.0011
+  }
+ },
+ "yolo11n-base": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8687,
+   "mAP50_std": 0.0215,
+   "mAP50-95_mean": 0.5789,
+   "mAP50-95_std": 0.0188
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9937,
+   "mAP50_std": 0.0025,
+   "mAP50-95_mean": 0.9874,
+   "mAP50-95_std": 0.0107
+  }
+ },
+ "yolo12n-base": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8478,
+   "mAP50_std": 0.0237,
+   "mAP50-95_mean": 0.5678,
+   "mAP50-95_std": 0.027
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9945,
+   "mAP50_std": 0.0008,
+   "mAP50-95_mean": 0.9945,
+   "mAP50-95_std": 0.0008
+  }
+ },
+ "yolov8-res2net-spd-ssga": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8716,
+   "mAP50_std": 0.0269,
+   "mAP50-95_mean": 0.5855,
+   "mAP50-95_std": 0.0281
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo26-sgsa-coordatt": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7958,
+   "mAP50_std": 0.022,
+   "mAP50-95_mean": 0.5204,
+   "mAP50-95_std": 0.0263
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9945,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9932,
+   "mAP50-95_std": 0.0015
+  }
+ },
+ "yolov8-sgsa": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8451,
+   "mAP50_std": 0.029,
+   "mAP50-95_mean": 0.5616,
+   "mAP50-95_std": 0.0273
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.995,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.995,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8-resnext-sgsa": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8635,
+   "mAP50_std": 0.0226,
+   "mAP50-95_mean": 0.5709,
+   "mAP50-95_std": 0.026
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9947,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolo26-sota-fusion-a": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.636,
+   "mAP50_std": 0.053,
+   "mAP50-95_mean": 0.4096,
+   "mAP50-95_std": 0.0403
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7308,
+   "mAP50_std": 0.2234,
+   "mAP50-95_mean": 0.5251,
+   "mAP50-95_std": 0.2433
+  }
+ },
+ "yolo26-sota-fusion-dfl": {
+  "v2-1": {
+   "folds_done": 1,
+   "mAP50_mean": 0.8438,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.5818,
+   "mAP50-95_std": 0.0
+  }
+ },
+ "yolov8-se-baseline": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8751,
+   "mAP50_std": 0.0246,
+   "mAP50-95_mean": 0.5896,
+   "mAP50-95_std": 0.0295
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolo11-convnext-shuffle-mix": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8655,
+   "mAP50_std": 0.0219,
+   "mAP50-95_mean": 0.5779,
+   "mAP50-95_std": 0.0258
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9925,
+   "mAP50-95_std": 0.0027
+  }
+ },
+ "yolo11-shuffle": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8684,
+   "mAP50_std": 0.023,
+   "mAP50-95_mean": 0.5802,
+   "mAP50-95_std": 0.0197
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9924,
+   "mAP50-95_std": 0.0023
+  }
+ },
+ "yolo11-shuffle-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8659,
+   "mAP50_std": 0.0236,
+   "mAP50-95_mean": 0.5765,
+   "mAP50-95_std": 0.0261
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9942,
+   "mAP50-95_std": 0.0006
+  }
+ },
+ "yolo11-spd-shuffle-coordatt": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8829,
+   "mAP50_std": 0.0267,
+   "mAP50-95_mean": 0.5977,
+   "mAP50-95_std": 0.0258
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolo12-shuffle": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8462,
+   "mAP50_std": 0.0325,
+   "mAP50-95_mean": 0.5679,
+   "mAP50-95_std": 0.0256
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9946,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo12-shuffle-se": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.856,
+   "mAP50_std": 0.0318,
+   "mAP50-95_mean": 0.5725,
+   "mAP50-95_std": 0.0304
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9945,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo12-spd-shuffle": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.875,
+   "mAP50_std": 0.0192,
+   "mAP50-95_mean": 0.5865,
+   "mAP50-95_std": 0.0221
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolo26-shuffle-ghost-mix": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.826,
+   "mAP50_std": 0.0213,
+   "mAP50-95_mean": 0.5363,
+   "mAP50-95_std": 0.0266
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9935,
+   "mAP50_std": 0.0017,
+   "mAP50-95_mean": 0.9926,
+   "mAP50-95_std": 0.0025
+  }
+ },
+ "yolo26-shuffle-se": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8311,
+   "mAP50_std": 0.0213,
+   "mAP50-95_mean": 0.54,
+   "mAP50-95_std": 0.0242
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9925,
+   "mAP50_std": 0.0022,
+   "mAP50-95_mean": 0.9816,
+   "mAP50-95_std": 0.0079
+  }
+ },
+ "yolo26-shuffle-spd-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8475,
+   "mAP50_std": 0.0238,
+   "mAP50-95_mean": 0.566,
+   "mAP50-95_std": 0.0237
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9937,
+   "mAP50_std": 0.0019,
+   "mAP50-95_mean": 0.9925,
+   "mAP50-95_std": 0.0018
+  }
+ },
+ "yolov8-resnext-shuffle-mix": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8542,
+   "mAP50_std": 0.0245,
+   "mAP50-95_mean": 0.5676,
+   "mAP50-95_std": 0.0287
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolov8-shuffle-ghost-ledh": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7541,
+   "mAP50_std": 0.0489,
+   "mAP50-95_mean": 0.4862,
+   "mAP50-95_std": 0.0362
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9893,
+   "mAP50_std": 0.004,
+   "mAP50-95_mean": 0.9676,
+   "mAP50-95_std": 0.0222
+  }
+ },
+ "yolov8-shuffle-se": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8675,
+   "mAP50_std": 0.0204,
+   "mAP50-95_mean": 0.575,
+   "mAP50-95_std": 0.0271
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9942,
+   "mAP50_std": 0.0016,
+   "mAP50-95_mean": 0.9929,
+   "mAP50-95_std": 0.004
+  }
+ },
+ "yolov8-spd-shuffle-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8836,
+   "mAP50_std": 0.0225,
+   "mAP50-95_mean": 0.5937,
+   "mAP50-95_std": 0.024
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo11-ghostv2": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.862,
+   "mAP50_std": 0.0344,
+   "mAP50-95_mean": 0.574,
+   "mAP50-95_std": 0.028
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0008,
+   "mAP50-95_mean": 0.9925,
+   "mAP50-95_std": 0.0025
+  }
+ },
+ "yolo11-ghostv2-nonlocal": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.861,
+   "mAP50_std": 0.0289,
+   "mAP50-95_mean": 0.5805,
+   "mAP50-95_std": 0.0317
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9946,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9933,
+   "mAP50-95_std": 0.0018
+  }
+ },
+ "yolo11-resnext-ghost-mix": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8674,
+   "mAP50_std": 0.0225,
+   "mAP50-95_mean": 0.5711,
+   "mAP50-95_std": 0.0224
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9944,
+   "mAP50-95_std": 0.0007
+  }
+ },
+ "yolo11-star-ghost-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8644,
+   "mAP50_std": 0.0166,
+   "mAP50-95_mean": 0.5758,
+   "mAP50-95_std": 0.0243
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9947,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolo12-ghost": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8373,
+   "mAP50_std": 0.0338,
+   "mAP50-95_mean": 0.5617,
+   "mAP50-95_std": 0.0228
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9928,
+   "mAP50-95_std": 0.0027
+  }
+ },
+ "yolo12-ghost-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8318,
+   "mAP50_std": 0.0325,
+   "mAP50-95_mean": 0.5594,
+   "mAP50-95_std": 0.0294
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo12-ghostv2-coordatt": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8502,
+   "mAP50_std": 0.0219,
+   "mAP50-95_mean": 0.5661,
+   "mAP50-95_std": 0.0192
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9939,
+   "mAP50-95_std": 0.0014
+  }
+ },
+ "yolo12-ghostv2-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8546,
+   "mAP50_std": 0.0302,
+   "mAP50-95_mean": 0.5771,
+   "mAP50-95_std": 0.0249
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9945,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9913,
+   "mAP50-95_std": 0.0037
+  }
+ },
+ "yolo26-ghost-nonlocal-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8117,
+   "mAP50_std": 0.0323,
+   "mAP50-95_mean": 0.5346,
+   "mAP50-95_std": 0.0322
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9933,
+   "mAP50_std": 0.002,
+   "mAP50-95_mean": 0.9919,
+   "mAP50-95_std": 0.003
+  }
+ },
+ "yolo26-ghostv2-c2psa": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7906,
+   "mAP50_std": 0.0143,
+   "mAP50-95_mean": 0.5107,
+   "mAP50-95_std": 0.0212
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9935,
+   "mAP50-95_std": 0.0009
+  }
+ },
+ "yolo26-ghostv2-coordatt": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7848,
+   "mAP50_std": 0.028,
+   "mAP50-95_mean": 0.5001,
+   "mAP50-95_std": 0.0273
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9942,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9918,
+   "mAP50-95_std": 0.0034
+  }
+ },
+ "yolo26-ghostv2-csp": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7849,
+   "mAP50_std": 0.0296,
+   "mAP50-95_mean": 0.5172,
+   "mAP50-95_std": 0.0309
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9943,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9935,
+   "mAP50-95_std": 0.0008
+  }
+ },
+ "yolo26-ghostv2-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7746,
+   "mAP50_std": 0.0298,
+   "mAP50-95_mean": 0.4998,
+   "mAP50-95_std": 0.0315
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0007,
+   "mAP50-95_mean": 0.9937,
+   "mAP50-95_std": 0.0009
+  }
+ },
+ "yolo26-spd-ghostv2-coordatt-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.835,
+   "mAP50_std": 0.022,
+   "mAP50-95_mean": 0.5537,
+   "mAP50-95_std": 0.0204
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9946,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo26-star-ghostv2-swin": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8114,
+   "mAP50_std": 0.0234,
+   "mAP50-95_mean": 0.5243,
+   "mAP50-95_std": 0.0276
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.993,
+   "mAP50_std": 0.0018,
+   "mAP50-95_mean": 0.9688,
+   "mAP50-95_std": 0.028
+  }
+ },
+ "yolov8-convnext-ghostv2-mix": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8653,
+   "mAP50_std": 0.0162,
+   "mAP50-95_mean": 0.5806,
+   "mAP50-95_std": 0.0218
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-ghost-capffn": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8229,
+   "mAP50_std": 0.0345,
+   "mAP50-95_mean": 0.5492,
+   "mAP50-95_std": 0.0305
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolov8-ghost-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8196,
+   "mAP50_std": 0.0375,
+   "mAP50-95_mean": 0.5551,
+   "mAP50-95_std": 0.0356
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0003,
+   "mAP50-95_mean": 0.9946,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolov8-ghost-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.833,
+   "mAP50_std": 0.0287,
+   "mAP50-95_mean": 0.5569,
+   "mAP50-95_std": 0.0302
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-ghost-kd": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8218,
+   "mAP50_std": 0.0226,
+   "mAP50-95_mean": 0.5543,
+   "mAP50-95_std": 0.0268
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0
+  }
+ },
+ "yolov8-ghost-nonlocal-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8508,
+   "mAP50_std": 0.0308,
+   "mAP50-95_mean": 0.5742,
+   "mAP50-95_std": 0.0282
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolov8-ghost-swin": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8428,
+   "mAP50_std": 0.0261,
+   "mAP50-95_mean": 0.5651,
+   "mAP50-95_std": 0.0314
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9943,
+   "mAP50_std": 0.0009,
+   "mAP50-95_mean": 0.9913,
+   "mAP50-95_std": 0.0038
+  }
+ },
+ "yolov8-ghost-swin-capffn": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8498,
+   "mAP50_std": 0.0265,
+   "mAP50-95_mean": 0.5575,
+   "mAP50-95_std": 0.0226
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9878,
+   "mAP50_std": 0.0047,
+   "mAP50-95_mean": 0.9033,
+   "mAP50-95_std": 0.0421
+  }
+ },
+ "yolov8-ghostv2-coordatt": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8235,
+   "mAP50_std": 0.0261,
+   "mAP50-95_mean": 0.5565,
+   "mAP50-95_std": 0.031
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-ghostv2-csp-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8372,
+   "mAP50_std": 0.0209,
+   "mAP50-95_mean": 0.5665,
+   "mAP50-95_std": 0.0255
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8-ghostv2-spd-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8652,
+   "mAP50_std": 0.0173,
+   "mAP50-95_mean": 0.5841,
+   "mAP50-95_std": 0.0277
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8-sgsaB1-ghost": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8312,
+   "mAP50_std": 0.0236,
+   "mAP50-95_mean": 0.558,
+   "mAP50-95_std": 0.0293
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-spd-ghostv2-sgsa": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8715,
+   "mAP50_std": 0.0233,
+   "mAP50-95_mean": 0.5904,
+   "mAP50-95_std": 0.0209
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-starghost": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8488,
+   "mAP50_std": 0.0334,
+   "mAP50-95_mean": 0.5657,
+   "mAP50-95_std": 0.0271
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9947,
+   "mAP50-95_std": 0.0005
+  }
+ },
+ "yolov8s-ghost-capffn": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8743,
+   "mAP50_std": 0.0288,
+   "mAP50-95_mean": 0.5883,
+   "mAP50-95_std": 0.0279
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.995,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.995,
+   "mAP50-95_std": 0.0
+  }
+ },
+ "yolov8s-ghost-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8716,
+   "mAP50_std": 0.0196,
+   "mAP50-95_mean": 0.5947,
+   "mAP50-95_std": 0.0266
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8s-ghost-gam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8871,
+   "mAP50_std": 0.023,
+   "mAP50-95_mean": 0.6,
+   "mAP50-95_std": 0.0293
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8s-ghost-kd": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8787,
+   "mAP50_std": 0.0156,
+   "mAP50-95_mean": 0.5941,
+   "mAP50-95_std": 0.0238
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo11-convnext-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8687,
+   "mAP50_std": 0.0273,
+   "mAP50-95_mean": 0.5793,
+   "mAP50-95_std": 0.0157
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0003
+  }
+ },
+ "yolo12-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8558,
+   "mAP50_std": 0.039,
+   "mAP50-95_mean": 0.5758,
+   "mAP50-95_std": 0.0303
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo12-res2-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8526,
+   "mAP50_std": 0.0249,
+   "mAP50-95_mean": 0.5714,
+   "mAP50-95_std": 0.0322
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo12-resnext-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8509,
+   "mAP50_std": 0.0258,
+   "mAP50-95_mean": 0.5705,
+   "mAP50-95_std": 0.0257
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo26-convnext-ema-c2psa": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.821,
+   "mAP50_std": 0.0223,
+   "mAP50-95_mean": 0.5292,
+   "mAP50-95_std": 0.0265
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.993,
+   "mAP50-95_std": 0.0016
+  }
+ },
+ "yolo26-res2net-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8198,
+   "mAP50_std": 0.0206,
+   "mAP50-95_mean": 0.5311,
+   "mAP50-95_std": 0.0241
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9942,
+   "mAP50_std": 0.0009,
+   "mAP50-95_mean": 0.9931,
+   "mAP50-95_std": 0.0016
+  }
+ },
+ "yolo26-resnext-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8146,
+   "mAP50_std": 0.0161,
+   "mAP50-95_mean": 0.5208,
+   "mAP50-95_std": 0.0225
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9941,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9844,
+   "mAP50-95_std": 0.0069
+  }
+ },
+ "yolov8-res2net-ema-ledh": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.6824,
+   "mAP50_std": 0.0561,
+   "mAP50-95_mean": 0.4201,
+   "mAP50-95_std": 0.0395
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9503,
+   "mAP50_std": 0.0239,
+   "mAP50-95_mean": 0.6572,
+   "mAP50-95_std": 0.0795
+  }
+ },
+ "yolov8-resnext-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8534,
+   "mAP50_std": 0.0235,
+   "mAP50-95_mean": 0.5788,
+   "mAP50-95_std": 0.0282
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolov8-swin-ema": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8714,
+   "mAP50_std": 0.0185,
+   "mAP50-95_mean": 0.5872,
+   "mAP50-95_std": 0.0246
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9943,
+   "mAP50_std": 0.0007,
+   "mAP50-95_mean": 0.9935,
+   "mAP50-95_std": 0.0013
+  }
+ },
+ "yolo12-mbconv-eca-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8671,
+   "mAP50_std": 0.0244,
+   "mAP50-95_mean": 0.5794,
+   "mAP50-95_std": 0.0214
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.9946,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo26-mbconv-simam-ledh": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.7954,
+   "mAP50_std": 0.0222,
+   "mAP50-95_mean": 0.5071,
+   "mAP50-95_std": 0.0188
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9335,
+   "mAP50_std": 0.0519,
+   "mAP50-95_mean": 0.6462,
+   "mAP50-95_std": 0.0318
+  }
+ },
+ "yolo26-star-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8281,
+   "mAP50_std": 0.0173,
+   "mAP50-95_mean": 0.5465,
+   "mAP50-95_std": 0.0181
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.993,
+   "mAP50-95_std": 0.002
+  }
+ },
+ "yolov8-mbconv-coordatt-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8675,
+   "mAP50_std": 0.0214,
+   "mAP50-95_mean": 0.5887,
+   "mAP50-95_std": 0.0262
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9947,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9937,
+   "mAP50-95_std": 0.0012
+  }
+ },
+ "yolov8-star-simam": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8566,
+   "mAP50_std": 0.0279,
+   "mAP50-95_mean": 0.5769,
+   "mAP50-95_std": 0.0323
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9948,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolo11-mbconv-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8801,
+   "mAP50_std": 0.0242,
+   "mAP50-95_mean": 0.598,
+   "mAP50-95_std": 0.0286
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9948,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9946,
+   "mAP50-95_std": 0.0004
+  }
+ },
+ "yolo26-mbconv-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.831,
+   "mAP50_std": 0.0179,
+   "mAP50-95_mean": 0.5466,
+   "mAP50-95_std": 0.0249
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9944,
+   "mAP50_std": 0.0004,
+   "mAP50-95_mean": 0.9937,
+   "mAP50-95_std": 0.0011
+  }
+ },
+ "yolo26-star-coordatt-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8273,
+   "mAP50_std": 0.0137,
+   "mAP50-95_mean": 0.5382,
+   "mAP50-95_std": 0.026
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9939,
+   "mAP50_std": 0.0007,
+   "mAP50-95_mean": 0.992,
+   "mAP50-95_std": 0.0018
+  }
+ },
+ "yolov8-mbconv-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.867,
+   "mAP50_std": 0.0285,
+   "mAP50-95_mean": 0.5858,
+   "mAP50-95_std": 0.0292
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9946,
+   "mAP50_std": 0.0005,
+   "mAP50-95_mean": 0.9893,
+   "mAP50-95_std": 0.0081
+  }
+ },
+ "yolov8-sgsaA2-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8418,
+   "mAP50_std": 0.0337,
+   "mAP50-95_mean": 0.5609,
+   "mAP50-95_std": 0.031
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.9949,
+   "mAP50_std": 0.0002,
+   "mAP50-95_mean": 0.9949,
+   "mAP50-95_std": 0.0002
+  }
+ },
+ "yolov8-star-coordatt-eca": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8514,
+   "mAP50_std": 0.0277,
+   "mAP50-95_mean": 0.5676,
+   "mAP50-95_std": 0.0254
+  },
+  "judi3k": {
+   "folds_done": 5,
+   "mAP50_mean": 0.995,
+   "mAP50_std": 0.0001,
+   "mAP50-95_mean": 0.995,
+   "mAP50-95_std": 0.0001
+  }
+ },
+ "yolo11-resnext-se": {
+  "v2-1": {
+   "folds_done": 5,
+   "mAP50_mean": 0.8698,
+   "mAP50_std": 0.026,
+   "mAP50-95_mean": 0.5849,
+   "mAP50-95_std": 0.0266
+  }
+ }
+}

@@ -1,0 +1,149 @@
+{
+  "results": {
+    "yolov8n-base": {
+      "name": "YOLOv8n (baseline)",
+      "params": 3157200,
+      "gflops": 8.86,
+      "v2-1": {
+        "mAP50": {
+          "mean": 0.8736,
+          "std": 0.0185,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.5857,
+          "std": 0.0248,
+          "n": 5
+        }
+      },
+      "judi3k": {
+        "mAP50": {
+          "mean": 0.9949,
+          "std": 0.0001,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.9945,
+          "std": 0.0006,
+          "n": 5
+        }
+      }
+    },
+    "yolov8-se-baseline": {
+      "name": "YOLOv8-SE (proposed)",
+      "params": 3168428,
+      "gflops": 8.87,
+      "v2-1": {
+        "mAP50": {
+          "mean": 0.8751,
+          "std": 0.0246,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.5896,
+          "std": 0.0295,
+          "n": 5
+        }
+      },
+      "judi3k": {
+        "mAP50": {
+          "mean": 0.9948,
+          "std": 0.0003,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.9948,
+          "std": 0.0003,
+          "n": 5
+        }
+      }
+    },
+    "yolov8-res2net-spd-ssga": {
+      "name": "YOLOv8-Res2Net-SPD-SSGA",
+      "params": 4448352,
+      "gflops": 10.98,
+      "v2-1": {
+        "mAP50": {
+          "mean": 0.8716,
+          "std": 0.0269,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.5855,
+          "std": 0.0281,
+          "n": 5
+        }
+      },
+      "judi3k": {
+        "mAP50": {
+          "mean": 0.9948,
+          "std": 0.0001,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.9948,
+          "std": 0.0002,
+          "n": 5
+        }
+      }
+    },
+    "yolov8-shuffle-se": {
+      "name": "YOLOv8-Shuffle-SE",
+      "params": 2699204,
+      "gflops": 7.5,
+      "v2-1": {
+        "mAP50": {
+          "mean": 0.8675,
+          "std": 0.0204,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.575,
+          "std": 0.0271,
+          "n": 5
+        }
+      },
+      "judi3k": {
+        "mAP50": {
+          "mean": 0.9942,
+          "std": 0.0016,
+          "n": 5
+        },
+        "mAP50-95": {
+          "mean": 0.9929,
+          "std": 0.004,
+          "n": 5
+        }
+      }
+    }
+  },
+  "relative": {
+    "yolov8-se-baseline": {
+      "name": "YOLOv8-SE (proposed)",
+      "d_v21_map50": 0.0015,
+      "d_v21_map5095": 0.0039,
+      "d_params_M": 0.011,
+      "params_pct": 0.36,
+      "d_gflops": 0.01,
+      "gflops_pct": 0.11
+    },
+    "yolov8-res2net-spd-ssga": {
+      "name": "YOLOv8-Res2Net-SPD-SSGA",
+      "d_v21_map50": -0.002,
+      "d_v21_map5095": -0.0002,
+      "d_params_M": 1.291,
+      "params_pct": 40.9,
+      "d_gflops": 2.12,
+      "gflops_pct": 23.93
+    },
+    "yolov8-shuffle-se": {
+      "name": "YOLOv8-Shuffle-SE",
+      "d_v21_map50": -0.0061,
+      "d_v21_map5095": -0.0107,
+      "d_params_M": -0.458,
+      "params_pct": -14.51,
+      "d_gflops": -1.36,
+      "gflops_pct": -15.35
+    }
+  }
+}
