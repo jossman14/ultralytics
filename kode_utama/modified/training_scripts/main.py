@@ -661,7 +661,7 @@ def setup_comet_ml(project_name: str, experiment_name: str) -> Optional[Any]:
         return None
     
     # Get API key from environment variable (NEVER hardcode!)
-    api_key = "REDACTED_COMET_API_KEY_REMOVED"
+    api_key = os.environ.get("COMET_API_KEY", "")
     if not api_key or len(api_key) < 10:
         logger.info("Comet ML: API key tidak ditemukan atau invalid")
         logger.info("  Set COMET_API_KEY environment variable untuk mengaktifkan logging")

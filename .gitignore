@@ -244,3 +244,8 @@ test_dataset/
 test_dataset_kfold/
 test_dataset_kfold_fair/
 brain/
+
+# secrets / backups
+*.bundle
+judol/roboflow_download.py
+kode_utama/modified/utility_scripts/roboflow_download.py
