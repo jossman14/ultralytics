@@ -218,3 +218,14 @@ results.csv
 
 # CI test asset cache
 .ultralytics_cache/
+
+# Local research datasets, scratch outputs, and agent artifacts
+Judol-Detection-v2-1_5fold/
+dataset_judi_online_yolo_5fold/
+.agent/
+output/
+hehe/
+test_dataset/
+test_dataset_kfold/
+test_dataset_kfold_fair/
+brain/
